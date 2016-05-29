@@ -2,9 +2,9 @@
   = f.error_notification
 
   .form-inputs
-    = f.input :first_team_id,  collection: Team.ordered, include_blank: false
-    = f.input :second_team_id, collection: Team.ordered, include_blank: false
-    = f.input :played, as: :string, input_html: { value: (@match.played || Time.now).strftime("%d.%m.%Y, %H:%M") }
+    = f.input :first_team_id,  collection: Team.ordered, include_blank: false, required: true
+    = f.input :second_team_id, collection: Team.ordered, include_blank: false, required: true
+    = f.input :played, as: :string, input_html: { value: played_value(@match) }
 
   .form-actions
     = f.button :submit
