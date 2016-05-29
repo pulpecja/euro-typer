@@ -2,6 +2,8 @@ class Match < ActiveRecord::Base
   belongs_to :first_team,  class_name: "Team"
   belongs_to :second_team, class_name: "Team"
 
+  has_many :types
+
   validates_presence_of :first_team, :second_team, :played
   validate :check_teams
 
