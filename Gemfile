@@ -23,13 +23,16 @@ gem 'jbuilder', '~> 2.0'
 # bundle exec rake doc:rails generates the API under doc/api.
 gem 'sdoc', '~> 0.4.0',          group: :doc
 
-gem "twitter-bootstrap-rails", "~> 2.2.8"
+gem 'twitter-bootstrap-rails', '~> 2.2.8'
+gem 'bootstrap-sass', '~> 3.1.1.0'
+gem 'simple_form', '~> 3.1.0.rc1'
 gem 'haml'
 gem 'haml-rails'
-gem 'simple_form'
 gem 'nested_form'
+gem 'devise'
 
 group :development do
+  gem 'letter_opener', github: 'ryanb/letter_opener'
   gem 'spring'
   gem 'better_errors'
   gem 'binding_of_caller'
