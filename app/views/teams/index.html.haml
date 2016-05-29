@@ -8,11 +8,10 @@
         %td
           = link_to edit_team_path(team) do
             %span.glyphicon.glyphicon-pencil
-
         %td
           = link_to team, method: :delete, data: { confirm: 'Jesteś pewien?' } do
             %span.glyphicon.glyphicon-trash
 
 %br
 
-= link_to 'Nowa drużyna', new_team_path
+= link_to 'Dodaj drużynę', new_team_path

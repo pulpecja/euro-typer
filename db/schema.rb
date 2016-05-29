@@ -19,7 +19,7 @@ ActiveRecord::Schema.define(version: 20160529112503) do
   create_table "matches", force: true do |t|
     t.integer  "first_team_id",  null: false
     t.integer  "second_team_id", null: false
-    t.datetime "date",           null: false
+    t.datetime "played",         null: false
     t.datetime "created_at"
     t.datetime "updated_at"
   end

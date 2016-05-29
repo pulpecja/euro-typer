@@ -1,24 +1,21 @@
-%h1 Listing matches
+%h1 Mecze
 
 %table
-  %thead
-    %tr
-      %th First team
-      %th Second team
-      %th Date
-      %th
-      %th
-      %th
-
   %tbody
     - @matches.each do |match|
       %tr
-        %td= match.first_team_id
-        %td= match.second_team_id
-        %td= match.date
-        %td= link_to 'Show', match
-        %td= link_to 'Edit', edit_match_path(match)
-        %td= link_to 'Destroy', match, method: :delete, data: { confirm: 'Are you sure?' }
+        %td= match.played.strftime("%d.%m.%Y, %H:%M")
+        %td
+          %strong= Team.find(match.first_team_id).name
+        %td= "-"
+        %td
+          %strong= Team.find(match.second_team_id).name
+        %td
+          = link_to edit_match_path(match) do
+            %span.glyphicon.glyphicon-pencil
+        %td
+          = link_to match, method: :delete, data: { confirm: 'Jesteś pewien?' } do
+            %span.glyphicon.glyphicon-trash
 
 %br
 

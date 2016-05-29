@@ -1,10 +1,10 @@
-= simple_form_for(@match) do |f|
+= simple_form_for(@match, html: { class: 'form-horizontal'}, wrapper: :horizontal_form, ) do |f|
   = f.error_notification
 
   .form-inputs
-    = f.input :first_team_id
-    = f.input :second_team_id
-    = f.input :date
+    = f.input :first_team_id,  collection: Team.ordered, include_blank: false
+    = f.input :second_team_id, collection: Team.ordered, include_blank: false
+    = f.input :played, as: :string, input_html: { value: (@match.played || Time.now).strftime("%d.%m.%Y, %H:%M") }
 
   .form-actions
     = f.button :submit
