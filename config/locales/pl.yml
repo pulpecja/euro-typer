@@ -3,11 +3,13 @@ pl:
   activerecord:
     attributes:
       match:
-        first_team_id: "Pierwsza drużyna"
-        second_team_id: "Druga drużyna"
-        played: "Termin"
+        first_team_id: Pierwsza drużyna
+        second_team_id: Druga drużyna
+        played: Termin
       team:
-        name: "Nazwa"
+        name: Nazwa
+      user:
+        username: Nazwa użytkownika
     errors:
       messages:
         record_invalid: 'Negatywne sprawdzenie poprawności: %{errors}'

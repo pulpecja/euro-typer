@@ -4,6 +4,6 @@ Rails.application.routes.draw do
   resources :teams
 
   devise_for :users
-  root to: 'pages#index'
+  root to: 'matches#index'
 
 end

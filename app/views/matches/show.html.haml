@@ -1,15 +1,11 @@
 %p#notice= notice
 
 %p
-  %b First team:
-  = @match.first_team_id
+  %b Pierwsza drużyna:
+  = Team.find(@match.first_team_id).name
 %p
-  %b Second team:
-  = @match.second_team_id
+  %b Druga drużyna:
+  = Team.find(@match.second_team_id).name
 %p
-  %b Date:
+  %b Termin:
   = @match.played
-
-= link_to 'Edit', edit_match_path(@match)
-\|
-= link_to 'Back', matches_path
