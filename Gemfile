@@ -29,6 +29,7 @@ group :development do
   gem 'byebug'
   gem 'pry-byebug'
   gem 'quiet_assets'
+  gem 'bullet'
 end
 
 group :development, :test do
