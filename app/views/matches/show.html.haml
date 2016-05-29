@@ -1,0 +1,15 @@
+%p#notice= notice
+
+%p
+  %b First team:
+  = @match.first_team_id
+%p
+  %b Second team:
+  = @match.second_team_id
+%p
+  %b Date:
+  = @match.date
+
+= link_to 'Edit', edit_match_path(@match)
+\|
+= link_to 'Back', matches_path

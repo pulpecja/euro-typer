@@ -1,0 +1,10 @@
+= simple_form_for(@match) do |f|
+  = f.error_notification
+
+  .form-inputs
+    = f.input :first_team_id
+    = f.input :second_team_id
+    = f.input :date
+
+  .form-actions
+    = f.button :submit
