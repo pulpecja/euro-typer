@@ -1,0 +1,61 @@
+%h1 Moje typy
+
+%table
+  %tbody
+    - @types.by_user(current_user).each do |type|
+      %tr
+        %td= type.match.played.strftime("%d.%m.%Y, %H:%M")
+        %td
+          %strong= type_match(type.match)
+        %td= type.first_score.to_s + ' - ' + type.second_score.to_s
+        %td= link_to 'Show', type
+        %td= link_to 'Edit', edit_type_path(type)
+        %td= link_to 'Destroy', type, :method => :delete, :data => { :confirm => 'Are you sure?' }
+
+%br
+
+%table
+  %tbody
+    - @matches.each_with_index do |match, index|
+      - type = match.types.where(user: current_user).first
+      %tr
+        %td= match.played.strftime("%d.%m.%Y, %H:%M")
+        %td
+          %strong= Team.find(match.first_team_id).name
+        %td= "-"
+        %td
+          %strong= Team.find(match.second_team_id).name
+        %td
+        %td
+          - if type.present?
+            = simple_form_for(type, as: :type, html: { class: 'form-record' }) do |f|
+              = f.input :scores, label: false do
+                .row.double-input
+                  .col-lg-3.input-wrapper.first-input-wrapper
+                    = f.input :first_score, label: false
+                  .col-lg-1.separator-wrapper
+                    \-
+                  .col-lg-3.input-wrapper.second-input-wrapper
+                    = f.input :second_score, label: false
+              = f.input :user_id, as: :hidden, input_html: { value: current_user.id }
+              = f.input :match_id, as: :hidden, inAzput_html: { value: match.id }
+          - else
+            = simple_nested_form_for(Type.new, id: "match_#{match.id}_type", as: :type, url: types_path, html: { class: 'form-record' }) do |f|
+              = f.input :scores, label: false do
+                .row.double-input
+                  .col-lg-3.input-wrapper.first-input-wrapper
+                    = f.input :first_score, label: false
+                  .col-lg-1.separator-wrapper
+                    \-
+                  .col-lg-3.input-wrapper.second-input-wrapper
+                    = f.input :second_score, label: false
+              = f.input :user_id, as: :hidden, input_html: { value: current_user.id }
+              = f.input :match_id, as: :hidden, input_html: { value: match.id }
+              = f.button :submit
+
+= button_to "Save", "#", id: "save", params: params
+
+:javascript
+  $(".button_submit").live "click", (e) ->
+    e.preventDefault()
+    $("form").last.trigger "submit"
