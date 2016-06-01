@@ -1,5 +1,6 @@
 class TypesController < ApplicationController
   before_action :set_type, only: [:show, :edit, :update, :destroy]
+  respond_to :json
 
   # GET /types
   # GET /types.json
@@ -43,11 +44,11 @@ class TypesController < ApplicationController
   def update
     respond_to do |format|
       if @type.update(type_params)
+        format.json { head :no_content }
         format.html { redirect_to @type, notice: 'Type was successfully updated.' }
-        format.json { render :show, status: :ok, location: @type }
       else
-        format.html { render :edit }
         format.json { render json: @type.errors, status: :unprocessable_entity }
+        format.html { render :edit }
       end
     end
   end
@@ -60,6 +61,15 @@ class TypesController < ApplicationController
       format.html { redirect_to types_url, notice: 'Type was successfully destroyed.' }
       format.json { head :no_content }
     end
+  end
+
+  def prepare
+    #TODO add round number to link params
+    @matches = Match.all
+    @matches.each do |match|
+      Type.find_or_create_by(user: current_user, match: match)
+    end
+    redirect_to types_path
   end
 
   private
