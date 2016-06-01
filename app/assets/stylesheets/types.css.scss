@@ -2,21 +2,3 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
-.row.double-input {
-  .input-wrapper {
-    vertical-align: middle;
-    float: left;
-  }
-  .first-input-wrapper {
-    vertical-align: middle;
-    padding-left: 15px;
-  }
-  .second-input-wrapper {
-    padding-right: 15px;
-  }
-  .separator-wrapper {
-    float: left;
-    text-align: center;
-    margin-top: 7px;
-  }
-}
