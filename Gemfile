@@ -18,6 +18,7 @@ gem 'haml-rails'
 gem 'nested_form'
 gem 'devise'
 gem 'bootstrap-editable-rails'
+gem 'cancancan', '~> 1.10'
 
 group :development do
   gem 'letter_opener', github: 'ryanb/letter_opener'
