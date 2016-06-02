@@ -68,7 +68,6 @@ class TypesController < ApplicationController
   end
 
   def prepare
-    #TODO add round number to link params
     @matches = Match.by_round(@round)
     @matches.each do |match|
       Type.find_or_create_by(user: current_user, match: match)

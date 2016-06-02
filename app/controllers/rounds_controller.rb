@@ -1,5 +1,6 @@
 class RoundsController < ApplicationController
   before_action :set_round, only: [:show, :edit, :update, :destroy]
+  load_and_authorize_resource
 
   # GET /rounds
   # GET /rounds.json
