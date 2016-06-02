@@ -53,6 +53,7 @@ GEM
       activesupport (>= 3.0.0)
       uniform_notifier (>= 1.6.0)
     byebug (9.0.5)
+    cancancan (1.14.0)
     coderay (1.1.1)
     coffee-rails (4.0.1)
       coffee-script (>= 2.2.0)
@@ -223,6 +224,7 @@ DEPENDENCIES
   bootstrap-sass (~> 3.1.1.0)
   bullet
   byebug
+  cancancan (~> 1.10)
   coffee-rails (~> 4.0.0)
   devise
   factory_girl_rails (~> 4.2.1)

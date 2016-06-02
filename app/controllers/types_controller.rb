@@ -1,5 +1,7 @@
 class TypesController < ApplicationController
   before_action :set_type, only: [:show, :edit, :update, :destroy]
+  load_and_authorize_resource except: [:prepare]
+  skip_authorization_check only: [:prepare]
   respond_to :json
 
   # GET /types
@@ -64,6 +66,7 @@ class TypesController < ApplicationController
   end
 
   def prepare
+    # binding.pry
     #TODO add round number to link params
     @matches = Match.all
     @matches.each do |match|
