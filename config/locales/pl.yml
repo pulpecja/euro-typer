@@ -10,6 +10,7 @@ pl:
         name: Nazwa
       user:
         username: Nazwa użytkownika
+        current_password: Obecne hasło
     errors:
       messages:
         record_invalid: 'Negatywne sprawdzenie poprawności: %{errors}'

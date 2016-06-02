@@ -1,5 +1,5 @@
 %h1 Mecze
-%p= link_to 'Wytypuj pierwszą kolejkę!', prepare_types_path(current_user, round_id: 1), class: 'btn btn-default'
+%p= link_to 'Wytypuj pierwszą kolejkę!', round_types_path(Round.first.id), class: 'btn btn-default'
 
 
 %table.table.table-striped.table-hover.records-index{ :'data-provides' => 'rowlink' }
