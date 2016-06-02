@@ -1,0 +1,25 @@
+%p#notice= notice
+
+%h1
+  = @round.name
+
+%table
+  %tbody
+    - @matches.each_with_index do |match, index|
+      - type = match.types.where(user: current_user).first
+      %tr
+        %td= match.played.strftime("%d.%m.%Y, %H:%M")
+        %td
+          %strong= Team.find(match.first_team_id).name
+        %td= "-"
+        %td
+          %strong= Team.find(match.second_team_id).name
+        %td
+        %td= link_to type.first_score, '#', inplace_editable({ type: 'number', resource: 'type', url: type_url(type, format: :json), value: type.first_score, name: 'first_score'})
+        %td -
+        %td= link_to type.second_score, '#', inplace_editable({ type: 'number', resource: 'type', url: type_url(type, format: :json), value: type.second_score, name: 'second_score'})
+
+
+= link_to 'Edit', edit_round_path(@round)
+\|
+= link_to 'Back', rounds_path

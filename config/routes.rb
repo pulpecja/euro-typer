@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  resources :rounds
+
   resources :types
 
   resources :matches
