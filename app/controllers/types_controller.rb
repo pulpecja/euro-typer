@@ -1,12 +1,16 @@
 class TypesController < ApplicationController
   before_action :set_type, only: [:show, :edit, :update, :destroy]
+  before_action :set_round, only: [:index, :prepare]
+
+  load_and_authorize_resource except: [:prepare]
+  skip_authorization_check only: [:prepare]
   respond_to :json
 
   # GET /types
   # GET /types.json
   def index
-    @types = Type.all.includes({ match: [:first_team, :second_team] })
-    @matches = Match.all
+    @types = Type.by_user(current_user)
+    @matches = Match.by_round(@round)
   end
 
   # GET /types/1
@@ -65,17 +69,21 @@ class TypesController < ApplicationController
 
   def prepare
     #TODO add round number to link params
-    @matches = Match.all
+    @matches = Match.by_round(@round)
     @matches.each do |match|
       Type.find_or_create_by(user: current_user, match: match)
     end
-    redirect_to types_path
+    redirect_to round_types_path(@round.id)
   end
 
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_type
       @type = Type.find(params[:id])
+    end
+
+    def set_round
+      @round = Round.find(params[:round_id])
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

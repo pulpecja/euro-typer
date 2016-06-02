@@ -1,22 +1,25 @@
 %h1 Mecze
-= link_to 'Zacznij typować!', prepare_types_path(current_user), class: 'btn'
+%p= link_to 'Wytypuj pierwszą kolejkę!', prepare_types_path(current_user, round_id: 1), class: 'btn btn-default'
 
-%table
+
+%table.table.table-striped.table-hover.records-index{ :'data-provides' => 'rowlink' }
   %tbody
     - @matches.each do |match|
       %tr
-        %td= match.played.strftime("%d.%m.%Y, %H:%M")
+        %td= link_to match.played.strftime("%d.%m.%Y, %H:%M"), match
         %td
           %strong= Team.find(match.first_team_id).name
         %td= "-"
         %td
           %strong= Team.find(match.second_team_id).name
-        %td
-          = link_to edit_match_path(match) do
-            %span.glyphicon.glyphicon-pencil
-        %td
-          = link_to match, method: :delete, data: { confirm: 'Jesteś pewien?' } do
-            %span.glyphicon.glyphicon-trash
+        - if can? :edit, Match
+          %td
+            = link_to edit_match_path(match) do
+              %span.glyphicon.glyphicon-pencil
+        - if can? :delete, Match
+          %td
+            = link_to match, method: :delete, data: { confirm: 'Jesteś pewien?' } do
+              %span.glyphicon.glyphicon-trash
 
 %br
 

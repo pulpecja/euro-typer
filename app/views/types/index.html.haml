@@ -1,7 +1,7 @@
 %h1 Moje typy
 %br
 
-%table
+%table.table-striped
   %tbody
     - @matches.each_with_index do |match, index|
       - type = match.types.where(user: current_user).first
