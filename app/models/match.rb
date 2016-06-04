@@ -5,7 +5,7 @@ class Match < ActiveRecord::Base
   belongs_to :second_team, class_name: "Team"
   belongs_to :round
 
-  has_many :types
+  has_many :types, dependent: :destroy
 
   validates_presence_of :first_team, :second_team, :played, :round_id
   validates :first_score, :second_score, numericality: { only_integer: true, greater_than_or_equal_to: 0 }, allow_nil: true

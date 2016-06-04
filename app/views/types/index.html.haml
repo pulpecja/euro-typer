@@ -10,11 +10,9 @@
           - type = match.types.where(user: current_user).first
           %tr
             %td= match.played.strftime("%d.%m.%Y, %H:%M")
-            %td
+            %td.text-center= image_tag(match.first_team.flag, height: '20')
+            %td.text-right
               %strong= Team.find(match.first_team_id).name
-            %td= "-"
-            %td
-              %strong= Team.find(match.second_team_id).name
             %td
               - if can_be_typed?(match.played)
                 %td= link_to type.first_score, '#', inplace_editable({ type: 'number', resource: 'type', url: type_url(type, format: :json), value: type.first_score, name: 'first_score'})
@@ -24,6 +22,9 @@
                 %td= type.first_score
                 %td -
                 %td= type.second_score
+            %td
+              %strong= Team.find(match.second_team_id).name
+            %td.text-center= image_tag(match.second_team.flag, height: '20')
             %td= type.bet
   .col-sm-2
     = round_link("Następna", @round.id + 1)
