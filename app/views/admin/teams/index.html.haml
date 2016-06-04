@@ -4,6 +4,7 @@
   %tbody
     - @teams.each do |team|
       %tr
+        %td= image_tag(team.flag, height: '18')
         %td= team.name
         %td= team.abbreviation
         %td

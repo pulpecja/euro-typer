@@ -12,6 +12,7 @@ pl:
       team:
         name: Nazwa
         abbreviation: Skrót
+        flag: Flaga
       user:
         username: Nazwa użytkownika
         current_password: Obecne hasło

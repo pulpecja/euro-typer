@@ -5,7 +5,7 @@ class Admin::TeamsController < AdminController
   # skip_before_filter :require_admin!, only: [:index]
 
   def index
-    @teams = Team.all
+    @teams = Team.all.order(:name)
   end
 
   def show
@@ -53,7 +53,7 @@ class Admin::TeamsController < AdminController
     end
 
     def team_params
-      params.require(:team).permit(:name, :abbreviation)
+      params.require(:team).permit(:name, :abbreviation, :flag)
     end
 
 end
