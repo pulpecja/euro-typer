@@ -3,7 +3,7 @@ module Bettable
   extend ActiveSupport::Concern
 
   included do
-    before_save :set_bet
+    before_update :set_bet
   end
 
   def set_bet

@@ -11,6 +11,7 @@ class Match < ActiveRecord::Base
   validate :check_teams
 
   scope :by_round, ->(round) { where(round_id: round.id) }
+  default_scope              { order('played') }
 
   private
   def check_teams

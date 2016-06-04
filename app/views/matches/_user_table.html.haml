@@ -1,0 +1,17 @@
+%table.table.table-striped
+  %tr
+    %td Użytkownik
+    %td Punkty
+
+    - @matches.each do |match|
+      %td
+        %strong= link_to "#{match.first_team.abbreviation} - #{match.second_team.abbreviation}", match_path(match)
+        %br
+        = "(#{match.first_score} - #{match.second_score})"
+
+  - @users.each do |user|
+    %tr
+      %td= user.username
+      %td= user.points
+      - @matches.each do |match|
+        %td= "#{match.types.where(user_id: user.id).first.try :first_score} - #{match.types.where(user_id: user.id).first.try :second_score}"

@@ -3,7 +3,9 @@ class MatchesController < ApplicationController
   load_and_authorize_resource
 
   def index
-    @matches = Match.all
+    @round = Round.all.first
+    @matches = Match.where(round_id: 1)
+    @users = User.all
   end
 
   def show

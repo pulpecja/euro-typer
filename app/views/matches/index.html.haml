@@ -1,25 +1,29 @@
-%h1 Mecze
-%p= link_to 'Wytypuj pierwszą kolejkę!', round_types_path(Round.first.id), class: 'btn btn-default'
+.text-center
+  %h1= @round.name
+  %p= link_to 'Wytypuj pierwszą kolejkę!', round_types_path(Round.first.id), class: 'btn btn-default'
+
+%br/
+= render "user_table"
 
 
-%table.table.table-striped.table-hover.records-index{ :'data-provides' => 'rowlink' }
-  %tbody
-    - @matches.each do |match|
-      %tr
-        %td= link_to match.played.strftime("%d.%m.%Y, %H:%M"), match
-        %td
-          %strong= Team.find(match.first_team_id).name
-        %td= "-"
-        %td
-          %strong= Team.find(match.second_team_id).name
-        - if can? :edit, Match
-          %td
-            = link_to edit_match_path(match) do
-              %span.glyphicon.glyphicon-pencil
-        - if can? :delete, Match
-          %td
-            = link_to match, method: :delete, data: { confirm: 'Jesteś pewien?' } do
-              %span.glyphicon.glyphicon-trash
+/ %table.table.table-striped.table-hover.records-index{ :'data-provides' => 'rowlink' }
+/   %tbody
+/     - @matches.each do |match|
+/       %tr
+/         %td= link_to match.played.strftime("%d.%m.%Y, %H:%M"), match
+/         %td
+/           %strong= Team.find(match.first_team_id).name
+/         %td= "-"
+/         %td
+/           %strong= Team.find(match.second_team_id).name
+/         - if can? :edit, Match
+/           %td
+/             = link_to edit_match_path(match) do
+/               %span.glyphicon.glyphicon-pencil
+/         - if can? :delete, Match
+/           %td
+/             = link_to match, method: :delete, data: { confirm: 'Jesteś pewien?' } do
+/               %span.glyphicon.glyphicon-trash
 
-%br
-= link_to 'Dodaj mecz', new_match_path
+/ %br
+/ = link_to 'Dodaj mecz', new_match_path
