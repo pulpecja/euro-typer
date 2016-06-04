@@ -1,4 +1,5 @@
 %h1.text-center= @round.name
+%br
 .row
   .col-sm-2
     = match_link('Poprzednia', (@round.id - 1))
@@ -7,4 +8,4 @@
   .col-sm-2
     = match_link('Następna', (@round.id + 1))
 %br/
-= render "user_table"
+%p= render "user_table"
