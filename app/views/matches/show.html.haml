@@ -1,8 +1,9 @@
 .row
-  .col-sm-6.text-right
+  .col-sm-3.text-right
     %p= image_tag(@match.first_team.flag, class: 'img-responsive')
-  .col-sm-6
+  %h1.col-sm-6.text-center
+    %br/
+    %p= "#{@match.first_team.name} - #{@match.second_team.name}"
+    %p= "(#{@match.first_score} : #{@match.second_score})"
+  .col-sm-3
     %p= image_tag(@match.second_team.flag, class: 'img-responsive')
-%h1.row.text-center
-  %p= "#{@match.first_team.name} - #{@match.second_team.name}"
-  %p= "(#{@match.first_score} : #{@match.second_score})"

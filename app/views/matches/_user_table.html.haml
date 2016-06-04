@@ -5,16 +5,15 @@
 
     - @matches.each do |match|
       %td.text-center
-        = link_to(match) do
+        = link_to(match.first_team) do
           = image_tag(match.first_team.flag, height: '14')
           = match.first_team.abbreviation
-          %br/
-          = "(#{match.first_score} - #{match.second_score})"
-          %br/
+        %br/
+        = link_to "(#{match.first_score} - #{match.second_score})", match_path(match)
+        %br/
+        = link_to(match.second_team) do
           = image_tag(match.second_team.flag, height: '14')
           = match.second_team.abbreviation
-
-
 
   - @users.each do |user|
     %tr

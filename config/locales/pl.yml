@@ -13,6 +13,7 @@ pl:
         name: Nazwa
         abbreviation: Skrót
         flag: Flaga
+        photo: Foteczka
       user:
         username: Nazwa użytkownika
         current_password: Obecne hasło
