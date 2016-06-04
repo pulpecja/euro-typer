@@ -1,27 +1,32 @@
-francja           = Team.find_or_create_by(name: "Francja").id
-czechy            = Team.find_or_create_by(name: "Czechy").id
-islandia          = Team.find_or_create_by(name: "Islandia").id
-belgia            = Team.find_or_create_by(name: "Belgia").id
-walia             = Team.find_or_create_by(name: "Walia").id
-hiszpania         = Team.find_or_create_by(name: "Hiszpania").id
-slowacja          = Team.find_or_create_by(name: "Słowacja").id
-niemcy            = Team.find_or_create_by(name: "Niemcy").id
-polska            = Team.find_or_create_by(name: "Polska").id
-anglia            = Team.find_or_create_by(name: "Anglia").id
-szwajcaria        = Team.find_or_create_by(name: "Szwajcaria").id
-irlandia_polnocna = Team.find_or_create_by(name: "Irlandia Północna").id
-rumunia           = Team.find_or_create_by(name: "Rumunia").id
-austria           = Team.find_or_create_by(name: "Austria").id
-rosja             = Team.find_or_create_by(name: "Rosja").id
-wlochy            = Team.find_or_create_by(name: "Włochy").id
-chorwacja         = Team.find_or_create_by(name: "Chorwacja").id
-portugalia        = Team.find_or_create_by(name: "Portugalia").id
-albania           = Team.find_or_create_by(name: "Albania").id
-turcja            = Team.find_or_create_by(name: "Turcja").id
-wegry             = Team.find_or_create_by(name: "Węgry").id
-irlandia          = Team.find_or_create_by(name: "Irlandia").id
-szwecja           = Team.find_or_create_by(name: "Szwecja").id
-ukraina           = Team.find_or_create_by(name: "Ukraina").id
+def create_country(name, abbr)
+  Team.find_or_create_by(name: name, abbreviation: abbr)
+end
+
+albania           = create_country("Albania", "ALB").id
+anglia            = create_country("Anglia", "ENG").id
+austria           = create_country("Austria", "AUT").id
+belgia            = create_country("Belgia", "BEL").id
+chorwacja         = create_country("Chorwacja", "CRO").id
+czechy            = create_country("Czechy", "CZE").id
+francja           = create_country("Francja", "FRA").id
+hiszpania         = create_country("Hiszpania", "ESP").id
+irlandia          = create_country("Irlandia", "IRL").id
+irlandia_polnocna = create_country("Irlandia Północna", "NIR").id
+islandia          = create_country("Islandia", "ISL").id
+niemcy            = create_country("Niemcy", "GER").id
+polska            = create_country("Polska", "POL").id
+portugalia        = create_country("Portugalia", "POR").id
+rosja             = create_country("Rosja", "RUS").id
+rumunia           = create_country("Rumunia", "ROU").id
+slowacja          = create_country("Słowacja", "SVK").id
+szwajcaria        = create_country("Szwajcaria", "SUI").id
+szwecja           = create_country("Szwecja", "SWE").id
+turcja            = create_country("Turcja", "TUR").id
+ukraina           = create_country("Ukraina", "UKR").id
+walia             = create_country("Walia", "WAL").id
+wegry             = create_country("Węgry", "HUN").id
+wlochy            = create_country("Włochy", "ITA").id
+
 
 first_round  = Round.find_or_create_by(name: "Kolejka 1")
 second_round = Round.find_or_create_by(name: "Kolejka 2")
