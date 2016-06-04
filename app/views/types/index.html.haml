@@ -2,7 +2,7 @@
 %br
 .row
   .col-sm-2
-    = link_to 'Poprzednia kolejka', round_types_path(@round.id - 1) unless @round.id <= 1
+    = round_link("Poprzednia", @round.id - 1)
   .col-sm-8
     %table.table.table-striped
       %tbody
@@ -16,9 +16,14 @@
             %td
               %strong= Team.find(match.second_team_id).name
             %td
-            %td= link_to type.first_score, '#', inplace_editable({ type: 'number', resource: 'type', url: type_url(type, format: :json), value: type.first_score, name: 'first_score'})
-            %td -
-            %td= link_to type.second_score, '#', inplace_editable({ type: 'number', resource: 'type', url: type_url(type, format: :json), value: type.second_score, name: 'second_score'})
+              - if can_be_typed?(match.played)
+                %td= link_to type.first_score, '#', inplace_editable({ type: 'number', resource: 'type', url: type_url(type, format: :json), value: type.first_score, name: 'first_score'})
+                %td -
+                %td= link_to type.second_score, '#', inplace_editable({ type: 'number', resource: 'type', url: type_url(type, format: :json), value: type.second_score, name: 'second_score'})
+              - else
+                %td= type.first_score
+                %td -
+                %td= type.second_score
             %td= type.bet
   .col-sm-2
-    = link_to 'Następna kolejka', round_types_path(@round.id + 1)
+    = round_link("Następna", @round.id + 1)
