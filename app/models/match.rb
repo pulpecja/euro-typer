@@ -1,4 +1,6 @@
 class Match < ActiveRecord::Base
+  include Bettable
+
   belongs_to :first_team,  class_name: "Team"
   belongs_to :second_team, class_name: "Team"
   belongs_to :round

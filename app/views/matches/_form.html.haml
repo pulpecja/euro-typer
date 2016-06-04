@@ -5,6 +5,8 @@
     = f.input :first_team_id,  collection: Team.ordered, include_blank: false, required: true
     = f.input :second_team_id, collection: Team.ordered, include_blank: false, required: true
     = f.input :played, as: :string, input_html: { value: played_value(@match) }
+    = f.input :first_score
+    = f.input :second_score
 
   .form-actions
     = f.button :submit

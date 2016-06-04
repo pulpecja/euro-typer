@@ -1,4 +1,6 @@
 class Type < ActiveRecord::Base
+  include Bettable
+
   belongs_to :match
   belongs_to :user
 
@@ -16,4 +18,7 @@ class Type < ActiveRecord::Base
       end
     end
   end
+
+
+
 end

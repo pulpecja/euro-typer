@@ -76,6 +76,6 @@ class TypesController < ApplicationController
     end
 
     def type_params
-      params.require(:type).permit(:user_id, :match_id, :first_score, :second_score)
+      params.require(:type).permit(:user_id, :match_id, :first_score, :second_score, :bet)
     end
 end

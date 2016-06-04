@@ -19,5 +19,6 @@
             %td= link_to type.first_score, '#', inplace_editable({ type: 'number', resource: 'type', url: type_url(type, format: :json), value: type.first_score, name: 'first_score'})
             %td -
             %td= link_to type.second_score, '#', inplace_editable({ type: 'number', resource: 'type', url: type_url(type, format: :json), value: type.second_score, name: 'second_score'})
+            %td= type.bet
   .col-sm-2
     = link_to 'Następna kolejka', round_types_path(@round.id + 1)
