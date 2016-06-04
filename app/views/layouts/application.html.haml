@@ -13,23 +13,34 @@
     %script{ src: "https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js" }
     = favicon_link_tag 'favicon.ico'
   %body
-    %nav.navbar.navbar-inverse
-      .container
-        .navbar-header
-          = link_to 'Euro Typer', root_path, class: 'navbar-brand'
-        #navbar
-          %ul.nav.navbar-nav.pull-right
-            - if user_signed_in?
-              %li= link_to current_user.username, edit_user_registration_path
-              %li= link_to 'Wyloguj', destroy_user_session_path, method: :delete
-            - else
-              %li= link_to 'Zaloguj', new_user_session_path
-              %li= link_to 'Zarejestruj', new_user_registration_path
+    = render 'layouts/navbar'
+
     .container
       - flash.each do |key, value|
-        %div{class: "alert alert-#{key}"}
+        %div{ class: "alert alert-#{key}" }
           = value
     = yield :top_content
     .container
       %h1= yield :header
-      = yield
+      - if request.env['PATH_INFO'].include?('admin') && current_user.is_admin?
+        .col-md-2
+          .row
+            = link_to admin_matches_path, class: "btn btn-default btn-block" do
+              .text-left
+                Mecze
+          .row
+            = link_to admin_users_path, class: "btn btn-default btn-block" do
+              .text-left
+                Użytkownicy
+          .row
+            = link_to admin_rounds_path, class: "btn btn-default btn-block" do
+              .text-left
+                Rundy
+          .row
+            = link_to admin_teams_path, class: "btn btn-default btn-block" do
+              .text-left
+                Drużyny
+        .col-md-10
+          = yield
+      - else
+        = yield

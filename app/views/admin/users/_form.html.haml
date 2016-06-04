@@ -1,0 +1,11 @@
+.panel.panel-default
+  .panel-heading Edytuj profil
+  .panel-body
+    = simple_form_for(@user, url: admin_user_path, html: { method: :put, class: 'form-horizontal' }, wrapper: :horizontal_form) do |f|
+      = f.error_notification
+      .form-inputs
+        = f.input :username, required: true
+        = f.input :email, required: true
+        = f.input :role, required: true, collection: User::ROLES, include_blank: false
+      .form-actions
+        = f.button :submit, "Zapisz"

@@ -7,7 +7,8 @@ class Match < ActiveRecord::Base
 
   has_many :types
 
-  validates_presence_of :first_team, :second_team, :played
+  validates_presence_of :first_team, :second_team, :played, :round_id
+  validates :first_score, :second_score, numericality: { only_integer: true, greater_than_or_equal_to: 0 }, allow_nil: true
   validate :check_teams
 
   scope :by_round, ->(round) { where(round_id: round.id) }

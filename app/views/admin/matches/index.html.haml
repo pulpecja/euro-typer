@@ -1,0 +1,23 @@
+%p= link_to 'Dodaj nowy mecz', new_admin_match_path, class: 'btn btn-default'
+
+
+%table.table.table-striped.table-hover.records-index{ :'data-provides' => 'rowlink' }
+  %tbody
+    - @matches.each do |match|
+      %tr
+        %td= link_to match.played.strftime("%d.%m.%Y, %H:%M"), match
+        %td= match.round.name
+        %td= Team.find(match.first_team_id).name
+        %td= "-"
+        %td= Team.find(match.second_team_id).name
+        %td= match.first_score
+        %td= "-"
+        %td= match.second_score
+        %td= match.bet
+        %td
+          = link_to edit_admin_match_path(match) do
+            %span.glyphicon.glyphicon-pencil
+        %td
+          - if match.types.blank?
+            = link_to admin_match_path(match), method: :delete, data: { confirm: 'Jesteś pewien?' } do
+              %span.glyphicon.glyphicon-trash

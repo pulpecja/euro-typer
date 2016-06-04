@@ -6,11 +6,16 @@ pl:
         first_team_id: Pierwsza drużyna
         second_team_id: Druga drużyna
         played: Termin
+        round_id: Kolejka
+        first_score: Pierwszy wynik
+        second_score: Drugi wynik
       team:
         name: Nazwa
+        abbreviation: Skrót
       user:
         username: Nazwa użytkownika
         current_password: Obecne hasło
+        role: Rola
     errors:
       messages:
         record_invalid: 'Negatywne sprawdzenie poprawności: %{errors}'

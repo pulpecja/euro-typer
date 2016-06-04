@@ -1,0 +1,9 @@
+= simple_form_for(@team, url: polymorphic_url([:admin, @team]), html: { class: 'form-horizontal' }, wrapper: :horizontal_form ) do |f|
+  = f.error_notification
+
+  .form-inputs
+    = f.input :name
+    = f.input :abbreviation
+
+  .form-actions
+    = f.button :submit, 'Zapisz drużynę'

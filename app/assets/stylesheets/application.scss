@@ -14,3 +14,14 @@
  *= require_self
  */
 @import "bootstrap-editable";
+
+.centered-nav .btn {
+  border: 1px solid;
+  border-color: black;
+  color: black;
+}
+
+.centered-nav .btn:hover {
+  background-color: #CCCCCC;
+  text-decoration: none;
+}

@@ -1,12 +1,13 @@
-= simple_form_for(@match, html: { class: 'form-horizontal' }, wrapper: :horizontal_form, ) do |f|
+= simple_form_for(@match, url: polymorphic_url([:admin, @match]), html: { class: 'form-horizontal' }, wrapper: :horizontal_form ) do |f|
   = f.error_notification
 
   .form-inputs
     = f.input :first_team_id,  collection: Team.ordered, include_blank: false, required: true
     = f.input :second_team_id, collection: Team.ordered, include_blank: false, required: true
     = f.input :played, as: :string, input_html: { value: played_value(@match) }
+    = f.input :round_id, collection: Round.all
     = f.input :first_score
     = f.input :second_score
 
   .form-actions
-    = f.button :submit
+    = f.button :submit, 'Zapisz mecz'

@@ -1,0 +1,13 @@
+%nav.navbar.navbar-inverse
+  .container
+    .navbar-header
+      = link_to 'Euro Typer', root_path, class: 'navbar-brand'
+    #navbar
+      %ul.nav.navbar-nav.pull-right
+        - if user_signed_in?
+          %li= link_to current_user.username, edit_user_registration_path
+          %li= link_to 'Panel administratora', admin_matches_path if current_user.is_admin?
+          %li= link_to 'Wyloguj', destroy_user_session_path, method: :delete
+        - else
+          %li= link_to 'Zaloguj', new_user_session_path
+          %li= link_to 'Zarejestruj', new_user_registration_path

@@ -1,0 +1,14 @@
+%p= link_to 'Dodaj nową kolejkę', new_admin_round_path, class: 'btn btn-default'
+
+%table.table.table-striped.table-hover.records-index{ :'data-provides' => 'rowlink' }
+  %tbody
+    - @rounds.each do |round|
+      %tr
+        %td= round.name
+        %td
+          = link_to edit_admin_round_path(round) do
+            %span.glyphicon.glyphicon-pencil
+        %td
+          - if round.matches.blank?
+            = link_to admin_round_path(round), method: :delete, data: { confirm: 'Jesteś pewien?' } do
+              %span.glyphicon.glyphicon-trash

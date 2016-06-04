@@ -1,0 +1,11 @@
+%p= link_to 'Dodaj nową drużynę', new_admin_team_path, class: 'btn btn-default'
+
+%table.table.table-striped.table-hover.records-index{ :'data-provides' => 'rowlink' }
+  %tbody
+    - @teams.each do |team|
+      %tr
+        %td= team.name
+        %td= team.abbreviation
+        %td
+          = link_to edit_admin_team_path(team) do
+            %span.glyphicon.glyphicon-pencil

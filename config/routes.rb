@@ -12,6 +12,15 @@ Rails.application.routes.draw do
   get 'users/:id/types' => 'types#index'
   get 'users/:id/types/prepare' => 'types#prepare', as: :prepare_types
 
+  namespace 'admin' do
+    root to: 'users#index'
+    resources :users
+    resources :matches
+    resources :rounds
+    resources :teams
+    get 'become/:id', action: 'become'
+
+  end
 
 
 end
