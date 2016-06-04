@@ -8,7 +8,7 @@ class User < ActiveRecord::Base
 
   has_many :types
 
-  validates_presence_of :username
+  validates :username, presence: true, uniqueness: true
 
   before_create :set_default_role
 
