@@ -1,11 +1,8 @@
-%p#notice= notice
-
-%p
-  %b Pierwsza drużyna:
-  = Team.find(@match.first_team_id).name
-%p
-  %b Druga drużyna:
-  = Team.find(@match.second_team_id).name
-%p
-  %b Termin:
-  = @match.played
+.row
+  .col-sm-6.text-right
+    %p= image_tag(@match.first_team.flag, class: 'img-responsive')
+  .col-sm-6
+    %p= image_tag(@match.second_team.flag, class: 'img-responsive')
+%h1.row.text-center
+  %p= "#{@match.first_team.name} - #{@match.second_team.name}"
+  %p= "(#{@match.first_score} : #{@match.second_score})"

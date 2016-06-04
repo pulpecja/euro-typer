@@ -3,9 +3,9 @@ class MatchesController < ApplicationController
   load_and_authorize_resource
 
   def index
-    @round = Round.all.first
-    @matches = Match.where(round_id: 1)
-    @users = User.all
+    @round = params[:round] ? Round.find(params[:round]) : Round.all.first
+    @matches = Match.includes(:first_team, :second_team).where(round_id: @round.id)
+    @users = User.includes(types: :match).existing
   end
 
   def show
@@ -17,6 +17,6 @@ class MatchesController < ApplicationController
     end
 
     def match_params
-      params.require(:match).permit(:first_team_id, :second_team_id, :played, :first_score, :second_score)
+      params.require(:match).permit(:first_team_id, :second_team_id, :played, :first_score, :second_score, :round)
     end
 end

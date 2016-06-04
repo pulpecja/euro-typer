@@ -72,7 +72,7 @@ class TypesController < ApplicationController
     end
 
     def set_matches
-      @matches = Match.by_round(@round)
+      @matches = Match.includes(:first_team, :second_team).by_round(@round)
     end
 
     def type_params
