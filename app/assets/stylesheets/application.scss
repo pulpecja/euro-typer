@@ -25,3 +25,24 @@
   background-color: #CCCCCC;
   text-decoration: none;
 }
+
+html,body{
+  height: 100%
+}
+
+#holder{
+  min-height: 100%;
+  position:relative;
+}
+
+#body{
+  padding-bottom: 100px;    /* height of footer */
+}
+
+footer{
+  height: 100px;
+  width: 85%;
+  position: absolute;
+  left: 50;
+  bottom: 0;
+}

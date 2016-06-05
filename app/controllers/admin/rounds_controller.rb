@@ -5,7 +5,7 @@ class Admin::RoundsController < AdminController
   # skip_before_filter :require_admin!, only: [:index]
 
   def index
-    @rounds = Round.all
+    @rounds = Round.includes(:matches).all
   end
 
   def show
