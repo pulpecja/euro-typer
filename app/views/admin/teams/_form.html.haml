@@ -5,7 +5,12 @@
     = f.input :name
     = f.input :abbreviation
     = f.input :flag
-    = f.input :photo
+    .form-group
+      - unless @team.photo.nil?
+        %label Obecna fotka
+        %br/
+        = image_tag @team.photo.url(:thumb)
+      = f.file_field :photo
 
   .form-actions
     = f.button :submit, 'Zapisz drużynę'
