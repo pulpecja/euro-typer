@@ -23,17 +23,30 @@ class User < ActiveRecord::Base
     role == "registered"
   end
 
-  def points
+  def points(round= nil)
     points = 0
-    return 0 if types.empty?
-    types.each do |type|
-      match = type.match
-      if match.bet.present? && type.bet == match.bet
-        points += 1
-        points += 1 if type.first_score == match.first_score && type.second_score == match.second_score
+
+    unless types.nil?
+      round_types = set_types(round, types)
+
+      round_types.each do |type|
+        match = type.match
+        if match.bet.present? && type.bet == match.bet
+          points += 1
+          points += 1 if type.first_score == match.first_score && type.second_score == match.second_score
+        end
       end
     end
     points
+  end
+
+  def set_types(round, types)
+    if round.present?
+      types.joins(:match).where('matches.round_id = ?', round.id)
+    else
+      types
+    end
+
   end
 
   private

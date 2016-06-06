@@ -5,6 +5,7 @@ Rails.application.routes.draw do
   resources :matches
   resources :teams
   resources :types
+  resources :users
 
   devise_for :users
   root to: 'matches#index'

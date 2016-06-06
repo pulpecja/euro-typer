@@ -5,7 +5,7 @@ class MatchesController < ApplicationController
   def index
     @round = params[:round] ? Round.find(params[:round]) : Round.all.first
     @matches = Match.includes(:first_team, :second_team).where(round_id: @round.id)
-    @users = User.includes(types: :match).existing
+    @users = User.includes(types: :match).existing.sort_by(&:points).reverse
   end
 
   def show

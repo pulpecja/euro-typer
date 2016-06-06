@@ -9,7 +9,7 @@
           = image_tag(match.first_team.flag, height: '14')
           = match.first_team.abbreviation
         %br/
-        = link_to "(#{match.first_score} - #{match.second_score})", match_path(match)
+        = link_to "#{match.first_score} - #{match.second_score}", match_path(match)
         %br/
         = link_to(match.second_team) do
           = image_tag(match.second_team.flag, height: '14')
@@ -18,6 +18,6 @@
   - @users.each do |user|
     %tr
       %td= user.username
-      %td= user.points
+      %td= user.points(@round)
       - @matches.each do |match|
         %td= "#{match.types.where(user_id: user.id).first.try :first_score} - #{match.types.where(user_id: user.id).first.try :second_score}"
