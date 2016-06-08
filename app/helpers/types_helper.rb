@@ -24,10 +24,14 @@ module TypesHelper
   end
 
   def good_bet(match, type)
-    match.bet == type.bet if match.bet.present?
+    if match.bet.present? && type.try(:bet).present?
+      match.bet == type.bet
+    end
   end
 
   def good_type(match, type)
-    match.first_score == type.first_score && match.second_score == type.second_score if match.first_score.present? && match.second_score.present?
+    if match.first_score.present? && match.second_score.present? && type.try(:first_score).present? && type.try(:second_score).present?
+      match.first_score == type.first_score && match.second_score == type.second_score
+    end
   end
 end

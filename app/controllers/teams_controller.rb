@@ -7,6 +7,7 @@ class TeamsController < ApplicationController
   end
 
   def show
+    @matches = Match.by_team(@team).includes(:first_team, :second_team, :round)
   end
 
   private

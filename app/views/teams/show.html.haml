@@ -1,24 +1,24 @@
 .row
-  .col-md-3
+  .col-md-3.text-center
     = image_tag(@team.flag, class: 'img-responsive')
 
-  %h1.col-md-6.text-center
-    = @team.name
 
+  .col-md-6.text-center
+    %h1= @team.name
+    %br/
+    %p
+      %table.table.table-striped
+        - @matches.each do |match|
+          %tr
+            %td= link_to match.played.strftime("%d.%m.%Y, %H:%M"), match
+            %td.text-center= image_tag(match.first_team.flag, height: '20')
+            %td.text-right= link_to match.first_team.name, match.first_team
+            %td= match.first_score
+            %td= "-"
+            %td= match.second_score
+            %td= link_to match.second_team.name, match.second_team
+            %td.text-center= image_tag(match.second_team.flag, height: '20')
+            %td= match.round.name
+            %td= match.bet
   .col-md-3
     = image_tag(@team.photo.url, class: 'img-responsive')
-%br
-%p
-  %table.table.table-striped
-    - Match.by_team(@team).each do |match|
-      %tr
-        %td= link_to match.played.strftime("%d.%m.%Y, %H:%M"), match
-        %td.text-center= image_tag(match.first_team.flag, height: '20')
-        %td.text-right= Team.find(match.first_team_id).name
-        %td= match.first_score
-        %td= "-"
-        %td= match.second_score
-        %td= Team.find(match.second_team_id).name
-        %td.text-center= image_tag(match.second_team.flag, height: '20')
-        %td= match.round.name
-        %td= match.bet
