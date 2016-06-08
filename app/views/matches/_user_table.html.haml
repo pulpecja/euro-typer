@@ -1,5 +1,5 @@
 %table.table.table-striped
-  %tr
+  %tr.text-center
     %td Użytkownik
     %td Punkty
 
@@ -16,7 +16,7 @@
           = match.second_team.abbreviation
 
   - @users.each do |user|
-    %tr
+    %tr.text-center
       %td= link_to user.username, user_path(user)
       %td= user.points(@round)
       - @matches.each do |match|
