@@ -12,8 +12,9 @@ class User < ActiveRecord::Base
 
   before_create :set_default_role
 
-  scope :existing, -> { where(deleted_at: nil)}
-  scope :deleted,  -> { where('deleted_at is not null')}
+  scope :existing,    -> { where(deleted_at: nil)}
+  scope :deleted,     -> { where('deleted_at is not null')}
+  scope :playing,     -> { where(take_part: true) }
 
   def is_admin?
     role == "admin"

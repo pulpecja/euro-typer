@@ -6,6 +6,7 @@
     #navbar
       %ul.nav.navbar-nav
         %li= link_to 'Klasyfikacja punktowa', users_path
+        %li= link_to 'Zasady', rules_path
       %ul.nav.navbar-nav.pull-right
         - if user_signed_in?
           %li= link_to current_user.username, edit_user_registration_path

@@ -7,5 +7,6 @@
         = f.input :username, required: true
         = f.input :email, required: true
         = f.input :role, required: true, collection: User::ROLES, include_blank: false
+        = f.input :take_part, collection: [['Tak', true], ['Nie', false]], include_blank: false
       .form-actions
         = f.button :submit, "Zapisz"

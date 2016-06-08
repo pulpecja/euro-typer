@@ -1,1 +1,21 @@
-jestem userem
+%h1= @user.username
+%br
+%table.table.table-stripped
+  - if @user.types.present?
+    - @user.types.joins(:match).order('matches.played').each do |type|
+      - match = type.match
+      %tbody
+        %tr
+          %td= match.played.strftime("%d.%m.%Y, %H:%M")
+          %td.text-center= image_tag(match.first_team.flag, height: '20')
+          %td.text-right
+            %strong= link_to match.first_team.name, match.first_team
+          %td= type.first_score
+          %td -
+          %td= type.second_score
+          %td
+            %strong= link_to match.second_team.name, match.second_team
+          %td.text-center= image_tag(match.second_team.flag, height: '20')
+          %td= type.bet
+  - else
+    Użytkownik jeszcze nic nie wytypował
