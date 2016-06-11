@@ -3,9 +3,15 @@
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
 .good-bet {
-  color: #0099cc;
+  color: #00cc00;
 }
 
 .good-type {
   font-weight: bold;
+}
+
+.current-user {
+  a {
+    color: red;
+  }
 }

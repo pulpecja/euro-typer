@@ -17,9 +17,12 @@
 
   - @users.each do |user|
     %tr.text-center
-      %td= link_to user.username, user_path(user)
+      %td{ class: ('current-user' if user == current_user) }= link_to user.username, user_path(user)
       %td= user.points(@round)
       - @matches.each do |match|
         - type = match.types.where(user_id: user.id).first
-        %td{ class: [('good-bet' if good_bet(match, type)), ('good-type' if good_type(match, type))] }
-          = "#{type.try :first_score} - #{type.try :second_score}"
+        - if can_be_typed?(match.played) && user != current_user
+          %td ?
+        - else
+          %td{ class: [('good-bet' if good_bet(match, type)), ('good-type' if good_type(match, type))] }
+            = "#{type.try :first_score} - #{type.try :second_score}"

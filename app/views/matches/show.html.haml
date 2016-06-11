@@ -5,7 +5,7 @@
   %h1.col-sm-6.text-center
     %br/
     %p= "#{@match.first_team.name} - #{@match.second_team.name}"
-    %p= "(#{@match.first_score} : #{@match.second_score})"
+    %p= "#{@match.first_score} : #{@match.second_score}"
   .col-sm-3
     %p= image_tag(@match.second_team.flag, class: 'img-responsive')
 %br

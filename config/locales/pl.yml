@@ -18,6 +18,7 @@ pl:
         username: Nazwa użytkownika
         current_password: Obecne hasło
         role: Rola
+        take_part: Bierze udział
     errors:
       messages:
         record_invalid: 'Negatywne sprawdzenie poprawności: %{errors}'
