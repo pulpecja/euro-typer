@@ -2,10 +2,15 @@
   .col-sm-3.text-right
     %p= image_tag(@match.first_team.flag, class: 'img-responsive')
 
-  %h1.col-sm-6.text-center
+  .col-sm-6.text-center
     %br/
-    %p= "#{@match.first_team.name} - #{@match.second_team.name}"
-    %p= "#{@match.first_score} : #{@match.second_score}"
+    %h1
+      %p
+        = link_to @match.first_team.name, team_path(@match.first_team)
+        \-
+        = link_to @match.second_team.name, team_path(@match.second_team)
+      %p= "#{@match.first_score} : #{@match.second_score}"
+    %p= proper_date(@match.played)
   .col-sm-3
     %p= image_tag(@match.second_team.flag, class: 'img-responsive')
 %br

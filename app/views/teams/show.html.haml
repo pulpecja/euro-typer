@@ -10,7 +10,7 @@
       %table.table.table-striped
         - @matches.each do |match|
           %tr
-            %td= link_to match.played.strftime("%d.%m.%Y, %H:%M"), match
+            %td= link_to proper_date(match.played), match
             %td.text-center= image_tag(match.first_team.flag, height: '20')
             %td.text-right= link_to match.first_team.name, match.first_team
             %td= match.first_score

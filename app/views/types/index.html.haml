@@ -9,7 +9,7 @@
         - @matches.each_with_index do |match, index|
           - type = match.types.where(user: current_user).first
           %tr
-            %td= match.played.strftime("%d.%m.%Y, %H:%M")
+            %td= proper_date(match.played)
             %td.text-center= image_tag(match.first_team.flag, height: '20')
             %td.text-right
               %strong= link_to match.first_team.name, match.first_team

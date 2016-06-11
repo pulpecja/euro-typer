@@ -6,16 +6,17 @@
       - match = type.match
       %tbody
         %tr
-          %td= match.played.strftime("%d.%m.%Y, %H:%M")
+          %td= proper_date(match.played)
           %td.text-center= image_tag(match.first_team.flag, height: '20')
           %td.text-right
             %strong= link_to match.first_team.name, match.first_team
-          %td= type.first_score
-          %td -
-          %td= type.second_score
+          - if type_hidden?(match, @user)
+            %td.text-center ?
+          - else
+            %td.text-center= "#{type.first_score} - #{type.second_score}"
           %td
             %strong= link_to match.second_team.name, match.second_team
           %td.text-center= image_tag(match.second_team.flag, height: '20')
-          %td= type.bet
+
   - else
     Użytkownik jeszcze nic nie wytypował

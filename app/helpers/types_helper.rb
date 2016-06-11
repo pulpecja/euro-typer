@@ -23,6 +23,10 @@ module TypesHelper
     played.in_time_zone > (DateTime.now.in_time_zone + 3.hours)
   end
 
+  def type_hidden?(match, user)
+    can_be_typed?(match.played) && user != current_user
+  end
+
   def good_bet(match, type)
     if match.bet.present? && type.try(:bet).present?
       match.bet == type.bet

@@ -5,7 +5,7 @@
   %tbody
     - @matches.each do |match|
       %tr
-        %td= link_to match.played.strftime("%d.%m.%Y, %H:%M"), match
+        %td= link_to proper_date(match.played), match
         %td.text-center= image_tag(match.first_team.flag, height: '20')
         %td.text-right= Team.find(match.first_team_id).name
         %td= match.first_score
