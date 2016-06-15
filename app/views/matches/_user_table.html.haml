@@ -21,7 +21,7 @@
       %td= user.points(@round)
       - @matches.each do |match|
         - type = match.types.where(user_id: user.id).first
-        - if type_hidden?(match, user)
+        - if type_hidden?(match, user) && type.try(:bet).present?
           %td ?
         - else
           %td{ class: [('good-bet' if good_bet(match, type)), ('good-type' if good_type(match, type))] }
