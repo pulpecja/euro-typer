@@ -9,6 +9,9 @@ pl:
         round_id: Kolejka
         first_score: Pierwszy wynik
         second_score: Drugi wynik
+      round:
+        name: Nazwa
+        started_at: Rozpoczyna się
       team:
         name: Nazwa
         abbreviation: Skrót

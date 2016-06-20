@@ -3,9 +3,9 @@ class MatchesController < ApplicationController
   load_and_authorize_resource
 
   def index
-    @round = params[:round] ? Round.find(params[:round]) : Round.all.first
+    set_current_round
     @matches = Match.includes(:first_team, :second_team).where(round_id: @round.id)
-    @users = User.includes(types: :match).existing.playing.sort_by(&:points).reverse
+    @users = User.includes(types: :match).existing.playing.sort{|a,b| a.points(@round) <=> b.points(@round)}.reverse
   end
 
   def show
@@ -19,4 +19,14 @@ class MatchesController < ApplicationController
     def match_params
       params.require(:match).permit(:first_team_id, :second_team_id, :played, :first_score, :second_score, :round)
     end
+
+    def set_current_round
+      @round = if params[:round]
+        Round.find(params[:round])
+      else
+        Round.where('started_at < ?', DateTime.now).last || Round.first
+      end
+    end
+
+
 end

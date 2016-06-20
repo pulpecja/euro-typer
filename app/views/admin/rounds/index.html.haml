@@ -4,6 +4,7 @@
   %tbody
     - @rounds.each do |round|
       %tr
+        %td= round.started_at
         %td= round.name
         %td
           = link_to edit_admin_round_path(round) do
