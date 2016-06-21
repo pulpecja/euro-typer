@@ -20,7 +20,7 @@ module TypesHelper
   end
 
   def can_be_typed?(played)
-    played.in_time_zone > (DateTime.now.in_time_zone + 3.hours)
+    played.in_time_zone > (DateTime.now.in_time_zone + 110.minutes)
   end
 
   def type_hidden?(match, user)

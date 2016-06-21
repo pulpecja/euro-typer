@@ -19,6 +19,4 @@ class Type < ActiveRecord::Base
     end
   end
 
-
-
 end
