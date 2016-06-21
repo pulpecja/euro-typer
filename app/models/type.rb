@@ -5,6 +5,7 @@ class Type < ActiveRecord::Base
   belongs_to :user
 
   validate :check_scores
+  validate :check_date
 
   scope :by_user, ->(current_user) { where(user_id: current_user.id) }
 
@@ -16,6 +17,12 @@ class Type < ActiveRecord::Base
       elsif score.present? && score < 0
         errors[:add] << "nie może być mniejsze od 0"
       end
+    end
+  end
+
+  def check_date
+    unless match.played.in_time_zone > (DateTime.now.in_time_zone + 130.minutes)
+      errors[:add] << "za późno na typowanie tego meczu"
     end
   end
 
