@@ -5,7 +5,7 @@ class Type < ActiveRecord::Base
   belongs_to :user
 
   validate :check_scores
-  validate :check_date
+  validate :check_date, on: :update
 
   scope :by_user, ->(current_user) { where(user_id: current_user.id) }
 
