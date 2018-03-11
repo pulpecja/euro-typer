@@ -1,24 +1,24 @@
 source 'https://rubygems.org'
 
-gem 'rails', '4.1.9'
-gem 'pg'
-gem 'sass-rails', '~> 4.0.3'
-gem 'uglifier', '>= 1.3.0'
-gem 'coffee-rails', '~> 4.0.0'
+gem 'rails', '4.2.8'
+gem 'pg', '0.21.0'
+gem "sass-rails"
+gem 'uglifier'
+gem 'coffee-rails'
 gem 'jquery-rails'
 gem 'turbolinks'
-gem 'jbuilder', '~> 2.0'
-gem 'sdoc', '~> 0.4.0',          group: :doc
+gem 'jbuilder'
+gem 'sdoc',          group: :doc
 
-gem 'twitter-bootstrap-rails', '~> 2.2.8'
-gem 'bootstrap-sass', '~> 3.1.1.0'
-gem 'simple_form', '~> 3.1.0.rc1'
+gem 'twitter-bootstrap-rails'
+gem 'bootstrap-sass'
+gem 'simple_form'
 gem 'haml'
 gem 'haml-rails'
 gem 'nested_form'
 gem 'devise'
 gem 'bootstrap-editable-rails'
-gem 'cancancan', '~> 1.10'
+gem 'cancancan'
 gem 'paperclip'
 gem 'carrierwave'
 gem 'cloudinary'
@@ -41,7 +41,7 @@ end
 
 group :development, :test do
   gem 'rspec-rails'
-  gem 'factory_girl_rails', "~> 4.2.1"
+  gem 'factory_girl_rails'
   gem 'dotenv-rails'
 end
 
