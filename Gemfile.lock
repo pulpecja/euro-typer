@@ -76,6 +76,11 @@ GEM
       coffee-script-source
       execjs
     coffee-script-source (1.10.0)
+    countries (2.1.4)
+      i18n_data (~> 0.8.0)
+      money (~> 6.9)
+      sixarm_ruby_unaccent (~> 1.1)
+      unicode_utils (~> 1.4)
     debug_inspector (0.0.2)
     devise (3.1.0)
       bcrypt-ruby (~> 3.0)
@@ -114,6 +119,7 @@ GEM
       nokogiri (~> 1.6.0)
       ruby_parser (~> 3.5)
     i18n (0.7.0)
+    i18n_data (0.8.0)
     jbuilder (2.4.1)
       activesupport (>= 3.0.0, < 5.1)
       multi_json (~> 1.2)
@@ -132,6 +138,8 @@ GEM
     mimemagic (0.3.1)
     mini_portile2 (2.0.0)
     minitest (5.9.0)
+    money (6.10.1)
+      i18n (>= 0.6.4, < 1.0)
     multi_json (1.12.1)
     multipart-post (2.0.0)
     nested_form (0.3.2)
@@ -213,6 +221,7 @@ GEM
     simple_form (3.1.1)
       actionpack (~> 4.0)
       activemodel (~> 4.0)
+    sixarm_ruby_unaccent (1.2.0)
     slop (3.6.0)
     spring (1.7.1)
     sprockets (2.12.4)
@@ -238,6 +247,7 @@ GEM
       thread_safe (~> 0.1)
     uglifier (3.0.0)
       execjs (>= 0.3.0, < 3)
+    unicode_utils (1.4.0)
     uniform_notifier (1.7.0)
     warden (1.2.3)
       rack (>= 1.0)
@@ -257,6 +267,7 @@ DEPENDENCIES
   carrierwave
   cloudinary
   coffee-rails (~> 4.0.0)
+  countries
   devise
   dotenv-rails
   factory_girl_rails (~> 4.2.1)

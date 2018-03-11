@@ -1,5 +1,6 @@
 class Team < ActiveRecord::Base
-  has_many :matches, dependent: :destroy
+  has_many :first_team, class_name: "Match", foreign_key: "first_team_id"
+  has_many :second_team, class_name: "Match", foreign_key: "second_team_id"
 
   scope :ordered, -> { order :name }
 

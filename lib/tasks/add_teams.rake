@@ -9,10 +9,13 @@ namespace :teams do
 
     teams = fetch_data('v1/competitions/467/teams')['teams']
     teams.each do |api_team|
-      team = Team.find_or_create_by(name_en: api_team['name'],
-                                    abbreviation: api_team['code'],
-                                    flag: api_team['crestUrl'])
+      country = ISO3166::Country.find_country_by_name(api_team['name'])
+      polish_name = country.translations["pl"] if country
 
+      team = Team.find_or_create_by(name_en: api_team['name'],
+                                    name: polish_name,
+                                    abbreviation: api_team['code'] || (country.ioc if country),
+                                    flag: api_team['crestUrl'])
 
       if team.valid?
         puts "Team #{team.name_en} created!"
