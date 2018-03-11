@@ -41,6 +41,10 @@
               = link_to admin_teams_path, class: "btn btn-default btn-block" do
                 .text-left
                   Drużyny
+            .row
+              = link_to admin_competitions_path, class: "btn btn-default btn-block" do
+                .text-left
+                  Turnieje
           .col-md-10
             = yield
         - else

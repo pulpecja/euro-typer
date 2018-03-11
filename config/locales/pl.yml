@@ -2,6 +2,10 @@
 pl:
   activerecord:
     attributes:
+      competition:
+        name: Nazwa
+        year: Rok
+        place: Miejsce
       match:
         first_team_id: Pierwsza drużyna
         second_team_id: Druga drużyna
@@ -12,6 +16,7 @@ pl:
       round:
         name: Nazwa
         started_at: Rozpoczyna się
+        competition_id: Turniej
       team:
         name: Nazwa
         abbreviation: Skrót

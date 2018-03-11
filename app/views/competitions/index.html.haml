@@ -1,0 +1,7 @@
+%h1 Turnieje
+
+- @competitions.each do |competition|
+  .text-center
+    = link_to "#{competition.name} #{competition.year}", matches_path(competition: competition), class: 'btn btn-large btn-default'
+    %br
+    %br

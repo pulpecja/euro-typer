@@ -53,7 +53,7 @@ class Admin::RoundsController < AdminController
     end
 
     def round_params
-      params.require(:round).permit(:name, :started_at)
+      params.require(:round).permit(:name, :started_at, :competition_id)
     end
 
 end

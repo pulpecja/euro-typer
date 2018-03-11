@@ -22,6 +22,7 @@ gem 'cancancan', '~> 1.10'
 gem 'paperclip'
 gem 'carrierwave'
 gem 'cloudinary'
+gem 'faraday'
 
 group :development do
   gem 'letter_opener', github: 'ryanb/letter_opener'

@@ -24,7 +24,10 @@ class MatchesController < ApplicationController
       @round = if params[:round]
         Round.find(params[:round])
       else
-        Round.where('started_at < ?', DateTime.now).last || Round.first
+        Round.where(competition: params[:competition])
+             .where('started_at < ?', DateTime.now).last ||
+        Round.where(competition: params[:competition]).first ||
+        Round.first
       end
     end
 

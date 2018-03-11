@@ -1,4 +1,7 @@
 Rails.application.routes.draw do
+  root to: 'competitions#index'
+
+  resources :competitions
 
   resources :rounds do
     resources :types
@@ -9,7 +12,6 @@ Rails.application.routes.draw do
 
   devise_for :users
   resources :users, only: [:index, :show]
-  root to: 'matches#index'
 
   get 'users/:id/types' => 'types#index'
   get 'users/:id/types/prepare' => 'types#prepare', as: :prepare_types
@@ -21,6 +23,7 @@ Rails.application.routes.draw do
     resources :matches
     resources :rounds
     resources :teams
+    resources :competitions
     get 'become/:id', action: 'become'
   end
 

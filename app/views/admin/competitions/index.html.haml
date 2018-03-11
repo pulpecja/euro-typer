@@ -1,0 +1,16 @@
+%p= link_to 'Dodaj nowy turniej', new_admin_competition_path, class: 'btn btn-default'
+
+%table.table.table-striped.table-hover.records-index{ :'data-provides' => 'rowlink' }
+  %tbody
+    - @competitions.each do |competition|
+      %tr
+        %td= link_to competition.name
+        %td= competition.year
+        %td= competition.place
+        %td
+          = link_to edit_admin_competition_path(competition) do
+            %span.glyphicon.glyphicon-pencil
+        %td
+          - if competition.rounds.blank?
+            = link_to admin_competition_path(competition), method: :delete, data: { confirm: 'Jesteś pewien?' } do
+              %span.glyphicon.glyphicon-trash

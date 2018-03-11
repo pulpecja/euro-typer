@@ -6,6 +6,7 @@
       %tr
         %td.text-center= image_tag(team.flag, height: '18')
         %td= team.name
+        %td= team.name_en
         %td= team.abbreviation
         %td
           = link_to edit_admin_team_path(team) do

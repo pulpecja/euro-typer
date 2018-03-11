@@ -4,6 +4,7 @@
   .form-inputs
     = f.input :name
     = f.input :started_at
+    = f.input :competition_id, collection: Competition.all
 
   .form-actions
     = f.button :submit, 'Zapisz kolejkę'

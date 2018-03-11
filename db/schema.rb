@@ -11,10 +11,18 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160620144546) do
+ActiveRecord::Schema.define(version: 20180311205439) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "competitions", force: true do |t|
+    t.string   "name"
+    t.integer  "year"
+    t.string   "place"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "matches", force: true do |t|
     t.integer  "first_team_id",  null: false
@@ -32,11 +40,12 @@ ActiveRecord::Schema.define(version: 20160620144546) do
     t.string   "name"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.date     "started_at", default: '2016-06-20', null: false
+    t.date     "started_at",     default: '2017-04-10', null: false
+    t.integer  "competition_id"
   end
 
   create_table "teams", force: true do |t|
-    t.string   "name",               null: false
+    t.string   "name"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "abbreviation"
@@ -46,6 +55,7 @@ ActiveRecord::Schema.define(version: 20160620144546) do
     t.string   "photo_content_type"
     t.integer  "photo_file_size"
     t.datetime "photo_updated_at"
+    t.string   "name_en"
   end
 
   create_table "types", force: true do |t|
