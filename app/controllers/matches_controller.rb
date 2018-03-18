@@ -3,6 +3,7 @@ class MatchesController < ApplicationController
   load_and_authorize_resource
 
   def index
+    @groups = current_user.groups
     @group = Group.find(params[:group_id])
     @competition = Competition.find(params[:competition_id])
     set_current_round
