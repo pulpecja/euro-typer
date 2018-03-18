@@ -1,0 +1,15 @@
+= simple_form_for(@group, url: polymorphic_url([:admin, @group]), html: { class: 'form-horizontal' }, wrapper: :horizontal_form ) do |f|
+  = f.error_notification
+
+  .form-inputs
+    = f.input :name, required: true
+    = f.input :owner_id, collection: User.existing, label_method: :username
+    .row
+      .col-md-3.text-right
+        = f.label :users
+      .col-md-9
+        = f.association :users, as: :check_boxes, label_method: :username, label: false
+
+  .form-actions
+    = f.button :submit, 'Zapisz grupę'
+

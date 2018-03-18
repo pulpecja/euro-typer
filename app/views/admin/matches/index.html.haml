@@ -1,6 +1,5 @@
 %p= link_to 'Dodaj nowy mecz', new_admin_match_path, class: 'btn btn-default'
 
-
 %table.table.table-striped.table-hover.records-index{ :'data-provides' => 'rowlink' }
   %tbody
     - @matches.each do |match|

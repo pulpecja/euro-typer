@@ -2,7 +2,7 @@ class UsersController < ApplicationController
   load_and_authorize_resource
 
   def index
-    @users = User.all.existing.playing.includes(types: :match).sort_by(&:points).reverse
+    @users = User.all.existing.includes(types: :match).sort_by(&:points).reverse
   end
 
   def show

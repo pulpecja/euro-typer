@@ -1,7 +1,14 @@
 Rails.application.routes.draw do
-  root to: 'competitions#index'
+  resources :groups
+  root to: 'groups#index'
 
   resources :competitions
+
+  resources :groups do
+    resources :competitions do
+      resources :matches
+    end
+  end
 
   resources :rounds do
     resources :types
@@ -24,6 +31,7 @@ Rails.application.routes.draw do
     resources :rounds
     resources :teams
     resources :competitions
+    resources :groups
     get 'become/:id', action: 'become'
   end
 
