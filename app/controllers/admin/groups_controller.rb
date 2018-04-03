@@ -21,6 +21,7 @@ class Admin::GroupsController < ApplicationController
   def create
     @group = Group.new(group_params)
     add_users
+    add_competitions
     if @group.save
       flash[:notice] = "Grupa stworzona"
       redirect_to(admin_groups_path)
@@ -32,6 +33,7 @@ class Admin::GroupsController < ApplicationController
 
   def update
     add_users
+    add_competitions
     if @group.update(group_params)
       flash[:notice] = "Grupa zapisana"
       redirect_to(admin_groups_path)
@@ -53,7 +55,7 @@ class Admin::GroupsController < ApplicationController
     end
 
     def group_params
-      params.require(:group).permit(:name, :token, :owner_id)
+      params.require(:group).permit(:name, :token, :owner_id, user_ids: [], competition_ids: [])
     end
 
     def add_users
@@ -62,5 +64,12 @@ class Admin::GroupsController < ApplicationController
         @group.users << User.find(user_id) #unless @group.users.include?(user)
       end
       @group.users << User.find(params[:group][:owner_id]) if params[:group][:owner_id].present?
+    end
+
+    def add_competitions
+      @group.competitions = []
+      params[:group][:competition_ids].reject(&:empty?).each do |user_id|
+        @group.users << User.find(user_id) #unless @group.users.include?(user)
+      end
     end
 end

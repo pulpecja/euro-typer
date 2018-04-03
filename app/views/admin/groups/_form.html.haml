@@ -8,8 +8,12 @@
       .col-md-3.text-right
         = f.label :users
       .col-md-9
-        = f.association :users, as: :check_boxes, label_method: :username, label: false
+        = f.association :users, label_method: :username, label: false, collection: User.all.order('username'), input_html: { class: 'select2-dropdown' }
+    .row
+      .col-md-3.text-right
+        = f.label :competitions
+      .col-md-9
+        = f.association :competitions, label: false, collection: Competition.all.order('name'), input_html: { class: 'select2-dropdown' }
 
   .form-actions
     = f.button :submit, 'Zapisz grupę'
-

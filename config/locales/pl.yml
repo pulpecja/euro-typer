@@ -6,6 +6,7 @@ pl:
         name: Nazwa
         owner_id: Właściciel
         users: Członkowie
+        competitions: Turnieje
       competition:
         name: Nazwa
         year: Rok

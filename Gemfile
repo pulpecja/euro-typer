@@ -24,6 +24,7 @@ gem 'carrierwave'
 gem 'cloudinary'
 gem 'faraday'
 gem 'countries'
+gem 'select2-rails'
 
 group :development do
   gem 'letter_opener', github: 'ryanb/letter_opener'

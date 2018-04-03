@@ -16,5 +16,6 @@
 //= require bootstrap-editable
 //= require bootstrap-editable-rails
 //= require editable
+//= require select2
 //= require_tree .
 
