@@ -2,10 +2,8 @@ class Admin::RoundsController < AdminController
   before_action :set_round, only: [:show, :edit, :update, :destroy]
   load_and_authorize_resource
 
-  # skip_before_filter :require_admin!, only: [:index]
-
   def index
-    @rounds = Round.includes(:matches).all
+    @competitions = Competition.all
   end
 
   def show
@@ -53,7 +51,7 @@ class Admin::RoundsController < AdminController
     end
 
     def round_params
-      params.require(:round).permit(:name, :started_at, :competition_id)
+      params.require(:round).permit(:name, :started_at, :competition_id, :stage)
     end
 
 end
