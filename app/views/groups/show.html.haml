@@ -4,8 +4,8 @@
   %b Name:
   = @group.name
 %p
-  %b Token:
-  = @group.token
+  %b Link dla nowych użytkowników:
+  = "#{group_join_group_url(@group.id, @group.token)}"
 
 = link_to 'Edit', edit_group_path(@group)
 \|

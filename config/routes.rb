@@ -8,6 +8,7 @@ Rails.application.routes.draw do
     resources :competitions do
       resources :matches
     end
+    get '/join/:token' => 'groups#join', as: :join_group
   end
 
   resources :rounds do

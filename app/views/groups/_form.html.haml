@@ -3,7 +3,7 @@
 
   .form-inputs
     = f.input :name
-    = f.input :token
+    = f.association :competitions, as: :check_boxes
 
   .form-actions
     = f.button :submit

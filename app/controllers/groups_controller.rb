@@ -61,6 +61,18 @@ class GroupsController < ApplicationController
     end
   end
 
+  def join
+    @group = Group.find_by(id: params[:group_id], token: params[:token])
+
+    if @group
+      @group.users << current_user
+      flash[:notice] = "Pomyślnie dodano do grupy #{@group.name}!"
+      redirect_to @group
+    else
+      flash[:notice] = "Link jest błędny, nie udało się dodać"
+    end
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_group
