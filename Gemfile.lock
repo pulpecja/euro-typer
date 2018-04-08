@@ -185,7 +185,7 @@ GEM
       mime-types
       mimemagic (~> 0.3.0)
       terrapin (~> 0.6.0)
-    pg (0.21.0)
+    pg (0.20.0)
     pry (0.11.3)
       coderay (~> 1.1.0)
       method_source (~> 0.9.0)
@@ -339,7 +339,7 @@ DEPENDENCIES
   letter_opener!
   nested_form
   paperclip
-  pg (= 0.21.0)
+  pg (= 0.20.0)
   pry
   pry-byebug
   pry-doc

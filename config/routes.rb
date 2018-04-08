@@ -23,6 +23,8 @@ Rails.application.routes.draw do
   get 'users/:id/types' => 'types#index'
   get 'users/:id/types/prepare' => 'types#prepare', as: :prepare_types
   get '/pages/index' => 'pages#index', as: :rules
+  get 'competitions' => 'competitions#index'
+  get 'groups' => 'groups#show'
 
   namespace 'admin' do
     root to: 'users#index'
