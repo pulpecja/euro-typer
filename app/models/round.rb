@@ -5,4 +5,8 @@ class Round < ActiveRecord::Base
   validates_presence_of :started_at
 
   default_scope { order('started_at') }
+
+  def next_round
+    # binding.pry
+  end
 end

@@ -12,4 +12,8 @@
       %li
         %a{ "data-target" => "#submenu-2", "data-toggle" => "collapse", :href => "#" }
           Turnieje
-  / /.navbar-collapse
+          %i.fa.fa-fw.fa-angle-down.pull-right
+
+        %ul#submenu-2.collapse
+          - current_user.user_competitions.each do |competition|
+            %li= link_to competition.name, competition_path(competition)

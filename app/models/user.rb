@@ -25,6 +25,10 @@ class User < ActiveRecord::Base
     role == "registered"
   end
 
+  def user_competitions
+    groups.map(&:competitions).flatten.uniq
+  end
+
   def points(round= nil)
     points = 0
 
