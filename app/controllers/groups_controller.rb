@@ -35,6 +35,8 @@ class GroupsController < ApplicationController
       flash[:error]  = "Nie udało się utworzyć grupy"
       render action: 'new'
     end
+
+
   end
 
   # PATCH/PUT /groups/1
