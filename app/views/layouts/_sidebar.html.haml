@@ -1,23 +1,15 @@
-%link#bootstrap-css{:href => "//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css", :rel => "stylesheet"}
-  %script{:src => "//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"}
-  %script{:src => "//code.jquery.com/jquery-1.11.1.min.js"}
-  / ---- Include the above in your HEAD tag --------
-  #throbber{:style => "display:none; min-height:120px;"}
-  #noty-holder
-  #wrapper
-    / Sidebar Menu Items - These collapse to the responsive navigation menu on small screens
-    .collapse.navbar-collapse.navbar-ex1-collapse
-      %ul.nav.navbar-nav.side-nav
-        %li
-          %a{"data-target" => "#submenu-1", "data-toggle" => "collapse", :href => "#"}
-            MENU 1
-            %i.fa.fa-fw.fa-angle-down.pull-right
-          %ul#submenu-1.collapse
-            %li
-              %a{:href => "#"}
-                %i.fa.fa-angle-double-right
-                Grupa1
-        %li
-          %a{"data-target" => "#submenu-2", "data-toggle" => "collapse", :href => "#"}
-            Turnieje
-    / /.navbar-collapse
+#wrapper
+  .collapse.navbar-collapse.navbar-ex1-collapse
+    %ul.nav.navbar-nav.side-nav
+      %li
+        %a{"data-target" => "#submenu-1", "data-toggle" => "collapse", :href => "#"}
+          Twoje grupy
+          %i.fa.fa-fw.fa-angle-down.pull-right
+
+        %ul#submenu-1.collapse
+          - current_user.groups.each do |group|
+            %li= link_to group.name, group_path(group)
+      %li
+        %a{ "data-target" => "#submenu-2", "data-toggle" => "collapse", :href => "#" }
+          Turnieje
+  / /.navbar-collapse

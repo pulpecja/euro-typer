@@ -25,7 +25,8 @@
           %div{ class: "alert alert-#{key}" }
             = value
 
-      = render 'layouts/sidebar'
+      - if user_signed_in?
+        = render 'layouts/sidebar'
 
       = yield :top_content
       #body.container
