@@ -72,6 +72,7 @@ GEM
       activesupport (>= 4.0.0)
       mime-types (>= 1.16)
     climate_control (0.2.0)
+    clipboard-rails (1.7.1)
     cloudinary (1.9.1)
       aws_cf_signer
       rest-client
@@ -326,6 +327,7 @@ DEPENDENCIES
   byebug
   cancancan
   carrierwave
+  clipboard-rails
   cloudinary
   coffee-rails
   countries

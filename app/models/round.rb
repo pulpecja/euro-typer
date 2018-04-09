@@ -4,9 +4,16 @@ class Round < ActiveRecord::Base
 
   validates_presence_of :started_at
 
+  scope :scheduled, -> { where('started_at >= ?', DateTime.now) }
+  scope :finished, -> { where('started_at < ?', DateTime.now) }
+
   default_scope { order('started_at') }
 
   def next_round
-    # binding.pry
+    competition.rounds.find_by(stage: stage + 1).try :id
+  end
+
+  def previous_round
+    competition.rounds.find_by(stage: stage - 1).try :id
   end
 end

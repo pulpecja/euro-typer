@@ -5,8 +5,12 @@ namespace :competitions do
                                                 year: 2016,
                                                 place: 'Francja')
 
-    Round.where('started_at < ?', DateTime.now).each do |round|
+    Round.where('created_at < ?', DateTime.now - 1.year)
+         .order(:started_at)
+         .each_with_index do |round, index|
+
       round.competition = competition
+      round.stage = index + 1
       round.save
     end
   end
