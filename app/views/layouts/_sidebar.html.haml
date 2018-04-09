@@ -1,0 +1,19 @@
+#wrapper
+  .collapse.navbar-collapse.navbar-ex1-collapse
+    %ul.nav.navbar-nav.side-nav
+      %li
+        %a{"data-target" => "#submenu-1", "data-toggle" => "collapse", :href => "#"}
+          Twoje grupy
+          %i.fa.fa-fw.fa-angle-down.pull-right
+
+        %ul#submenu-1.collapse
+          - current_user.groups.each do |group|
+            %li= link_to group.name, group_path(group)
+      %li
+        %a{ "data-target" => "#submenu-2", "data-toggle" => "collapse", :href => "#" }
+          Turnieje
+          %i.fa.fa-fw.fa-angle-down.pull-right
+
+        %ul#submenu-2.collapse
+          - current_user.user_competitions.each do |competition|
+            %li= link_to competition.name, competition_path(competition)

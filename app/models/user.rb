@@ -7,14 +7,15 @@ class User < ActiveRecord::Base
   ROLES = %i[admin registered guest]
 
   has_many :types
+  has_many :groups_users, dependent: :destroy
+  has_many :groups, -> { distinct }, through: :groups_users
 
   validates :username, presence: true, uniqueness: true
 
   before_create :set_default_role
 
-  scope :existing,    -> { where(deleted_at: nil)}
-  scope :deleted,     -> { where('deleted_at is not null')}
-  scope :playing,     -> { where(take_part: true) }
+  scope :existing,    -> { where(deleted_at: nil).order(:username) }
+  scope :deleted,     -> { where('deleted_at is not null').order(:username) }
 
   def is_admin?
     role == "admin"
@@ -22,6 +23,10 @@ class User < ActiveRecord::Base
 
   def is_registered?
     role == "registered"
+  end
+
+  def user_competitions
+    groups.map(&:competitions).flatten.uniq
   end
 
   def points(round= nil)

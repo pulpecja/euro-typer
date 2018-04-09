@@ -1,11 +1,12 @@
-%h1.text-center= @round.name
+%h1.text-center= competition_name
+%h3.text-center= @round.name
 %br
 .row
   .col-sm-2
-    = match_link('Poprzednia', (@round.id - 1))
+    = match_link('Poprzednia', @round.previous_round)
   .col-sm-8.text-center
     = link_to 'Wytypuj kolejkę!', round_types_path(@round.id), class: 'btn btn-default'
   .col-sm-2
-    = match_link('Następna', (@round.id + 1))
+    = match_link('Następna', @round.next_round)
 %br/
 %p= render "user_table"

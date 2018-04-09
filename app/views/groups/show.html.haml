@@ -1,0 +1,23 @@
+%h1.text-center= @group.name
+%br
+%p
+  %b Aby zaprosić nowego użytkownika do grupy, wyślij mu ten link:
+
+.row
+  .col-md-7
+    .form-group
+
+      %textarea#bar.form-control
+        = group_join_group_url(@group.id, @group.token)
+  .col-md-5
+    %button.btn{"data-clipboard-target" => "#bar"}
+      Skopiuj
+
+- @group.competitions.each do |competition|
+  = link_to "#{competition.name} #{competition.year}", group_competition_matches_path(@group.id, competition.id)
+
+- content_for(:third_party_js) do
+  %script{src: "https://cdn.rawgit.com/zenorocha/clipboard.js/v1.5.10/dist/clipboard.min.js"}
+
+:javascript
+  var clipboard = new Clipboard('.btn');

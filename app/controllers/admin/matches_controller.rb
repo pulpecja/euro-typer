@@ -5,7 +5,7 @@ class Admin::MatchesController < AdminController
   # skip_before_filter :require_admin!, only: [:index]
 
   def index
-    @matches = Match.includes(:first_team, :second_team, :round, :types).all
+    @competitions = Competition.all
   end
 
   def show

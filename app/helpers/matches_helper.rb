@@ -8,7 +8,11 @@ module MatchesHelper
   end
 
   def match_link(adjective, round_id)
-    link_to "#{adjective} kolejka", matches_path(round: round_id) if Round.where(id: round_id).present?
+    return unless round_id.present?
+    link_to "#{adjective} kolejka",
+      group_competition_matches_path(@group.id,
+                                     @round.competition.id,
+                                     round: round_id)
   end
 
 end

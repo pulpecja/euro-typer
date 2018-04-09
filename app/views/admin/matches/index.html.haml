@@ -1,24 +1,27 @@
 %p= link_to 'Dodaj nowy mecz', new_admin_match_path, class: 'btn btn-default'
 
-
 %table.table.table-striped.table-hover.records-index{ :'data-provides' => 'rowlink' }
   %tbody
-    - @matches.each do |match|
+    - @competitions.each do |competition|
       %tr
-        %td= link_to proper_date(match.played), match
-        %td.text-center= image_tag(match.first_team.flag, height: '20')
-        %td.text-right= Team.find(match.first_team_id).name
-        %td= match.first_score
-        %td= "-"
-        %td= match.second_score
-        %td= Team.find(match.second_team_id).name
-        %td.text-center= image_tag(match.second_team.flag, height: '20')
-        %td= match.round.name
-        %td= match.bet
-        %td
-          = link_to edit_admin_match_path(match) do
-            %span.glyphicon.glyphicon-pencil
-        %td
-          - if match.types.blank?
-            = link_to admin_match_path(match), method: :delete, data: { confirm: 'Jesteś pewien?' } do
-              %span.glyphicon.glyphicon-trash
+        %th= competition.name
+      - competition.rounds.each do |round|
+        - round.matches.each do |match|
+          %tr
+            %td= link_to proper_date(match.played), match
+            %td.text-center= image_tag(match.first_team.flag, height: '20')
+            %td.text-right= Team.find(match.first_team_id).name
+            %td= match.first_score
+            %td= "-"
+            %td= match.second_score
+            %td= Team.find(match.second_team_id).name
+            %td.text-center= image_tag(match.second_team.flag, height: '20')
+            %td= match.round.name
+            %td= match.bet
+            %td
+              = link_to edit_admin_match_path(match) do
+                %span.glyphicon.glyphicon-pencil
+            %td
+              - if match.types.blank?
+                = link_to admin_match_path(match), method: :delete, data: { confirm: 'Jesteś pewien?' } do
+                  %span.glyphicon.glyphicon-trash

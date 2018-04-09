@@ -1,7 +1,15 @@
 Rails.application.routes.draw do
-  root to: 'competitions#index'
+  resources :groups
+  root to: 'groups#index'
 
   resources :competitions
+
+  resources :groups do
+    resources :competitions do
+      resources :matches
+    end
+    get '/join/:token' => 'groups#join', as: :join_group
+  end
 
   resources :rounds do
     resources :types
@@ -16,6 +24,8 @@ Rails.application.routes.draw do
   get 'users/:id/types' => 'types#index'
   get 'users/:id/types/prepare' => 'types#prepare', as: :prepare_types
   get '/pages/index' => 'pages#index', as: :rules
+  get 'competitions' => 'competitions#index'
+  get 'groups' => 'groups#show'
 
   namespace 'admin' do
     root to: 'users#index'
@@ -24,6 +34,7 @@ Rails.application.routes.draw do
     resources :rounds
     resources :teams
     resources :competitions
+    resources :groups
     get 'become/:id', action: 'become'
   end
 

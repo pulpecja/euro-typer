@@ -12,6 +12,8 @@
     / Latest compiled and minified JavaScript
     %script{ src: "https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js" }
     = favicon_link_tag 'favicon.ico'
+    = yield :third_party_js
+
   #holder
     %body
       = render 'layouts/navbar'
@@ -20,31 +22,15 @@
         - flash.each do |key, value|
           %div{ class: "alert alert-#{key}" }
             = value
+
+      - if user_signed_in?
+        = render 'layouts/sidebar'
+
       = yield :top_content
       #body.container
         %h1= yield :header
         - if request.env['PATH_INFO'].include?('admin') && current_user.is_admin?
-          .col-md-2
-            .row
-              = link_to admin_matches_path, class: "btn btn-default btn-block" do
-                .text-left
-                  Mecze
-            .row
-              = link_to admin_users_path, class: "btn btn-default btn-block" do
-                .text-left
-                  Użytkownicy
-            .row
-              = link_to admin_rounds_path, class: "btn btn-default btn-block" do
-                .text-left
-                  Rundy
-            .row
-              = link_to admin_teams_path, class: "btn btn-default btn-block" do
-                .text-left
-                  Drużyny
-            .row
-              = link_to admin_competitions_path, class: "btn btn-default btn-block" do
-                .text-left
-                  Turnieje
+          = render 'layouts/admin_menu'
           .col-md-10
             = yield
         - else
@@ -56,4 +42,3 @@
               %p.pull-left
                 EuroTyper 2016 by
                 %a{ href: "http://github.com/pulpecja" } @pulpecja
-

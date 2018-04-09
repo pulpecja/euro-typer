@@ -6,8 +6,13 @@ class Ability
     if user.is_admin?
       can :manage, :all
     elsif user.is_registered?
-      can :read, :all
+      # can :read, :all
+      can :read, Match
+      can :read, Group
+      can :read, Competition
       can :manage, Type
+      can :create, Group
+      can [:update, :destroy], Group, owner_id: user.id
     end
   end
 end

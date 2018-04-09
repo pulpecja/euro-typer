@@ -1,7 +1,7 @@
 source 'https://rubygems.org'
 
 gem 'rails', '4.2.8'
-gem 'pg', '0.21.0'
+gem 'pg', '0.20.0'
 gem "sass-rails"
 gem 'uglifier'
 gem 'coffee-rails'
@@ -24,6 +24,8 @@ gem 'carrierwave'
 gem 'cloudinary'
 gem 'faraday'
 gem 'countries'
+gem 'select2-rails'
+gem 'clipboard-rails'
 
 group :development do
   gem 'letter_opener', github: 'ryanb/letter_opener'
@@ -41,7 +43,7 @@ end
 
 group :development, :test do
   gem 'rspec-rails'
-  gem 'factory_girl_rails'
+  gem 'factory_bot_rails'
   gem 'dotenv-rails'
 end
 

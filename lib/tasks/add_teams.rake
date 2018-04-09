@@ -29,6 +29,7 @@ namespace :teams do
       first_team = Team.find_by(name_en: api_match['homeTeamName'])
       second_team = Team.find_by(name_en: api_match['awayTeamName'])
       round = Round.find_or_create_by(name: "Kolejka #{api_match['matchday']}",
+                                      stage: api_match['matchday'],
                                       competition: competition)
       match = Match.find_or_create_by(first_team: first_team,
                                       second_team: second_team,

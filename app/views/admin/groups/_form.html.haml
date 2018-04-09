@@ -1,0 +1,19 @@
+= simple_form_for(@group, url: polymorphic_url([:admin, @group]), html: { class: 'form-horizontal' }, wrapper: :horizontal_form ) do |f|
+  = f.error_notification
+
+  .form-inputs
+    = f.input :name, required: true
+    = f.input :owner_id, collection: User.existing, label_method: :username
+    .row
+      .col-md-3.text-right
+        = f.label :users
+      .col-md-9
+        = f.association :users, label_method: :username, label: false, collection: User.all.order('username'), input_html: { class: 'select2-dropdown' }
+    .row
+      .col-md-3.text-right
+        = f.label :competitions
+      .col-md-9
+        = f.association :competitions, label: false, collection: Competition.all.order('name'), input_html: { class: 'select2-dropdown' }
+
+  .form-actions
+    = f.button :submit, 'Zapisz grupę'

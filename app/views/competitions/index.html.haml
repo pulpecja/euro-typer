@@ -2,6 +2,6 @@
 
 - @competitions.each do |competition|
   .text-center
-    = link_to "#{competition.name} #{competition.year}", matches_path(competition: competition), class: 'btn btn-large btn-default'
+    = link_to "#{competition.name} #{competition.year}", group_competition_matches_path(@group.id, competition.id), class: 'btn btn-large btn-default'
     %br
     %br
