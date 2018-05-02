@@ -7,14 +7,30 @@
   .col-md-7
     .form-group
 
-      %textarea#bar.form-control
+      %textarea#bar.form-control{ rows: 1 }
         = group_join_group_url(@group.id, @group.token)
   .col-md-5
     %button.btn{"data-clipboard-target" => "#bar"}
       Skopiuj
 
-- @group.competitions.each do |competition|
-  = link_to "#{competition.name} #{competition.year}", group_competition_matches_path(@group.id, competition.id)
+Obecne turnieje:
+%br
+- @group.competitions.lasting.order('start_date desc').each do |competition|
+  = link_to "#{competition.name} #{competition.year}", group_competition_matches_path(@group.id, competition.id), class: 'btn btn-default'
+  %br
+
+Przyszłe turnieje:
+%br
+- @group.competitions.upcoming.order('start_date desc').each do |competition|
+  = link_to "#{competition.name} #{competition.year}", group_competition_matches_path(@group.id, competition.id), class: 'btn btn-default'
+  %br
+
+Zakończone turnieje:
+%br
+- @group.competitions.finished.order('start_date desc').each do |competition|
+  = link_to "#{competition.name} #{competition.year}", group_competition_matches_path(@group.id, competition.id), class: 'btn btn-default'
+  %br
+
 
 - content_for(:third_party_js) do
   %script{src: "https://cdn.rawgit.com/zenorocha/clipboard.js/v1.5.10/dist/clipboard.min.js"}

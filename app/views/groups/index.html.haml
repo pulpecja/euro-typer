@@ -1,24 +1,10 @@
 %h1 Twoje grupy
+%br
 
-%table
-  %thead
-    %tr
-      %th Name
-      %th Token
-      %th
-      %th
-      %th
-
-  %tbody
-    - @groups.each do |group|
-      %tr
-        %td= group.name
-        %td= group.token
-        %td= link_to 'Show', group
-        %td= link_to 'Edit', edit_group_path(group)
-        %td= link_to 'Destroy', group, method: :delete, data: { confirm: 'Are you sure?' }
-        %td= link_to 'Turnieje', group_competitions_path(group)
+- @groups.each do |group|
+  = link_to group.name, group
+  %br
 
 %br
 
-= link_to 'New Group', new_group_path
+= link_to 'Stwórz własną grupę!', new_group_path

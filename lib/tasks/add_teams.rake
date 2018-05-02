@@ -25,6 +25,10 @@ namespace :teams do
     end
 
     matches = fetch_data('v1/competitions/467/fixtures')['fixtures']
+
+    competition.start_date = matches.first['date']
+    competition.end_date = matches.last['date']
+    competition.save
     matches.each do |api_match|
       first_team = Team.find_by(name_en: api_match['homeTeamName'])
       second_team = Team.find_by(name_en: api_match['awayTeamName'])

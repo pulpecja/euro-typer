@@ -16,4 +16,12 @@ class Round < ActiveRecord::Base
   def previous_round
     competition.rounds.find_by(stage: stage - 1).try :id
   end
+
+  def start_date
+    matches.map(&:played).min
+  end
+
+  def end_date
+    matches.map(&:played).max
+  end
 end
