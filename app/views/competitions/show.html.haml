@@ -1,0 +1,14 @@
+%h1.text-center= competition_name
+%h2.text-center= @round.name
+- @groups.each do |group|
+  - next unless group.competitions.include?(@competition)
+
+  %h3.text-center
+    Grupa
+    %strong= group.name
+
+  = render 'matches/user_table', group: group
+
+
+
+

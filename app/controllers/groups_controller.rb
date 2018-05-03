@@ -1,6 +1,6 @@
 class GroupsController < ApplicationController
   before_action :set_group, only: [:show, :edit, :update, :destroy]
-  load_and_authorize_resource
+  load_and_authorize_resource except: [:join]
   skip_authorization_check only: [:join]
 
   # GET /groups
@@ -27,11 +27,14 @@ class GroupsController < ApplicationController
   # POST /groups.json
   def create
     @group = Group.new(group_params)
+
+    add_competitions
     @group.owner_id = current_user.id
+    @group.users << current_user
 
     if @group.save
       flash[:notice] = "Grupa stworzona"
-      redirect_to(admin_groups_path)
+      redirect_to @group
     else
       flash[:error]  = "Nie udało się utworzyć grupy"
       render action: 'new'
@@ -43,6 +46,7 @@ class GroupsController < ApplicationController
   # PATCH/PUT /groups/1
   # PATCH/PUT /groups/1.json
   def update
+    add_competitions
     respond_to do |format|
       if @group.update(group_params)
         format.html { redirect_to @group, notice: 'Group was successfully updated.' }
@@ -84,6 +88,13 @@ class GroupsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def group_params
-      params.require(:group).permit(:name, :token)
+      params.require(:group).permit(:name, :token, competition_ids: [])
+    end
+
+    def add_competitions
+      @group.competitions = []
+      params[:group][:competition_ids].reject(&:empty?).each do |competition_id|
+        @group.competitions << Competition.find(competition_id) #unless @group.users.include?(user)
+      end
     end
 end

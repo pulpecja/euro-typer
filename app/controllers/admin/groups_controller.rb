@@ -68,8 +68,8 @@ class Admin::GroupsController < ApplicationController
 
     def add_competitions
       @group.competitions = []
-      params[:group][:competition_ids].reject(&:empty?).each do |user_id|
-        @group.users << User.find(user_id) #unless @group.users.include?(user)
+      params[:group][:competition_ids].reject(&:empty?).each do |competition_id|
+        @group.competitions << Competition.find(competition_id) #unless @group.users.include?(user)
       end
     end
 end

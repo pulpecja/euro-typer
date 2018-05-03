@@ -6,6 +6,7 @@ class Ability
     if user.is_admin?
       can :manage, :all
     elsif user.is_registered?
+      can :read, Page
       can :read, Match
       can :read, Group
       can :read, Competition

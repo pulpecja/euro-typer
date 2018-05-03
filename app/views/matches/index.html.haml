@@ -12,4 +12,4 @@
   .col-sm-2
     = match_link('Następna', @round.next_round)
 %br/
-%p= render "user_table"
+%p= render "user_table", group: @group

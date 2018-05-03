@@ -8,6 +8,9 @@ class CompetitionsController < ApplicationController
   end
 
   def show
+    @groups = current_user.groups.includes(:users, :competitions)
+    set_current_round
+    @matches = @round.matches
   end
 
   private
@@ -17,5 +20,15 @@ class CompetitionsController < ApplicationController
 
     def competition_params
       params.require(:competition).permit(:name, :year, :place)
+    end
+
+    def set_current_round
+      @round = if params[:round]
+                 Round.find(params[:round])
+               else
+                 Round.scheduled.where(competition: @competition).first ||
+                 Round.finished.where(competition: @competition).last ||
+                 Round.first
+               end
     end
 end
