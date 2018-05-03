@@ -83,7 +83,7 @@ footer{
 
 @media(min-width:768px) {
     .side-nav {
-        position: fixed;
+        position: absolute;
         top: 50px;
         left: 0px;
         width: 225px;
@@ -132,7 +132,7 @@ footer{
   -webkit-border-radius: 50%;
   -moz-border-radius: 50%;
   border-radius: 50%;
-  position: absolute;
+  position: fixed;
   top: 14px;
   right: 6px;
   font-size: 10px;
