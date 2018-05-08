@@ -53,7 +53,7 @@ class Admin::TeamsController < AdminController
     end
 
     def team_params
-      params.require(:team).permit(:name, :abbreviation, :flag, :photo)
+      params.require(:team).permit(:name, :abbreviation, :flag, :photo, :name_en)
     end
 
 end

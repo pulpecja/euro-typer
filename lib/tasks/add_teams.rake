@@ -1,4 +1,31 @@
 namespace :teams do
+  desc "Fix teams"
+  task :fix_teams => :environment do
+    Team.all.each do |team|
+      teams = Team.where(name: team.name)
+      next if teams.count != 2
+      first_team = teams.order(:created_at).first
+      duplicated_team = teams.order(:created_at).last
+
+      Match.where(first_team: duplicated_team).each do |match|
+        match.first_team = first_team
+        match.save
+      end
+
+      Match.where(second_team: duplicated_team).each do |match|
+        match.second_team = first_team
+        match.save
+      end
+
+      if team.first_team.count == 0 && team.second_team.count == 0
+        team.destroy
+      else
+        puts "#{team.name} ma jeszcze mecze"
+      end
+    end
+  end
+
+
   desc "Add teams from Football Data"
   task :add_teams => :environment do
     include FootballDataApiLogic
