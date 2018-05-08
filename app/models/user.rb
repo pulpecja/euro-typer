@@ -26,7 +26,7 @@ class User < ActiveRecord::Base
   end
 
   def user_competitions
-    groups.map(&:competitions).flatten.uniq
+    groups.includes(:competitions).map(&:competitions).flatten.uniq
   end
 
   def points(round= nil)
@@ -35,7 +35,7 @@ class User < ActiveRecord::Base
     unless types.nil?
       round_types = set_types(round, types)
 
-      round_types.each do |type|
+      round_types.includes(:match).each do |type|
         match = type.match
         if match.bet.present? && type.bet == match.bet
           points += 1

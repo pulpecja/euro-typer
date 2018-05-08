@@ -1,7 +1,7 @@
 %h1.text-center= @group.name
 %br
 %p
-  %b Aby zaprosić nowego użytkownika do grupy, wyślij mu ten link:
+  %b Aby zaprosić nowego użytkownika do tej grupy, wyślij mu ten link:
 
 .row
   .col-md-7
@@ -33,7 +33,7 @@ Zakończone turnieje:
 
 
 - content_for(:third_party_js) do
-  %script{src: "https://cdn.rawgit.com/zenorocha/clipboard.js/v1.5.10/dist/clipboard.min.js"}
+  %script{ src: "https://cdn.rawgit.com/zenorocha/clipboard.js/v1.5.10/dist/clipboard.min.js" }
 
 :javascript
   var clipboard = new Clipboard('.btn');

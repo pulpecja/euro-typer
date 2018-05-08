@@ -1,5 +1,9 @@
 %h1.text-center= competition_name
 %h2.text-center= @round.name
+%br
+.text-center
+  = link_to 'Wytypuj kolejkę!', round_types_path(@round.id), class: 'btn btn-default'
+
 - @groups.each do |group|
   - next unless group.competitions.include?(@competition)
 
