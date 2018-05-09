@@ -32,9 +32,6 @@ group :development do
   gem 'spring'
   gem 'better_errors'
   gem 'binding_of_caller'
-  gem 'pry'
-  gem 'pry-rails'
-  gem 'pry-doc'
   gem 'byebug'
   gem 'pry-byebug'
   gem 'quiet_assets'
@@ -45,8 +42,12 @@ group :development, :test do
   gem 'rspec-rails'
   gem 'factory_bot_rails'
   gem 'dotenv-rails'
+  gem 'pry'
+  gem 'pry-rails'
+  gem 'pry-doc'
 end
 
 group :test do
   gem 'faker'
+  gem 'simplecov', require: false
 end

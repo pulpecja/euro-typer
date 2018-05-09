@@ -13,24 +13,21 @@
     %button.btn{"data-clipboard-target" => "#bar"}
       Skopiuj
 
-Obecne turnieje:
-%br
+%h3 Obecne turnieje:
+
 - @group.competitions.lasting.order('start_date desc').each do |competition|
-  = link_to "#{competition.name} #{competition.year}", group_competition_matches_path(@group.id, competition.id), class: 'btn btn-default'
-  %br
-
-Przyszłe turnieje:
+  %li= link_to "#{competition.name} #{competition.year}", group_competition_matches_path(@group.id, competition.id)
 %br
+%h3 Przyszłe turnieje:
+
 - @group.competitions.upcoming.order('start_date desc').each do |competition|
-  = link_to "#{competition.name} #{competition.year}", group_competition_matches_path(@group.id, competition.id), class: 'btn btn-default'
-  %br
-
-Zakończone turnieje:
+  %li= link_to "#{competition.name} #{competition.year}", group_competition_matches_path(@group.id, competition.id)
 %br
-- @group.competitions.finished.order('start_date desc').each do |competition|
-  = link_to "#{competition.name} #{competition.year}", group_competition_matches_path(@group.id, competition.id), class: 'btn btn-default'
-  %br
+%h3 Zakończone turnieje:
 
+- @group.competitions.finished.order('start_date desc').each do |competition|
+  %li= link_to "#{competition.name} #{competition.year}", group_competition_matches_path(@group.id, competition.id)
+%br
 
 - content_for(:third_party_js) do
   %script{ src: "https://cdn.rawgit.com/zenorocha/clipboard.js/v1.5.10/dist/clipboard.min.js" }

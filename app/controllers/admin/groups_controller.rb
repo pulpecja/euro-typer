@@ -1,4 +1,4 @@
-class Admin::GroupsController < ApplicationController
+class Admin::GroupsController < AdminController
   before_action :set_group, only: [:show, :edit, :update, :destroy]
   load_and_authorize_resource
 
