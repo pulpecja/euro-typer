@@ -31,6 +31,6 @@ module EuroTyper
   end
 
   ISO3166.configure do |config|
-      config.locales = [:en, :pl]
-    end
+    config.locales = [:en, :pl]
+  end
 end
