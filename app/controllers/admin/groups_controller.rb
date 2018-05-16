@@ -60,16 +60,14 @@ class Admin::GroupsController < AdminController
 
     def add_users
       @group.users = []
-      params[:group][:user_ids].reject(&:empty?).each do |user_id|
-        @group.users << User.find(user_id) #unless @group.users.include?(user)
+      params[:group][:user_ids]&.reject(&:empty?)&.each do |user_id|
+        @group.users << User.find(user_id)
       end
       @group.users << User.find(params[:group][:owner_id]) if params[:group][:owner_id].present?
     end
 
     def add_competitions
-      @group.competitions = []
-      params[:group][:competition_ids].reject(&:empty?).each do |competition_id|
-        @group.competitions << Competition.find(competition_id) #unless @group.users.include?(user)
-      end
+      group = GroupService.new(params[:group], @group)
+      group.add_competitions
     end
 end

@@ -25,6 +25,114 @@ RSpec.describe Admin::CompetitionsController, type: :controller do
       expect(flash[:alert]).to eq('You are not authorized to access this page.')
     end
 
+    it "can't access new page" do
+      get :new
+
+      expect(response).not_to render_template :new
+      assert_response :redirect
+      expect(flash[:alert]).to eq('You are not authorized to access this page.')
+    end
+
+    it "can access edit page" do
+      get :edit, { id: first_competition.id }
+
+      expect(response).not_to render_template :edit
+      assert_response :redirect
+      expect(flash[:alert]).to eq('You are not authorized to access this page.')
+    end
+
+    describe "POST #create" do
+      context "with valid params" do
+        it "doesn't create a new Competition" do
+          expect {
+            post :create, { competition: valid_attributes }
+          }.not_to change(Competition, :count)
+        end
+
+        it "doesn't assign a newly created competition as @competition" do
+          post :create, { competition: valid_attributes}
+          expect(assigns(:competition)).to be_nil
+        end
+
+        it "redirects to root path" do
+          post :create, { competition: valid_attributes }
+          expect(response).to redirect_to(root_path)
+          expect(flash[:alert]).to eq('You are not authorized to access this page.')
+        end
+      end
+
+      context "with invalid params" do
+        it "doesn't assign a newly created but unsaved competition as @competition" do
+          post :create, { competition: invalid_attributes }
+
+          expect(assigns(:competition)).to be_nil
+        end
+
+        it "redirects to root path" do
+          post :create, { competition: invalid_attributes }
+          expect(response).to redirect_to(root_path)
+          expect(flash[:alert]).to eq('You are not authorized to access this page.')
+        end
+      end
+    end
+
+    describe "PUT #update" do
+      context "with valid params" do
+        let(:new_attributes) { { name: 'Nowe Mistrzostwa',
+                                 year: 2020,
+                                 place: 'Belgia' } }
+
+
+        it "doesn't update the requested competition" do
+          put :update, { id: first_competition.id, competition: new_attributes}
+          first_competition.reload
+          expect(first_competition.name).to eq('Mistrzostwa Świata')
+          expect(first_competition.year).to eq(2018)
+          expect(first_competition.place).to eq('Rosja')
+        end
+
+        it "doesn't assign the requested competition as @competition" do
+          put :update, { id: first_competition.id, competition: valid_attributes}
+          expect(assigns(:competition)).to be_nil
+        end
+
+        it "redirects to the root path" do
+          put :update, { id: first_competition.id, competition: valid_attributes}
+          expect(response).to redirect_to(root_path)
+          expect(flash[:alert]).to eq('You are not authorized to access this page.')
+        end
+      end
+
+      context "with invalid params" do
+        it "doesn't assign the competition as @competition" do
+          put :update, { id: first_competition.id, competition: invalid_attributes}
+          expect(assigns(:competition)).to be_nil
+        end
+
+        it "redirects to root path" do
+          put :update, { id: first_competition.id, competition: invalid_attributes}
+          expect(response).to redirect_to(root_path)
+          expect(flash[:alert]).to eq('You are not authorized to access this page.')
+        end
+      end
+    end
+
+    describe "DELETE #destroy" do
+      it "doesn't destroy the requested competition" do
+        competition = create :competition, :no_rounds
+        expect {
+          delete :destroy, { id: competition.id }
+          expect(response).to redirect_to(root_path)
+          expect(flash[:alert]).to eq('You are not authorized to access this page.')
+        }.not_to change(Competition, :count)
+      end
+
+      it "does not destroy the competition with rounds" do
+          delete :destroy, { id: first_competition.id }
+          expect(response).to redirect_to(root_path)
+          expect(flash[:alert]).to eq('You are not authorized to access this page.')
+      end
+    end
   end
 
   describe 'admin-user' do
@@ -137,6 +245,13 @@ RSpec.describe Admin::CompetitionsController, type: :controller do
           delete :destroy, { id: competition.id }
           expect(response).to redirect_to(admin_competitions_url)
         }.to change(Competition, :count).by(-1)
+      end
+
+      it "does not destroy the competition with rounds" do
+        expect {
+          delete :destroy, { id: first_competition.id }
+          expect(response).to redirect_to(admin_competitions_url)
+        }.not_to change(Competition, :count)
       end
     end
   end

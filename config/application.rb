@@ -10,6 +10,7 @@ module EuroTyper
   class Application < Rails::Application
     config.i18n.default_locale = :pl
     config.active_record.raise_in_transactional_callbacks = true
+    config.autoload_paths << Rails.root.join('services')
 
     config.to_prepare do
       Dir[ File.expand_path(Rails.root.join('app/logic/*.rb')) ].each do |file|

@@ -1,6 +1,6 @@
 FactoryBot.define do
   factory :group do
-    name "MyString"
+    name "Kraków"
     token "MyString"
 
     before(:create) do |g|
