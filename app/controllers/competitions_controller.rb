@@ -8,7 +8,10 @@ class CompetitionsController < ApplicationController
   end
 
   def show
-    @groups = current_user.groups.includes(:users, :competitions)
+    @groups = current_user.groups
+                          .includes(:users, :competitions)
+                          .select{ |g| g.competitions.include? @competition }
+
     set_current_round
     @matches = @round.matches
   end

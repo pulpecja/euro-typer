@@ -7,7 +7,7 @@ class Competition < ActiveRecord::Base
 
   scope :finished, -> { where('end_date < ?', Time.now) }
   scope :lasting,  -> { where('end_date > ?', Time.now).where('start_date < ?', Time.now) }
-  scope :upcoming, -> { where('start_date > ?',  Time.now) }
+  scope :upcoming, -> { where('start_date > ?', Time.now) }
 
   def first_round
     rounds.find_by(stage: 1)

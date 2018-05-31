@@ -2,6 +2,7 @@
 
 FactoryBot.define do
   factory :team do
-    name "MyString"
+    name 'Polska'
+    name_en 'Poland'
   end
 end

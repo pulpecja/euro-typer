@@ -29,11 +29,15 @@ class User < ActiveRecord::Base
     groups.includes(:competitions).map(&:competitions).flatten.uniq
   end
 
-  def points(round= nil)
+  def points_for_competition(competition)
+    points = 0
+  end
+
+  def points(round= nil, competition = nil)
     points = 0
 
     unless types.nil?
-      round_types = set_types(round, types)
+      round_types = set_types(round, types, competition)
 
       round_types.includes(:match).each do |type|
         match = type.match
@@ -46,13 +50,15 @@ class User < ActiveRecord::Base
     points
   end
 
-  def set_types(round, types)
+  def set_types(round, types, competition=nil)
     if round.present?
       types.joins(:match).where('matches.round_id = ?', round.id)
+    elsif competition.present?
+      round_ids = competition.rounds.map(&:id)
+      types.joins(:match).where('matches.round_id in (?)', round_ids)
     else
       types
     end
-
   end
 
   private

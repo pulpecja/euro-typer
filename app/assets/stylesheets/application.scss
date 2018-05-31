@@ -30,6 +30,10 @@
 
 html,body{
   height: 100%;
+
+  a:hover {
+    background-color: transparent;
+  }
 }
 
 #holder{
@@ -39,10 +43,12 @@ html,body{
 }
 
 #body{
-  padding-bottom: 100px;    /* height of footer */
-  padding-left: 225px;
-  margin-left: 240px;
-  margin-top: -20px
+  padding-bottom: 100px;    /* height of footer*/
+  /*padding-top: 200px;*/
+  /*padding-left: 200px;*/
+  /*margin-left: 240px;*/
+  margin-top: -20px;
+  /*margin-bottom: 100px;*/
 }
 
 footer{

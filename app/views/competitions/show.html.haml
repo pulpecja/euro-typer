@@ -1,17 +1,22 @@
 %h1.text-center= competition_name
 %h2.text-center= @round.name
 %br
-.text-center
-  = link_to 'Wytypuj kolejkę!', round_types_path(@round.id), class: 'btn btn-default'
+%br
+.row
+  .col-sm-2
+    = match_link('Poprzednia', @round.previous_round)
+  .col-sm-8.text-center
+    = link_to 'Wytypuj kolejkę!', round_types_path(@round.id), class: 'btn btn-default'
+  .col-sm-2
+    = match_link('Następna', @round.next_round)
 
+%br
 - @groups.each do |group|
-  - next unless group.competitions.include?(@competition)
-
   %h3.text-center
     Grupa
     %strong= group.name
-
   = render 'matches/user_table', group: group
+  %br
 
 
 

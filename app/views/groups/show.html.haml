@@ -1,33 +1,40 @@
 %h1.text-center= @group.name
 %br
-%p
-  %b Aby zaprosić nowego użytkownika do tej grupy, wyślij mu ten link:
-
 .row
+  .col-md-2
+  .col-md-7
+    %b Aby zaprosić nowego użytkownika do tej grupy, wyślij mu ten link:
+%br
+.row
+  .col-md-2
   .col-md-7
     .form-group
 
       %textarea#bar.form-control{ rows: 1 }
         = group_join_group_url(@group.id, @group.token)
-  .col-md-5
+  .col-md-2
     %button.btn{"data-clipboard-target" => "#bar"}
       Skopiuj
 
-%h3 Obecne turnieje:
+.row
+  .col-md-12.text-center
+    - @group.competitions.order('start_date desc').each do |competition|
+      %h3= link_to "#{competition.name} #{competition.year}", group_competition_matches_path(@group.id, competition.id)
+      %br
 
-- @group.competitions.lasting.order('start_date desc').each do |competition|
-  %li= link_to "#{competition.name} #{competition.year}", group_competition_matches_path(@group.id, competition.id)
-%br
-%h3 Przyszłe turnieje:
+      %div.text-center
+        .row
+          .col-md-2
+          .col-md-8
+            %table.table.table-striped
+              - @group.users.existing.sort_by{ |u| u.points(nil, competition) }.reverse.each_with_index do |user, i|
+                %tr
+                  %td= "#{i+1}."
+                  %td= link_to user.username, user_path(user)
+                  %td= user.points(nil, competition)
+          .col-md-2
+      %br
 
-- @group.competitions.upcoming.order('start_date desc').each do |competition|
-  %li= link_to "#{competition.name} #{competition.year}", group_competition_matches_path(@group.id, competition.id)
-%br
-%h3 Zakończone turnieje:
-
-- @group.competitions.finished.order('start_date desc').each do |competition|
-  %li= link_to "#{competition.name} #{competition.year}", group_competition_matches_path(@group.id, competition.id)
-%br
 
 - content_for(:third_party_js) do
   %script{ src: "https://cdn.rawgit.com/zenorocha/clipboard.js/v1.5.10/dist/clipboard.min.js" }

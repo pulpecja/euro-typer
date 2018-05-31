@@ -17,16 +17,14 @@
   #holder
     %body
       = render 'layouts/navbar'
-
+      - if user_signed_in?
+        = render 'layouts/sidebar'
       .container
         - flash.each do |key, value|
           %div{ class: "alert alert-#{key}" }
             = value
 
-      - if user_signed_in?
-        = render 'layouts/sidebar'
-
-      = yield :top_content
+        = yield :top_content
       #body.container
         %h1= yield :header
         - if request.env['PATH_INFO'].include?('admin') && current_user.is_admin?

@@ -10,6 +10,7 @@ RSpec.configure do |config|
   # Include Factory Girl syntax to simplify calls to factories
   config.include FactoryBot::Syntax::Methods
   config.include Devise::Test::ControllerHelpers
+  config.include Devise::Test::IntegrationHelpers, type: :feature
   config.expect_with :rspec do |expectations|
     expectations.include_chain_clauses_in_custom_matcher_descriptions = true
   end

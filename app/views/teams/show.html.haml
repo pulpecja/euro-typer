@@ -1,11 +1,13 @@
 .row
-  .col-md-3.text-center
-    = image_tag(@team.flag, class: 'img-responsive')
-
-
-  .col-md-6.text-center
+  .col-md-2
+  .col-md-8.text-center
     %h1= @team.name
     %br/
+.row
+  .col-md-2.text-center
+    = image_tag(@team.flag, class: 'img-responsive')
+
+  .col-md-8.text-center
     %p
       %table.table.table-striped
         - @matches.each do |match|
@@ -20,5 +22,5 @@
             %td.text-center= image_tag(match.second_team.flag, height: '20')
             %td= match.round.name
             %td= match.bet
-  .col-md-3
+  .col-md-2.text-center
     = image_tag(@team.photo.url, class: 'img-responsive')

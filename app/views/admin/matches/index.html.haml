@@ -5,8 +5,8 @@
     - @competitions.each do |competition|
       %tr
         %th= competition.name
-      - competition.rounds.each do |round|
-        - round.matches.each do |match|
+      - competition.rounds.includes(:matches).each do |round|
+        - round.matches.includes(:first_team, :second_team, :types).each do |match|
           %tr
             %td= link_to proper_date(match.played), match
             %td.text-center= image_tag(match.first_team.flag, height: '20')
