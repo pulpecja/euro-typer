@@ -4,7 +4,7 @@ class GroupsController < ApplicationController
   skip_authorization_check only: [:join]
 
   def index
-    @groups = current_user.groups
+    @groups = current_user.groups.includes(:owner)
   end
 
   def show

@@ -19,7 +19,7 @@
 .row
   .col-md-12.text-center
     - @group.competitions.order('start_date desc').each do |competition|
-      %h3= link_to "#{competition.name} #{competition.year}", group_competition_matches_path(@group.id, competition.id)
+      %h3= link_to competition.full_name, group_competition_matches_path(@group.id, competition.id)
       %br
 
       %div.text-center

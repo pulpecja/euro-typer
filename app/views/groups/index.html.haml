@@ -1,14 +1,29 @@
+%br
 - if current_user.groups.empty?
   %h1 Nie należysz jeszcze do żadnej grupy.
-  = link_to 'Stwórz własną!', new_group_path
+  %h3
+    %strong= link_to 'Stwórz własną!', new_group_path
 - else
   %h1 Twoje grupy
-  %br
+  %table.table.table-striped.table-hover.records-index{ :'data-provides' => 'rowlink' }
+    %tbody
+      %tr
+        %th Nazwa
+        %th Właściciel
+        %th Liczba użytkowników
+        %th
+    - @groups.each do |group|
+      %tr
+        %td= link_to group.name, group
+        %td= group.owner.try(:username)
+        %td= group.users.count
+        %td
+          - if can? :edit, group
+            = link_to edit_group_path(group) do
+              %span.glyphicon.glyphicon-pencil
 
-  - @groups.each do |group|
-    = link_to group.name, group
     %br
-
   %br
-
-  = link_to 'Stwórz własną grupę!', new_group_path
+  %strong= link_to 'Stwórz własną grupę!', new_group_path
+  %br
+  %br

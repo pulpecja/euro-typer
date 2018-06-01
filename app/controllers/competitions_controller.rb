@@ -1,4 +1,5 @@
 class CompetitionsController < ApplicationController
+  DEFAULT_COMPETITION_ID = 2
   before_action :set_competition, only: [:show]
   load_and_authorize_resource
 
@@ -12,13 +13,17 @@ class CompetitionsController < ApplicationController
                           .includes(:users, :competitions)
                           .select{ |g| g.competitions.include? @competition }
 
-    set_current_round
-    @matches = @round.matches
+    if @groups.empty?
+      redirect_to groups_path
+    else
+      set_current_round
+      @matches = @round.matches
+    end
   end
 
   private
     def set_competition
-      @competition = Competition.find(params[:id])
+      @competition = Competition.find(params[:id] || DEFAULT_COMPETITION_ID)
     end
 
     def competition_params

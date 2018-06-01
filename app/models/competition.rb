@@ -17,4 +17,8 @@ class Competition < ActiveRecord::Base
     rounds.order(:stage).last
   end
 
+  def full_name
+    name + ' ' + year.to_s
+  end
+
 end
