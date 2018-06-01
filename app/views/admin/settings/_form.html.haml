@@ -1,0 +1,9 @@
+= simple_form_for(@setting, url: polymorphic_url([:admin, @setting]), html: { class: 'form-horizontal' }, wrapper: :horizontal_form ) do |f|
+  = f.error_notification
+
+  .form-inputs
+    = f.input :name, required: true
+    = f.input :value
+
+  .form-actions
+    = f.button :submit, 'Zapisz ustawienia'
