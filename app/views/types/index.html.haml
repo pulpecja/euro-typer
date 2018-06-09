@@ -15,9 +15,9 @@
               %strong= link_to match.first_team.name, match.first_team
             %td
               - if can_be_typed?(match.played)
-                %td= link_to type.first_score, '#', inplace_editable({ type: 'number', resource: 'type', url: type_url(type, format: :json), value: type.first_score, name: 'first_score'})
+                %td= link_to type.first_score, '#', inplace_editable({ url: type_url(type, format: :json), value: type.first_score, name: 'first_score'})
                 %td -
-                %td= link_to type.second_score, '#', inplace_editable({ type: 'number', resource: 'type', url: type_url(type, format: :json), value: type.second_score, name: 'second_score'})
+                %td= link_to type.second_score, '#', inplace_editable({ url: type_url(type, format: :json), value: type.second_score, name: 'second_score'})
               - else
                 %td= type.first_score
                 %td -

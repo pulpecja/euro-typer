@@ -3,14 +3,16 @@ module TypesHelper
     { class: 'editable',
       data: {
         name:       data[:name],
-        type:       data[:type],
-        resource:   data[:resource],
+        type:       'number',
+        resource:   'type',
         url:        data[:url],
         source:     data[:source],
         value:      data[:value],
         display:    data[:display],
-        mode:       data[:mode],
-        httpMethod: data[:httpMethod]
+        mode:       'inline',
+        httpMethod: data[:httpMethod],
+        showbuttons:     false,
+        inputclass: 'dupa'
       }
     }
   end

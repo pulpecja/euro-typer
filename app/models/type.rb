@@ -7,7 +7,6 @@ class Type < ActiveRecord::Base
   validate :check_scores
   validate :check_date, on: :update
 
-
   scope :by_user, -> (current_user) { where(user_id: current_user.id) }
 
   def self.end_of_voting_time
