@@ -9,6 +9,8 @@ class Ability
       can :read, Page
       can :read, Match
       can :read, Group
+      can :read, Team
+      can :read, User
       can :read, Competition
       can :manage, Type
       can :create, Group
