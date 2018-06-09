@@ -20,7 +20,7 @@ module TypesHelper
   end
 
   def can_be_typed?(played)
-    played.in_time_zone > (DateTime.now.in_time_zone + 130.minutes)
+    played.in_time_zone > (DateTime.now.in_time_zone + Type.end_of_voting_time)
   end
 
   def type_hidden?(match, user)
@@ -34,7 +34,10 @@ module TypesHelper
   end
 
   def good_type(match, type)
-    if match.first_score.present? && match.second_score.present? && type.try(:first_score).present? && type.try(:second_score).present?
+    if match.first_score.present? &&
+         match.second_score.present? &&
+         type.try(:first_score).present? &&
+         type.try(:second_score).present?
       match.first_score == type.first_score && match.second_score == type.second_score
     end
   end

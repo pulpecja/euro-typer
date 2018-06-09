@@ -35,6 +35,7 @@ Rails.application.routes.draw do
     resources :teams
     resources :competitions
     resources :groups
+    resources :settings
     get 'become/:id', action: 'become'
   end
 

@@ -39,7 +39,7 @@ class GroupsController < ApplicationController
     add_competitions
     respond_to do |format|
       if @group.update(group_params)
-        format.html { redirect_to @group, notice: 'Group was successfully updated.' }
+        format.html { redirect_to @group, notice: 'Grupa zaktualizwana.' }
         format.json { render :show, status: :ok, location: @group }
       else
         format.html { render :edit }
@@ -51,7 +51,7 @@ class GroupsController < ApplicationController
   def destroy
     @group.destroy
     respond_to do |format|
-      format.html { redirect_to groups_url, notice: 'Group was successfully destroyed.' }
+      format.html { redirect_to groups_url, notice: 'Grupa pomyślnie usunięta.' }
       format.json { head :no_content }
     end
   end
