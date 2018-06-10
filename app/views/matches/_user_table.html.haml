@@ -15,7 +15,7 @@
           = image_tag(match.second_team.flag, height: '14')
           = match.second_team.abbreviation
 
-  - group.users.each do |user|
+  - group.users.existing.sort_by{ |u| [u.points(@round), u.score_points(@round)] }.reverse.each do |user|
     %tr.text-center
       %td{ class: ('current-user' if user == current_user) }= link_to user.username, user_path(user)
       %td= user.points(@round)

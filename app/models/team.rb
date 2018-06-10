@@ -1,6 +1,7 @@
 class Team < ActiveRecord::Base
   has_many :first_team, class_name: "Match", foreign_key: "first_team_id"
   has_many :second_team, class_name: "Match", foreign_key: "second_team_id"
+  has_many :winner, class_name: "Competition", foreign_key: "competition_id"
 
   scope :ordered, -> { order :name }
 

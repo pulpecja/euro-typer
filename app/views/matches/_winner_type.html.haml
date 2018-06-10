@@ -4,7 +4,7 @@
       Jako zwycięzcę obstawiłeś:
       %strong= WinnerType.find_by(user: current_user, competition: competition).team.name
     - elsif can_type_winner?(competition)
-      Jeszcze nie wytypowaleś zwycięzcy. Zrób to tu:
+      Jeszcze nie wytypowałeś zwycięzcy. Zrób to tu:
       = link_to 'klik!', new_winner_type_path(competition: competition)
     - else
-      Niestety, nie wytypowales zwycięzcy.
+      Niestety, nie wytypowałeś zwycięzcy.
