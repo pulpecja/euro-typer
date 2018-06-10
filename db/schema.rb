@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180601180913) do
+ActiveRecord::Schema.define(version: 20180609090159) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -131,8 +131,21 @@ ActiveRecord::Schema.define(version: 20180601180913) do
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
   add_index "users", ["username"], name: "index_users_on_username", unique: true, using: :btree
 
+  create_table "winner_types", force: :cascade do |t|
+    t.integer "team_id"
+    t.integer "user_id"
+    t.integer "competition_id"
+  end
+
+  add_index "winner_types", ["competition_id"], name: "index_winner_types_on_competition_id", using: :btree
+  add_index "winner_types", ["team_id"], name: "index_winner_types_on_team_id", using: :btree
+  add_index "winner_types", ["user_id"], name: "index_winner_types_on_user_id", using: :btree
+
   add_foreign_key "competitions_groups", "competitions"
   add_foreign_key "competitions_groups", "groups"
   add_foreign_key "groups_users", "groups"
   add_foreign_key "groups_users", "users"
+  add_foreign_key "winner_types", "competitions"
+  add_foreign_key "winner_types", "teams"
+  add_foreign_key "winner_types", "users"
 end

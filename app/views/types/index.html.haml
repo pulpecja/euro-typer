@@ -1,10 +1,10 @@
 %h1.text-center= "Moje typy - #{@round.name}"
 %br
 .row
-  .col-sm-2
+  .col-sm-2.col-xs-2
     = round_link("Poprzednia", @round.id - 1)
-  .col-sm-8
-    %table.table.table-striped
+  .col-sm-8.col-xs-8
+    %table.table.table-striped.table-responsive
       %tbody
         - @matches.each_with_index do |match, index|
           - type = match.types.where(user: current_user).first
@@ -26,5 +26,5 @@
               %strong= link_to match.second_team.name, match.second_team
             %td.text-center= image_tag(match.second_team.flag, height: '20')
             %td= type.bet
-  .col-sm-2
+  .col-sm-2.col-xs-2
     = round_link("Następna", @round.id + 1)

@@ -1,4 +1,5 @@
 %h1.text-center= competition_name
+= render 'winner_type', competition: @competition
 %h2.text-center
   Grupa
   %strong= @group.name
@@ -11,5 +12,6 @@
     = link_to 'Wytypuj kolejkę!', round_types_path(@round.id), class: 'btn btn-default'
   .col-sm-2
     = match_link('Następna', @round.next_round)
+
 %br/
 %p= render "user_table", group: @group

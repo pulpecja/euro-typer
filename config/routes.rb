@@ -17,6 +17,7 @@ Rails.application.routes.draw do
   resources :matches
   resources :teams
   resources :types
+  resources :winner_types
 
   devise_for :users
   resources :users, only: [:show]

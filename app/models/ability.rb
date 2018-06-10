@@ -12,6 +12,8 @@ class Ability
       can :read, Team
       can :read, User
       can :read, Competition
+      can :create, WinnerType
+      can :update, WinnerType, user_id: user.id
       can :manage, Type
       can :create, Group
       can [:update, :destroy], Group, owner_id: user.id

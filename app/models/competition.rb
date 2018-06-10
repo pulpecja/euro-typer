@@ -21,4 +21,8 @@ class Competition < ActiveRecord::Base
     name + ' ' + year.to_s
   end
 
+  def competition_teams
+    first_round.matches.map(&:second_team) + first_round.matches.map(&:first_team)
+  end
+
 end

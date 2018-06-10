@@ -22,4 +22,8 @@ module MatchesHelper
     end
   end
 
+  def can_type_winner?(competition)
+    Time.now.in_time_zone < competition.start_date
+  end
+
 end
