@@ -1,39 +1,46 @@
 %h1.text-center= @group.name
 %br
-.row
-  .col-md-2
-  .col-md-7
-    %b Aby zaprosić nowego użytkownika do tej grupy, wyślij mu ten link:
-%br
-.row
-  .col-md-2
-  .col-md-7
-    .form-group
+- if can? :invite, Group
+  .row
+    .col-md-2
+    .col-md-7
+      %b Aby zaprosić nowego użytkownika do tej grupy, wyślij mu ten link:
+  %br
+  .row
+    .col-md-2
+    .col-md-7
+      .form-group
 
-      %textarea#bar.form-control{ rows: 1 }
-        = group_join_group_url(@group.id, @group.token)
-  .col-md-2
-    %button.btn{"data-clipboard-target" => "#bar"}
-      Skopiuj
+        %textarea#bar.form-control{ rows: 1 }
+          = group_join_group_url(@group.id, @group.token)
+    .col-md-2
+      %button.btn{"data-clipboard-target" => "#bar"}
+        Skopiuj
 
-.row
-  .col-md-12.text-center
-    - @group.competitions.order('start_date desc').each do |competition|
-      %h3= link_to competition.full_name, group_competition_matches_path(@group.id, competition.id)
-      %br
+.text-center
+  - @group.competitions.order('start_date desc').each do |competition|
+    %h3= link_to competition.full_name, group_competition_matches_path(@group.id, competition.id)
+    %br
 
-      %div.text-center
-        .row
-          .col-md-2
-          .col-md-8
-            %table.table.table-striped
-              - @group.users.existing.sort_by{ |u| u.points(nil, competition) }.reverse.each_with_index do |user, i|
-                %tr
-                  %td= "#{i+1}."
-                  %td= link_to user.username, user_path(user)
-                  %td= user.points(nil, competition)
-          .col-md-2
-      %br
+    %div.text-center
+      %table.table.table-striped
+        %thead
+          %tr
+            %th.text-center Miejsce
+            %th.text-center Login
+            %th.text-center Typy
+            %th.text-center Wyniki
+            %th.text-center Suma punktów
+            %th.text-center Typowany zwycięzca
+        - @group.users.existing.sort_by{ |u| [u.all_points(nil, competition), u.score_points(nil, competition)] }.reverse.each_with_index do |user, i|
+          %tr
+            %td= "#{i+1}."
+            %td= link_to user.username, user_path(user)
+            %td= user.type_points(nil, competition)
+            %td= user.score_points(nil, competition)
+            %td= user.all_points(nil, competition)
+            %td= user.winner_type_team(competition)
+  %br
 
 
 - content_for(:third_party_js) do

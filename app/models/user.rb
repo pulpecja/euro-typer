@@ -29,25 +29,55 @@ class User < ActiveRecord::Base
     groups.includes(:competitions).map(&:competitions).flatten.uniq
   end
 
-  def points_for_competition(competition)
+  def type_points(round= nil, competition = nil)
     points = 0
+    return 0 if types.nil?
+
+    round_types = set_types(round, types, competition)
+
+    round_types.includes(:match).each do |type|
+      match = type.match
+      if match.bet.present? && type.bet == match.bet
+        points += 1
+      end
+    end
+
+    points
+  end
+
+  def score_points(round= nil, competition = nil)
+    points = 0
+    return 0 if types.nil?
+
+    round_types = set_types(round, types, competition)
+
+    round_types.includes(:match).each do |type|
+      match = type.match
+      if match.bet.present? && type.bet == match.bet
+        points += 1 if type.first_score == match.first_score && type.second_score == match.second_score
+      end
+    end
+
+    points
+  end
+
+  def winner_points(competition)
+    if competition.winner.present? &&
+       competition.winner == WinnerType.find_by(user: self, competition: competition)&.team
+      5
+    else
+      0
+    end
   end
 
   def points(round= nil, competition = nil)
-    points = 0
+    type_points(round, competition) * 2 +
+    score_points(round, competition)
+  end
 
-    unless types.nil?
-      round_types = set_types(round, types, competition)
-
-      round_types.includes(:match).each do |type|
-        match = type.match
-        if match.bet.present? && type.bet == match.bet
-          points += 1
-          points += 1 if type.first_score == match.first_score && type.second_score == match.second_score
-        end
-      end
-    end
-    points
+  def all_points(round= nil, competition = nil)
+    points(round, competition) +
+    winner_points(competition)
   end
 
   def set_types(round, types, competition=nil)
@@ -59,6 +89,11 @@ class User < ActiveRecord::Base
     else
       types
     end
+  end
+
+  def winner_type_team(competition)
+    return '?' if Time.now.in_time_zone < competition.start_date
+    WinnerType.find_by(competition: competition, user: self)&.team&.name
   end
 
   private

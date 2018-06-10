@@ -5,6 +5,7 @@
     = f.input :name, required: true
     = f.input :year, include_blank: false, required: true
     = f.input :place
+    = f.input :winner_id, collection: Team.all
 
   .form-actions
     = f.button :submit, 'Zapisz mecz'

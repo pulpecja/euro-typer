@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180609090159) do
+ActiveRecord::Schema.define(version: 20180610134742) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -24,7 +24,10 @@ ActiveRecord::Schema.define(version: 20180609090159) do
     t.datetime "updated_at"
     t.datetime "start_date"
     t.datetime "end_date"
+    t.integer  "winner_id"
   end
+
+  add_index "competitions", ["winner_id"], name: "index_competitions_on_winner_id", using: :btree
 
   create_table "competitions_groups", force: :cascade do |t|
     t.integer  "competition_id"
@@ -43,6 +46,8 @@ ActiveRecord::Schema.define(version: 20180609090159) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
+
+  add_index "groups", ["owner_id"], name: "index_groups_on_owner_id", using: :btree
 
   create_table "groups_users", force: :cascade do |t|
     t.integer  "user_id"
@@ -66,6 +71,10 @@ ActiveRecord::Schema.define(version: 20180609090159) do
     t.string   "bet",            limit: 255
   end
 
+  add_index "matches", ["first_team_id"], name: "index_matches_on_first_team_id", using: :btree
+  add_index "matches", ["round_id"], name: "index_matches_on_round_id", using: :btree
+  add_index "matches", ["second_team_id"], name: "index_matches_on_second_team_id", using: :btree
+
   create_table "rounds", force: :cascade do |t|
     t.string   "name",           limit: 255
     t.datetime "created_at"
@@ -74,6 +83,8 @@ ActiveRecord::Schema.define(version: 20180609090159) do
     t.integer  "competition_id"
     t.integer  "stage"
   end
+
+  add_index "rounds", ["competition_id"], name: "index_rounds_on_competition_id", using: :btree
 
   create_table "settings", force: :cascade do |t|
     t.string "name"
@@ -103,6 +114,9 @@ ActiveRecord::Schema.define(version: 20180609090159) do
     t.datetime "updated_at"
     t.string   "bet",          limit: 255
   end
+
+  add_index "types", ["match_id"], name: "index_types_on_match_id", using: :btree
+  add_index "types", ["user_id"], name: "index_types_on_user_id", using: :btree
 
   create_table "users", force: :cascade do |t|
     t.string   "username",               limit: 255,                null: false

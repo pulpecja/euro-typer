@@ -50,6 +50,6 @@ class Admin::CompetitionsController < AdminController
     end
 
     def competition_params
-      params.require(:competition).permit(:name, :year, :place)
+      params.require(:competition).permit(:name, :year, :place, :winner_id)
     end
 end

@@ -1,12 +1,21 @@
 %p= link_to 'Dodaj nowy turniej', new_admin_competition_path, class: 'btn btn-default'
 
 %table.table.table-striped.table-hover.records-index{ :'data-provides' => 'rowlink' }
+  %thead
+    %tr
+      %th Nazwa
+      %th Rok
+      %th Miejsce
+      %th Zwycięzca
+      %th
+      %th
   %tbody
     - @competitions.each do |competition|
       %tr
         %td= link_to competition.name
         %td= competition.year
         %td= competition.place
+        %td= competition.winner&.name
         %td
           = link_to edit_admin_competition_path(competition) do
             %span.glyphicon.glyphicon-pencil
