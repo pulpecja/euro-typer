@@ -1,6 +1,6 @@
 %h1.text-center= @group.name
 %br
-- if can? :invite, Group
+- if @group.owner == current_user
   .row
     .col-md-2
     .col-md-7
