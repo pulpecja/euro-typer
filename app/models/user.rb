@@ -91,9 +91,10 @@ class User < ActiveRecord::Base
     end
   end
 
-  def winner_type_team(competition)
-    return '?' if Time.now.in_time_zone < competition.start_date
-    WinnerType.find_by(competition: competition, user: self)&.team&.name
+  def winner_type_team(competition, user)
+    type = WinnerType.find_by(competition: competition, user: self)&.team&.name
+    return '?' if Time.now.in_time_zone < competition.start_date && type.present? && self != user
+    type
   end
 
   private
