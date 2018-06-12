@@ -4,14 +4,30 @@
 
 .good-bet {
   color: #00cc00;
+  min-width: 40px;
 }
 
 .good-type {
   font-weight: bold;
+  min-width: 40px;
 }
 
 .current-user {
   a {
     color: red;
+  }
+}
+
+.user-table {
+  tr {
+    td.text-center {
+      min-width: 50px;
+      /*padding: 0px;*/
+      margin-left: 0px;
+    }
+
+    th {
+      font-weight:normal;
+    }
   }
 }

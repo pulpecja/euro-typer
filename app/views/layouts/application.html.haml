@@ -19,13 +19,15 @@
       = render 'layouts/navbar'
       - if user_signed_in?
         = render 'layouts/sidebar'
-      .container
+
+      #body.container
+        %br
         - flash.each do |key, value|
           %div{ class: "alert alert-#{key}" }
             = value
 
         = yield :top_content
-      #body.container
+        %br
         %h1= yield :header
         - if request.env['PATH_INFO'].include?('admin') && current_user.is_admin?
           = render 'layouts/admin_menu'
