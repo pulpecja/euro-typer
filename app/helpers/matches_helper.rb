@@ -23,7 +23,7 @@ module MatchesHelper
   end
 
   def can_type_winner?(competition)
-    Time.now.in_time_zone < competition.start_date
+    Time.now.in_time_zone < (competition.start_date - 120.minutes)
   end
 
 end
