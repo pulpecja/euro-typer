@@ -1,12 +1,13 @@
 %h1 Aktywni użytkownicy
 %br/
-%table.table.table-striped.table-hover.records-index{ :'data-provides' => 'rowlink' }
+%table.table.table-striped.table-hover.sortable.records-index{ :'data-provides' => 'rowlink' }
   %tbody
     %tr
       %th Login
       %th Email
       %th Rola
       %th Bierze udział
+      %th Zarejestrowany
       %th
       %th
     - @users.each do |user|
@@ -15,6 +16,7 @@
         %td= user.email
         %td= user.role
         %td= user.take_part ? 'Tak' : 'Nie'
+        %td= user.created_at
         %td
           = link_to edit_admin_user_path(user) do
             %span.glyphicon.glyphicon-pencil
