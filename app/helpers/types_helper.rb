@@ -23,8 +23,12 @@ module TypesHelper
     played.in_time_zone > (DateTime.now.in_time_zone + Type.end_of_voting_time)
   end
 
-  def type_hidden?(match, user)
-    can_be_typed?(match.played) && user != current_user
+  def type_hidden?(match, user, type)
+    can_be_typed?(match.played) && user != current_user && type_present?(type)
+  end
+
+  def type_present?(type)
+    type&.first_score.present? || type&.second_score.present?
   end
 
   def good_bet(match, type)
