@@ -7,24 +7,24 @@
       %ul.nav.navbar-nav
         %li
           = link_to 'Zasady', rules_path
-        %li
-          %a
+        %li.dropdown
+          %a.dropdown-toggle{"data-toggle" => "dropdown", :href => "#{}"}
             Turnieje
-          %ul
+            %span.caret
+          %ul.dropdown-menu
             - current_user.user_competitions.each do |competition|
               %li= link_to competition.full_name, competition_path(competition)
 
-        %ul.nav.navbar-nav
           %li.dropdown
-            %a.dropdown-toggle{"data-toggle" => "dropdown", :href => "groups_path"}
+            %a.dropdown-toggle{"data-toggle" => "dropdown", :href => "#{}"}
               Twoje grupy
               %span.caret
             %ul.dropdown-menu
-              %li
-                = link_to "Twoje grupy", groups_path, class: "dropdown-item nav-item nav-link"
-                %ul
-                  - current_user.groups.each do |group|
-                    %li= link_to group.name, group_path(group)
+              - current_user.groups.each do |group|
+                %li= link_to group.name, group_path(group)
+              %li.divider
+              %li= link_to 'Stwórz nową grupę!', new_group_path
+
 
       %ul.nav.navbar-nav.pull-right
         - if user_signed_in?
@@ -34,3 +34,6 @@
         - else
           %li= link_to 'Zaloguj', new_user_session_path
           %li= link_to 'Zarejestruj', new_user_registration_path
+
+:javascript
+  $('.dropdown-toggle').dropdown()
