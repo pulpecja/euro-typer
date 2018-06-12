@@ -26,13 +26,12 @@ class WinnerTypesController < ApplicationController
   end
 
   def update
+    @winner_type.update(winner_type_params)
     respond_to do |format|
-      if @winner_type.update(winner_type_params)
-        format.json { head :no_content }
-        format.html { redirect_to @winner_type, notice: 'WinnerType was successfully updated.' }
+      if @winner_type.save
+        format.html { redirect_to @competition, notice: 'Typ zmieniony.' }
       else
-        format.json { render json: @winner_type.errors, status: :unprocessable_entity }
-        format.html { render :edit }
+        format.html { render :new }
       end
     end
   end
