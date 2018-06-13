@@ -2,7 +2,7 @@
 %br
 .row
   .col-sm-2.col-xs-2
-    = round_link("Poprzednia", @round.id - 1)
+    = match_link('Poprzednia', @round.previous_round)
   .col-sm-8.col-xs-8
     %table.table.table-striped.table-responsive
       %tbody
@@ -27,4 +27,4 @@
             %td.text-center= image_tag(match.second_team.flag, height: '20')
             %td= type.bet
   .col-sm-2.col-xs-2
-    = round_link("Następna", @round.id + 1)
+    = match_link('Następna', @round.next_round)
