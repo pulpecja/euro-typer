@@ -27,6 +27,7 @@ gem 'faraday'
 gem 'countries'
 gem 'select2-rails'
 gem 'clipboard-rails'
+gem 'ranker'
 
 group :development do
   gem 'letter_opener', github: 'ryanb/letter_opener'

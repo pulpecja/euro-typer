@@ -8,6 +8,7 @@ class GroupsController < ApplicationController
   end
 
   def show
+    @users = @group.users.existing
   end
 
   def new
