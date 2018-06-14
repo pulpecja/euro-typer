@@ -5,6 +5,10 @@
     - @competitions.each do |competition|
       %tr
         %th= competition.name
+        %th
+        %th
+        %th
+        %th
       - competition.rounds.each do |round|
         %tr
           %td= round.started_at

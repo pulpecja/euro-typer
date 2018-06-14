@@ -2,10 +2,6 @@ class TeamsController < ApplicationController
   before_action :set_team, only: [:show]
   load_and_authorize_resource
 
-  def index
-    @teams = Team.all
-  end
-
   def show
     @matches = Match.by_team(@team).includes(:first_team, :second_team, :round)
   end

@@ -2,7 +2,7 @@
 %br
 %table.table.table-stripped
   - if @user.types.present?
-    - @user.types.joins(:match).order('matches.played').each do |type|
+    - @user.types.includes(:match).joins(:match).order('matches.played').each do |type|
       - match = type.match
       %tbody
         %tr
@@ -10,7 +10,7 @@
           %td.text-center= image_tag(match.first_team.flag, height: '20')
           %td.text-right
             %strong= link_to match.first_team.name, match.first_team
-          - if type_hidden?(match, @user)
+          - if type_hidden?(match, @user, type)
             %td.text-center ?
           - else
             %td.text-center= "#{type.first_score} - #{type.second_score}"

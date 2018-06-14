@@ -7,8 +7,7 @@ class MatchesController < ApplicationController
     @group       = Group.find(params[:group_id])
     @competition = Competition.find(params[:competition_id])
     set_current_round
-    @matches     = Match.includes(:first_team, :second_team).where(round_id: @round.id)
-    @users       = @group.users.existing.sort{|a,b| a.points(@round) <=> b.points(@round)}.reverse
+    @matches     = @round.matches
   end
 
   def show
@@ -25,11 +24,12 @@ class MatchesController < ApplicationController
 
     def set_current_round
       @round = if params[:round]
-                 Round.find(params[:round])
+                 @competition.rounds.find(params[:round])
                else
-                 Round.scheduled.where(competition: @competition).first ||
-                 Round.finished.where(competition: @competition).last ||
-                 Round.first
+                 @competition.rounds.started.last ||
+                 @competition.rounds.scheduled.first ||
+
+                 @competition.rounds.first
                end
     end
 

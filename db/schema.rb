@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180610134742) do
+ActiveRecord::Schema.define(version: 20180619200909) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -79,7 +79,7 @@ ActiveRecord::Schema.define(version: 20180610134742) do
     t.string   "name",           limit: 255
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.date     "started_at",                 default: '2016-06-20', null: false
+    t.datetime "started_at",                 default: '2016-06-20 00:00:00', null: false
     t.integer  "competition_id"
     t.integer  "stage"
   end

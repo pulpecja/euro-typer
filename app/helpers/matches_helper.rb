@@ -1,12 +1,4 @@
 module MatchesHelper
-  def played_value(match)
-    proper_date(match.played || Time.now)
-  end
-
-  def proper_date(date)
-    date.strftime("%d.%m.%Y, %H:%M")
-  end
-
   def match_link(adjective, round_id)
     return unless round_id.present?
     link_to "#{adjective} kolejka", link_url(round_id)
@@ -23,7 +15,7 @@ module MatchesHelper
   end
 
   def can_type_winner?(competition)
-    Time.now.in_time_zone < (competition.start_date - 120.minutes)
+    DateTime.now < (competition.start_date)
   end
 
 end

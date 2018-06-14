@@ -3,7 +3,7 @@
 
   .form-inputs
     = f.input :name
-    = f.input :started_at
+    = f.input :started_at, as: :string, input_html: { value: played_value(@round.started_at) }
     = f.input :competition_id, collection: Competition.all
     = f.input :stage
 

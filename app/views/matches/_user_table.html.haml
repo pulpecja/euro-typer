@@ -6,13 +6,13 @@
     - @matches.includes(:first_team, :second_team).each do |match|
       %td.text-center
         = link_to(match.first_team) do
-          = image_tag(match.first_team.flag, height: '14')
+          = image_tag(match.first_team.flag, height: '14', class: 'center')
           = match.first_team.abbreviation
         %br/
         = link_to "#{match.first_score} - #{match.second_score}", match_path(match)
         %br/
         = link_to(match.second_team) do
-          = image_tag(match.second_team.flag, height: '14')
+          = image_tag(match.second_team.flag, height: '14', class: 'center')
           = match.second_team.abbreviation
 
   - group.users.existing.sort_by{ |u| [u.points(@round), u.score_points(@round)] }.reverse.each do |user|
@@ -25,4 +25,4 @@
           %td ?
         - else
           %td{ class: [('good-bet' if good_bet(match, type)), ('good-type' if good_type(match, type))] }
-            = "#{type.try :first_score} - #{type.try :second_score}"
+            = "#{type&.first_score} - #{type&.second_score}"

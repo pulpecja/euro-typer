@@ -10,7 +10,7 @@ class CompetitionsController < ApplicationController
 
   def show
     @groups = current_user.groups
-                          .includes(:users, :competitions)
+                          .includes(:competitions)
                           .select{ |g| g.competitions.include? @competition }
 
     if @groups.empty?
@@ -32,11 +32,11 @@ class CompetitionsController < ApplicationController
 
     def set_current_round
       @round = if params[:round]
-                 Round.find(params[:round])
+                 @competition.rounds.find(params[:round])
                else
-                 Round.scheduled.where(competition: @competition).first ||
-                 Round.finished.where(competition: @competition).last ||
-                 Round.first
+                 @competition.rounds.started.last ||
+                 @competition.rounds.scheduled.first ||
+                 @competition.rounds.first
                end
     end
 end
