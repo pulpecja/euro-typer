@@ -11,4 +11,9 @@ module ApplicationHelper
     date.strftime("%d.%m.%Y, %H:%M")
   end
 
+  def user_groups(user)
+    return Group.all if current_user.is_admin?
+    user.groups
+  end
+
 end

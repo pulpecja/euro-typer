@@ -15,6 +15,10 @@ class Match < ActiveRecord::Base
   scope :by_team , ->(team)  { where('first_team_id = ? OR second_team_id = ?', team.id, team.id) }
   default_scope              { order('played') }
 
+  def competition
+    round.competition
+  end
+
   private
   def check_teams
     if first_team == second_team

@@ -3,7 +3,10 @@ class TeamsController < ApplicationController
   load_and_authorize_resource
 
   def show
-    @matches = Match.by_team(@team).includes(:first_team, :second_team, :round)
+    @matches = Match.by_team(@team)
+                    .includes(:first_team, :second_team, :round)
+                    .group_by(&:competition)
+                    .sort_by{|k, v| k}.reverse
   end
 
   private

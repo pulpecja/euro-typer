@@ -21,7 +21,7 @@
                 Twoje grupy
                 %span.caret
               %ul.dropdown-menu
-                - current_user.groups.each do |group|
+                - user_groups(current_user).each do |group|
                   %li= link_to group.name, group_path(group)
                 %li.divider
                 %li= link_to 'Stwórz nową grupę!', new_group_path
