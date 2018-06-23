@@ -5,7 +5,7 @@ class Admin::MatchesController < AdminController
   # skip_before_filter :require_admin!, only: [:index]
 
   def index
-    @competitions = Competition.all
+    @competitions = Competition.all.order('id desc')
   end
 
   def show
