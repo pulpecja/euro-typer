@@ -6,7 +6,7 @@ namespace :competitions do
     champions_league = Competition.find_or_create_by(name: 'Champions League',
                                                      year: 2018,
                                                      place: 'Europe',
-                                                     start_date: '18.09.2018')
+                                                     start_date: '18.09.2018'.to_datetime)
 
     teams = fetch_data('v2/competitions/2001/teams')['teams']
     teams.each do |team|
