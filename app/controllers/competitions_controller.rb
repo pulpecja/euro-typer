@@ -1,5 +1,4 @@
 class CompetitionsController < ApplicationController
-  DEFAULT_COMPETITION_ID = 2
   before_action :set_competition, only: [:show]
   load_and_authorize_resource
 
@@ -22,8 +21,12 @@ class CompetitionsController < ApplicationController
   end
 
   private
+    def default_competition
+      Setting.find_by(name: 'default_competition').value
+    end
+
     def set_competition
-      @competition = Competition.find(params[:id] || DEFAULT_COMPETITION_ID)
+      @competition = Competition.find(params[:id] || default_competition)
     end
 
     def competition_params
