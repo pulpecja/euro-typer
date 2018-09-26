@@ -21,25 +21,25 @@ class CompetitionsController < ApplicationController
   end
 
   private
-    def default_competition
-      Setting.find_by(name: 'default_competition').value
-    end
+  def default_competition
+    Setting.find_by(name: 'default_competition').value
+  end
 
-    def set_competition
-      @competition = Competition.find(params[:id] || default_competition)
-    end
+  def set_competition
+    @competition = Competition.find(params[:id] || default_competition)
+  end
 
-    def competition_params
-      params.require(:competition).permit(:name, :year, :place)
-    end
+  def competition_params
+    params.require(:competition).permit(:name, :year, :place)
+  end
 
-    def set_current_round
-      @round = if params[:round]
-                 @competition.rounds.find(params[:round])
-               else
-                 @competition.rounds.started.last ||
-                 @competition.rounds.scheduled.first ||
-                 @competition.rounds.first
-               end
-    end
+  def set_current_round
+    @round = if params[:round]
+               @competition.rounds.find(params[:round])
+             else
+               @competition.rounds.started.last ||
+               @competition.rounds.scheduled.first ||
+               @competition.rounds.first
+             end
+  end
 end

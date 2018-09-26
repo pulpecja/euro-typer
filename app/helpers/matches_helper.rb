@@ -18,4 +18,11 @@ module MatchesHelper
     DateTime.now < (competition.start_date)
   end
 
+  def competition_users(group)
+    users = group.users
+                 .existing
+                 .by_competition(@competition)
+                 .sort_by{ |u| [u.points(@round), u.score_points(@round)] }
+                 .reverse
+  end
 end

@@ -19,37 +19,40 @@
 
 .text-center
   - @group.competitions.order('start_date desc').each do |competition|
-    - rankings = Ranker.rank(@users, by: lambda{ |u| u.all_points(nil, competition)})
     %h3= link_to competition.full_name, group_competition_matches_path(@group.id, competition.id)
+    - unless current_user.competitions.include?(competition)
+      = link_to 'Dołącz do turnieju!', user_join_competition_path(current_user, competition), class: 'btn btn-info'
+    - else
+      - rankings = Ranker.rank(@users.by_competition(competition), by: lambda{ |u| u.all_points(nil, competition)})
+      %br
+
+      %div.text-center
+        %table.table.table-striped
+          %thead
+            %tr
+              %th.text-center Miejsce
+              %th.text-center Login
+              %th.text-center Typy
+              %th.text-center Wyniki
+              %th.text-center Suma punktów
+              %th.text-center Typowany zwycięzca
+
+          - rankings.each do |rank|
+            - rank_users = rank.rankables.group_by{|u| u.score_points(nil, competition)}
+            - player_no = 0
+            - rank_users.sort_by{|k, v| k}.reverse.each_with_index do |group, index|
+              - group[1].each_with_index do |user, i|
+                %tr
+                  %td= set_place(rank.rank, player_no, i, index)
+                  %td= link_to user.username, user_path(user)
+                  %td= user.type_points(nil, competition)
+                  %td= user.score_points(nil, competition)
+                  %td= user.all_points(nil, competition)
+                  %td= user.winner_type_team(competition, current_user)
+                - player_no += 1
+
+
     %br
-
-    %div.text-center
-      %table.table.table-striped
-        %thead
-          %tr
-            %th.text-center Miejsce
-            %th.text-center Login
-            %th.text-center Typy
-            %th.text-center Wyniki
-            %th.text-center Suma punktów
-            %th.text-center Typowany zwycięzca
-
-        - rankings.each do |rank|
-          - rank_users = rank.rankables.group_by{|u| u.score_points(nil, competition)}
-          - player_no = 0
-          - rank_users.sort_by{|k, v| k}.reverse.each_with_index do |group, index|
-            - group[1].each_with_index do |user, i|
-              %tr
-                %td= set_place(rank.rank, player_no, i, index)
-                %td= link_to user.username, user_path(user)
-                %td= user.type_points(nil, competition)
-                %td= user.score_points(nil, competition)
-                %td= user.all_points(nil, competition)
-                %td= user.winner_type_team(competition, current_user)
-              - player_no += 1
-
-
-  %br
 
 
 - content_for(:third_party_js) do

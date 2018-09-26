@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180619200909) do
+ActiveRecord::Schema.define(version: 20180926174826) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -38,6 +38,16 @@ ActiveRecord::Schema.define(version: 20180619200909) do
 
   add_index "competitions_groups", ["competition_id"], name: "index_competitions_groups_on_competition_id", using: :btree
   add_index "competitions_groups", ["group_id"], name: "index_competitions_groups_on_group_id", using: :btree
+
+  create_table "competitions_users", force: :cascade do |t|
+    t.integer  "user_id"
+    t.integer  "competition_id"
+    t.datetime "created_at",     null: false
+    t.datetime "updated_at",     null: false
+  end
+
+  add_index "competitions_users", ["competition_id"], name: "index_competitions_users_on_competition_id", using: :btree
+  add_index "competitions_users", ["user_id"], name: "index_competitions_users_on_user_id", using: :btree
 
   create_table "groups", force: :cascade do |t|
     t.string   "name"
@@ -157,6 +167,8 @@ ActiveRecord::Schema.define(version: 20180619200909) do
 
   add_foreign_key "competitions_groups", "competitions"
   add_foreign_key "competitions_groups", "groups"
+  add_foreign_key "competitions_users", "competitions"
+  add_foreign_key "competitions_users", "users"
   add_foreign_key "groups_users", "groups"
   add_foreign_key "groups_users", "users"
   add_foreign_key "winner_types", "competitions"

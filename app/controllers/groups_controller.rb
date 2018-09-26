@@ -70,16 +70,16 @@ class GroupsController < ApplicationController
   end
 
   private
-    def set_group
-      @group = Group.find(params[:id])
-    end
+  def set_group
+    @group = Group.find(params[:id])
+  end
 
-    def group_params
-      params.require(:group).permit(:name, :token, competition_ids: [])
-    end
+  def group_params
+    params.require(:group).permit(:name, :token, competition_ids: [])
+  end
 
-    def add_competitions
-      group = GroupService.new(params[:group], @group)
-      group.add_competitions
-    end
+  def add_competitions
+    group = GroupService.new(params[:group], @group)
+    group.add_competitions
+  end
 end
