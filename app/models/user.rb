@@ -9,6 +9,8 @@ class User < ActiveRecord::Base
   has_many :types
   has_many :groups_users, dependent: :destroy
   has_many :groups, -> { distinct }, through: :groups_users
+  has_many :competitions_users, dependent: :destroy
+  has_many :competitions, -> { distinct }, through: :competitions_users
 
   validates :username, presence: true, uniqueness: true
 
@@ -16,6 +18,7 @@ class User < ActiveRecord::Base
 
   scope :existing,    -> { where(deleted_at: nil).order(:username) }
   scope :deleted,     -> { where('deleted_at is not null').order(:username) }
+  scope :by_competition,->(competition) { select{ |u| u.competitions.include?(competition) } }
 
   def is_admin?
     role == "admin"

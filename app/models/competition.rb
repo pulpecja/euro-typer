@@ -1,7 +1,10 @@
 class Competition < ActiveRecord::Base
   has_many :rounds
   has_many :competitions_groups, dependent: :destroy
+  has_many :competitions_users,  dependent: :destroy
   has_many :groups, -> { distinct }, through: :competitions_groups
+  has_many :users,  -> { distinct }, through: :competitions_users
+
   belongs_to :winner, class_name: 'Team'
 
   validates_presence_of :name
