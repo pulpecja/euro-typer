@@ -72,3 +72,19 @@ third_round  = Round.find_or_create_by(name: "Kolejka 3")
 ].each do |record|
   Match.find_or_create_by(first_team_id: record[0], second_team_id: record[1], played: record[2], round: record[3])
 end
+
+User.create(
+  username: 'admin',
+  email: 'admin@typerek.com',
+  password: 'typerek1',
+  role: 'admin'
+)
+
+Competition.create(
+  name: 'default_competition'
+)
+
+Setting.create(
+  name: 'default_competition',
+  value: Competition.first.id
+)
