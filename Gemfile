@@ -1,8 +1,8 @@
 source 'https://rubygems.org'
 ruby '2.5.3'
 
-gem 'rails', '4.2.8'
-gem 'pg', '0.20.0'
+gem 'rails', '5.2.0'
+gem 'pg', '~> 0.18.4'
 gem "sass-rails"
 gem 'uglifier'
 gem 'coffee-rails'
@@ -18,7 +18,6 @@ gem 'haml'
 gem 'haml-rails'
 gem 'nested_form'
 gem 'devise'
-gem 'bootstrap-editable-rails'
 gem 'cancancan'
 gem 'mini_magick', '~> 4.5', '>= 4.5.1'
 # gem 'paperclip'
@@ -37,7 +36,6 @@ group :development do
   gem 'binding_of_caller'
   gem 'byebug'
   gem 'pry-byebug'
-  gem 'quiet_assets'
   gem 'bullet'
 end
 
