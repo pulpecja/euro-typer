@@ -13,8 +13,6 @@
 //= require jquery
 //= require jquery_ujs
 //= require bootstrap
-//= require bootstrap-editable
-//= require bootstrap-editable-rails
 //= require editable
 //= require select2
 //= require clipboard
