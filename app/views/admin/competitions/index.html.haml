@@ -15,7 +15,7 @@
         %td= link_to competition.name
         %td= competition.year
         %td= competition.place
-        %td= competition.winner&.name
+        %td= competition.winner&.name if competition.winner.present?
         %td
           = link_to edit_admin_competition_path(competition) do
             %span.glyphicon.glyphicon-pencil
