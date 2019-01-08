@@ -1,4 +1,4 @@
-class Group < ActiveRecord::Base
+class Group < ApplicationRecord
   include Tokenable
 
   has_many :groups_users,        dependent: :destroy

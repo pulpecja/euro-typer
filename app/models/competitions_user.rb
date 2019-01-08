@@ -1,4 +1,4 @@
-class CompetitionsUser < ActiveRecord::Base
+class CompetitionsUser < ApplicationRecord
   belongs_to :competition
   belongs_to :user
 end

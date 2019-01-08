@@ -1,4 +1,4 @@
-class Round < ActiveRecord::Base
+class Round < ApplicationRecord
   has_many :matches, dependent: :destroy
   belongs_to :competition
 

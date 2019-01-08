@@ -1,4 +1,4 @@
-class Match < ActiveRecord::Base
+class Match < ApplicationRecord
   include Bettable
 
   belongs_to :first_team,  class_name: "Team"

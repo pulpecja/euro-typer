@@ -1,4 +1,4 @@
-class Competition < ActiveRecord::Base
+class Competition < ApplicationRecord
   has_many :rounds
   has_many :competitions_groups, dependent: :destroy
   has_many :competitions_users,  dependent: :destroy
