@@ -1,5 +1,5 @@
 source 'https://rubygems.org'
-ruby '2.5.3'
+ruby '2.5.0'
 
 gem 'rails', '5.2.0'
 gem 'pg', '~> 0.18.4'
@@ -21,13 +21,16 @@ gem 'devise'
 gem 'cancancan'
 gem 'mini_magick', '~> 4.5', '>= 4.5.1'
 # gem 'paperclip'
-gem 'carrierwave'
+gem 'carrierwave', '~> 1.0'
 # gem 'cloudinary'
 gem 'faraday'
 gem 'countries'
 gem 'select2-rails'
 gem 'clipboard-rails'
 gem 'ranker'
+
+gem 'bootstrap-editable-rails'
+
 
 group :development do
   gem 'letter_opener', github: 'ryanb/letter_opener'
