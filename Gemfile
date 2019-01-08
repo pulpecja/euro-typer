@@ -3,6 +3,7 @@ ruby '2.5.0'
 
 gem 'rails', '5.2.0'
 gem 'pg', '~> 0.18.4'
+gem 'puma'
 gem "sass-rails"
 gem 'uglifier'
 gem 'coffee-rails'
@@ -11,8 +12,11 @@ gem 'turbolinks'
 gem 'jbuilder'
 gem 'sdoc',          group: :doc
 
-gem 'twitter-bootstrap-rails'
+
+gem 'bootstrap-editable-rails'
+gem 'bootsnap', require: false
 gem 'bootstrap-sass'
+gem 'twitter-bootstrap-rails'
 gem 'simple_form'
 gem 'haml'
 gem 'haml-rails'
@@ -29,9 +33,6 @@ gem 'select2-rails'
 gem 'clipboard-rails'
 gem 'ranker'
 
-gem 'bootstrap-editable-rails'
-
-
 group :development do
   gem 'letter_opener', github: 'ryanb/letter_opener'
   gem 'spring'
@@ -40,6 +41,7 @@ group :development do
   gem 'byebug'
   gem 'pry-byebug'
   gem 'bullet'
+  gem 'listen', '~> 3.0'
 end
 
 group :development, :test do

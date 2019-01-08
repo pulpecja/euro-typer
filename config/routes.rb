@@ -42,5 +42,4 @@ Rails.application.routes.draw do
     get 'become/:id', action: 'become'
   end
 
-
 end
