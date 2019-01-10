@@ -2,32 +2,57 @@ require 'rails_helper'
 
 RSpec.describe "Teams", type: :request do
   let(:user) { create(:user, :admin) }
-  
-  describe "GET /teams" do
-    it "returns list of the teams" do
-      get admin_teams_path
-      expect(response).to have_http_status(200)
-      expect(response.content_type).to eq("application/json")
-    end
-  end
+  let(:model) { Team }
+  let(:teams) { create_list(:team, 2) }
 
-  describe "GET /team/:id" do
-    it 'returns team with id provided' do
+  context 'admin namespace' do
+    before do
+      logged_in_response = login(user)
+      @auth_headers = get_auth_headers(logged_in_response)
     end
-  end
 
-  describe "POST /teams" do
-    it 'creates new team' do
+    describe "GET /teams" do
+      let(:index_request) {
+        get '/admin/teams',
+        params: {},
+        headers: @auth_headers
+      }
+
+      it "returns list of the teams" do
+        index_request
+        expect(response).to have_http_status(200)
+        expect(response.content_type).to eq("application/json")
+      end
+
+      it 'returns the correct status code' do
+        index_request
+        expect(response.status).to eq 200
+      end
+
+      it 'returns all instances' do
+        index_request
+        expect(json_data.size).to eq model.all.count
+      end
     end
-  end
 
-  describe "PATCH /team/:id" do
-    it "updates team" do
+    describe "GET /team/:id" do
+      it 'returns team with id provided' do
+      end
     end
-  end
 
-  describe "DELETE /team/:id" do
-    it "removes team" do
+    describe "POST /teams" do
+      it 'creates new team' do
+      end
+    end
+
+    describe "PATCH /team/:id" do
+      it "updates team" do
+      end
+    end
+
+    describe "DELETE /team/:id" do
+      it "removes team" do
+      end
     end
   end
 end
