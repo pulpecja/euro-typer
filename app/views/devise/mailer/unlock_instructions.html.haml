@@ -1,5 +1,0 @@
-%p
-  Witaj #{@resource.email}!
-%p Twoje konto zostało zablokowane przez zbyt dużą liczbę nieudanych logowań.
-%p Kliknij w poniższy link, aby odblokować swoje konto:
-%p= link_to 'Odblokuj moje konto', unlock_url(@resource, unlock_token: @token)
