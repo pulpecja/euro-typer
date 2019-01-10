@@ -1,9 +1,11 @@
 require 'rails_helper'
 
 RSpec.describe "Teams", type: :request do
+  let(:user) { create(:user, :admin) }
+  
   describe "GET /teams" do
     it "returns list of the teams" do
-      get teams_path
+      get admin_teams_path
       expect(response).to have_http_status(200)
       expect(response.content_type).to eq("application/json")
     end

@@ -3,7 +3,7 @@ require 'rails_helper'
 RSpec.describe "Competitions", type: :request do
   describe "GET /competitions" do
     it "returns list of the competitions" do
-      get competitions_path
+      get admin_competitions_path
       expect(response).to have_http_status(200)
       expect(response.content_type).to eq("application/json")
     end
