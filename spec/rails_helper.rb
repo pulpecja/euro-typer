@@ -59,4 +59,5 @@ RSpec.configure do |config|
   Dir[Rails.root.join('spec/support/*.rb')].each { |f| require f }
 
   config.include AuthenticationHelper
+  config.include RequestHelper
 end
