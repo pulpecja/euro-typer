@@ -1,21 +1,19 @@
 Rails.application.routes.draw do
   mount_devise_token_auth_for 'User', at: 'auth'
-  resources :groups
+
   root to: 'competitions#show'
 
   resources :competitions
-
   resources :groups do
     resources :competitions do
       resources :matches
     end
     get '/join/:token' => 'groups#join', as: :join_group
   end
-
+  resources :matches
   resources :rounds do
     resources :types
   end
-  resources :matches
   resources :teams
   resources :types
   resources :winner_types
