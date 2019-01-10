@@ -3,7 +3,7 @@ require 'rails_helper'
 include ActionController::RespondWith
 
 describe "Whether access is ocurring properly", type: :request do
-  let(:user) { create(:user) }
+  let(:user_registered) { create(:user, :registered) }
 
   context "general authentication via API, " do
     it "doesn't give you anything if you don't log in" do
@@ -12,29 +12,29 @@ describe "Whether access is ocurring properly", type: :request do
     end
 
     it "gives you an authentication code if you are an existing user and you satisfy the password" do
-      login(user)
+      login(user_registered)
       expect(response.has_header?('access-token')).to eq(true)
     end
 
     it "gives you a status 200 on signing in " do
-      login(user)
+      login(user_registered)
       expect(response.status).to eq(200)
     end
 
     it "gives you an authentication code if you are an existing user and you satisfy the password" do
-      login(user)
+      login(user_registered)
       expect(response.has_header?('access-token')).to eq(true)
     end
 
     it "first get a token, then access a restricted page" do
-      login(user)
+      login(user_registered)
       auth_params = get_auth_params_from_login_response_headers(response)
       get '/groups', headers: auth_params
       expect(response).to have_http_status(:success)
     end
 
     it "deny access to a restricted page with an incorrect token" do
-      login(user)
+      login(user_registered)
       auth_params = get_auth_params_from_login_response_headers(response).tap do |h|
                       h.each do |k, v|
                         if k == 'access-token'
@@ -55,7 +55,7 @@ describe "Whether access is ocurring properly", type: :request do
     end
 
     def vary_authentication_age(token_age)
-      login(user)
+      login(user_registered)
       auth_params = get_auth_params_from_login_response_headers(response)
       get '/groups', headers: auth_params
       expect(response).to have_http_status(:success)
