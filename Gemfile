@@ -34,6 +34,8 @@ gem 'select2-rails'
 gem 'clipboard-rails'
 gem 'ranker'
 
+gem 'rack-cors', :require => 'rack/cors'
+
 group :development do
   gem 'letter_opener', github: 'ryanb/letter_opener'
   gem 'spring'
