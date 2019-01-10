@@ -2,7 +2,7 @@
 
 FactoryBot.define do
   factory :team do
-    name 'Polska'
-    name_en 'Poland'
+    name { 'Polska nazwa' }
+    name_en { Faker::Address.country }
   end
 end
