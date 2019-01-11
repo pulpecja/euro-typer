@@ -1,8 +1,5 @@
 class AdminController < ApplicationController
-
   before_action :require_admin!
-
-  layout "application"
 
   def become
     return unless current_user.is_admin?
@@ -15,5 +12,4 @@ class AdminController < ApplicationController
   def require_admin!
     raise CanCan::AccessDenied unless current_user.is_admin?
   end
-
 end
