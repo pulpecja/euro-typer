@@ -34,6 +34,7 @@ gem 'select2-rails'
 gem 'clipboard-rails'
 gem 'ranker'
 
+gem 'fast_jsonapi'
 gem 'rack-cors', :require => 'rack/cors'
 
 group :development do
