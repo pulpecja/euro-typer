@@ -6,5 +6,5 @@ class Team < ApplicationRecord
   scope :ordered, -> { order :name }
 
   validates :name, presence: true, unless: ->(team){team.name_en.present?}
-  # mount_uploader :photo, PhotoUploader, mount_on: :photo_file_name
+  mount_base64_uploader :photo, PhotoUploader, file_name: -> (_) { "photo_#{Time.now.to_i}" }
 end

@@ -7,6 +7,10 @@ RSpec.describe 'Teams', type: :request do
   let!(:teams) { create_list(:team, 2) }
   let(:team) { teams.first }
   let(:type) { model.to_s.pluralize.underscore.dasherize }
+  let(:photo_data) { Base64.encode64(file_fixture("flag_pl.png").read) }
+  let(:photo) do
+     "data:image/png;base64," + photo_data
+  end
 
   let(:params) do
     {
@@ -228,7 +232,8 @@ RSpec.describe 'Teams', type: :request do
           let(:attributes) do
             {
               'name': 'Nowy zespol',
-              'name_en': 'New team'
+              'name_en': 'New team',
+              'photo': photo
             }
           end
 
@@ -239,9 +244,11 @@ RSpec.describe 'Teams', type: :request do
           end
 
           it 'creates new team' do
+            photo_sizes = ["url", "mini", "thumb", "medium"]
             expect { post_request }.to change { Team.count }.by(1)
             expect(response).to have_http_status(200)
             expect(json_attributes['name']).to eq('Nowy zespol')
+            expect(json_attributes['photo']['url']).to eq(photo_sizes)
           end
         end
 
