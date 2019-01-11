@@ -1,5 +1,5 @@
 class Admin::TeamsController < AdminController
-  before_action :set_team, only: [:show, :edit, :update, :destroy]
+  before_action :set_team, only: [:show, :update, :destroy]
   load_and_authorize_resource
 
   # skip_before_filter :require_admin!, only: [:index]
@@ -14,12 +14,12 @@ class Admin::TeamsController < AdminController
   end
 
   def create
-    @team = Team.create(team_params)
+    @team = Team.create!(team_params)
     json_response(TeamSerializer, @team)
   end
 
   def update
-    @team.update(team_params)
+    @team.update!(team_params)
     json_response(TeamSerializer, @team)
   end
 

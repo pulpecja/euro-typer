@@ -1,15 +1,5 @@
 class AdminController < ApplicationController
-  before_action :require_admin!
-
-  def become
-    return unless current_user.is_admin?
-    sign_in(:user, User.find(params[:id]))
-    redirect_to root_url # or user_root_url
-  end
-
-  private
-
-  def require_admin!
-    raise CanCan::AccessDenied unless current_user.is_admin?
+  rescue_from CanCan::AccessDenied do |exception|
+    render json: { message: exception.message }, status: 403
   end
 end
