@@ -36,5 +36,8 @@ module EuroTyper
           methods: [:get, :post, :options, :delete, :put]
       end
     end
+
+    config.api_only = true
+    config.debug_exception_response_format = :api
   end
 end
