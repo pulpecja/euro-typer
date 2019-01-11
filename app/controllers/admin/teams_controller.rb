@@ -6,54 +6,42 @@ class Admin::TeamsController < AdminController
 
   def index
     @teams = Team.all.order(:name)
+    json_response(TeamSerializer, @teams)
   end
 
   def show
-  end
-
-  def new
-    @team = Team.new
-  end
-
-  def edit
+    json_response(TeamSerializer, @team)
   end
 
   def create
-    @team = Team.new(team_params)
-
-    if @team.save
-      flash[:notice] = "Drużyna utworzona"
-      redirect_to(admin_teams_path)
-    else
-      flash[:error]  = "Nie udało się utworzyć drużyny"
-      render action: 'new'
-    end
-
+    @team = Team.create(team_params)
+    json_response(TeamSerializer, @team)
   end
 
   def update
-    if @team.update(team_params)
-      flash[:notice] = "Drużyna zapisana"
-      redirect_to(admin_teams_path)
-    else
-      flash[:error]  = "Nie udało się wyedytować drużyny."
-      render action: 'edit'
-    end
+    @team.update(team_params)
+    json_response(TeamSerializer, @team)
   end
 
   def destroy
     @team.destroy
-    flash[:notice] = 'Drużyna usunięta!'
-    redirect_to admin_teams_path
+    head :no_content
   end
 
   private
-    def set_team
-      @team = Team.find(params[:id])
-    end
+  def set_team
+    @team = Team.find(params[:id])
+  end
 
-    def team_params
-      params.require(:team).permit(:name, :abbreviation, :flag, :photo, :name_en)
-    end
-
+  def team_params
+    params.require(:data).permit(
+      attributes: [
+        :name,
+        :abbreviation,
+        :flag,
+        :photo,
+        :name_en
+      ]
+    )
+  end
 end

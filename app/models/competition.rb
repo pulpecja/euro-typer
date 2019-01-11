@@ -5,7 +5,7 @@ class Competition < ApplicationRecord
   has_many :groups, -> { distinct }, through: :competitions_groups
   has_many :users,  -> { distinct }, through: :competitions_users
 
-  belongs_to :winner, class_name: 'Team'
+  has_one :winner, class_name: 'Team'
 
   validates_presence_of :name
 
