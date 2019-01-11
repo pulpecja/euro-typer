@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_01_10_094800) do
+ActiveRecord::Schema.define(version: 2019_01_11_144554) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -104,11 +104,6 @@ ActiveRecord::Schema.define(version: 2019_01_10_094800) do
     t.datetime "updated_at"
     t.string "abbreviation", limit: 255
     t.string "flag", limit: 255
-    t.string "photo", limit: 255
-    t.string "photo_file_name", limit: 255
-    t.string "photo_content_type", limit: 255
-    t.integer "photo_file_size"
-    t.datetime "photo_updated_at"
     t.string "name_en"
   end
 
