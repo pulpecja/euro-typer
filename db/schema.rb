@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_01_11_144554) do
+ActiveRecord::Schema.define(version: 2019_01_11_145321) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -105,6 +105,7 @@ ActiveRecord::Schema.define(version: 2019_01_11_144554) do
     t.string "abbreviation", limit: 255
     t.string "flag", limit: 255
     t.string "name_en"
+    t.text "photo"
   end
 
   create_table "types", force: :cascade do |t|
