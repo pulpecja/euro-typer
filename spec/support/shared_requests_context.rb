@@ -1,6 +1,7 @@
 RSpec.shared_examples 'unauthorised_requests' do |options|
   before do
     @type = type
+    @model = model.to_s
   end
 
   describe 'not logged in' do
@@ -35,7 +36,7 @@ def unauthorised_show_action
       it 'does not give access to page' do
         show_request
         expect(response).to have_http_status(404)
-        expect(json).to eq "message" => "not_found"
+        expect(json).to eq "message" => "Couldn't find #{@model} with 'id'=0"
       end
     end
   end

@@ -1,8 +1,11 @@
 module Response
   def json_response(serializer, object)
-    if object == :not_found || object == :unprocessable_entity
-      return render json: { message: object }, status: object
+    if serializer.is_a?(Hash)
+      # deal with exception messages,
+      # when serializer is a key (message) and object is value (status)
+      render json: serializer, status: object
+    else
+      render json: serializer.new(object)
     end
-    render json: serializer.new(object)
   end
 end
