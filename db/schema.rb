@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_01_11_145321) do
+ActiveRecord::Schema.define(version: 2019_01_14_145015) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -136,10 +136,6 @@ ActiveRecord::Schema.define(version: 2019_01_11_145321) do
     t.datetime "updated_at"
     t.string "role", limit: 255
     t.datetime "deleted_at"
-    t.string "photo_file_name", limit: 255
-    t.string "photo_content_type", limit: 255
-    t.integer "photo_file_size"
-    t.datetime "photo_updated_at"
     t.boolean "take_part", default: true
     t.string "provider", default: "email", null: false
     t.string "uid", default: "", null: false
