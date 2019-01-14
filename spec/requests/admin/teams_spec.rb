@@ -1,17 +1,18 @@
 require 'rails_helper'
 
 RSpec.describe 'Teams', type: :request do
-  let!(:user_admin) { create(:user, :admin) }
-  let!(:user_registered) { create(:user, :registered) }
+  let(:instance) { teams.first }
   let(:model) { Team }
   let(:model_string) { model.to_s }
-  let!(:teams) { create_list(:team, 2) }
-  let(:team) { teams.first }
-  let(:type) { model.to_s.pluralize.underscore.dasherize }
-  let(:photo_data) { Base64.encode64(file_fixture("flag_pl.png").read) }
   let(:photo) do
      "data:image/png;base64," + photo_data
   end
+  let(:photo_data) { Base64.encode64(file_fixture("flag_pl.png").read) }
+  let!(:teams) { create_list(:team, 2) }
+  let(:team) { teams.first }
+  let(:type) { model.to_s.pluralize.underscore.dasherize }
+  let!(:user_admin) { create(:user, :admin) }
+  let!(:user_registered) { create(:user, :registered) }
 
   let(:params) do
     {
