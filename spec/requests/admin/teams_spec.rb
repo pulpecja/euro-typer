@@ -65,7 +65,7 @@ RSpec.describe 'Teams', type: :request do
                 headers: @auth_headers
           end
 
-          it 'returns team with id provided' do
+          it 'does not return team with wrong id provided' do
             show_request
             expect(response).to have_http_status(404)
             expect(json).to eq "message" => "Couldn't find #{model_string} with 'id'=0"
@@ -74,6 +74,12 @@ RSpec.describe 'Teams', type: :request do
       end
 
       describe 'POST /teams' do
+        let(:post_request) do
+          post '/admin/teams',
+               params: params,
+               headers: @auth_headers
+        end
+
         context 'valid data' do
           let(:attributes) do
             {
@@ -82,13 +88,7 @@ RSpec.describe 'Teams', type: :request do
             }
           end
 
-          let(:post_request) do
-            post '/admin/teams',
-                 params: params,
-                 headers: @auth_headers
-          end
-
-          it 'creates new team' do
+          it 'doew not create new team' do
             expect { post_request }.to change { Team.count }.by(0)
             expect(response).to have_http_status(403)
             expect(json).to eq "message" => "You are not authorized to access this page."
@@ -103,12 +103,6 @@ RSpec.describe 'Teams', type: :request do
             }
           end
 
-          let(:post_request) do
-            post '/admin/teams',
-                 params: params,
-                 headers: @auth_headers
-          end
-
           it 'does not create new team' do
             expect { post_request }.to change { Team.count }.by(0)
             expect(response).to have_http_status(403)
@@ -119,22 +113,21 @@ RSpec.describe 'Teams', type: :request do
       end
 
       describe 'PATCH /team/:id' do
+        let(:patch_request) do
+          patch "/admin/teams/#{team.id}",
+                params: params,
+                headers: @auth_headers
+        end
+
         context 'with valid data' do
           let(:attributes)  do
             { "name": "New name" }
           end
 
-          let(:patch_request) do
-            patch "/admin/teams/#{team.id}",
-                  params: params,
-                  headers: @auth_headers
-          end
-
-          it 'updates team' do
+          it 'does not update team' do
             patch_request
             expect(response).to have_http_status(403)
             expect(json).to eq "message" => "You are not authorized to access this page."
-
           end
         end
 
@@ -146,13 +139,7 @@ RSpec.describe 'Teams', type: :request do
             }
           end
 
-          let(:patch_request) do
-            patch "/admin/teams/#{team.id}",
-                  params: params,
-                  headers: @auth_headers
-          end
-
-          it 'updates team' do
+          it 'does not update team' do
             patch_request
             expect(response).to have_http_status(403)
             expect(json).to eq "message" => "You are not authorized to access this page."
@@ -161,22 +148,30 @@ RSpec.describe 'Teams', type: :request do
       end
 
       describe 'DELETE /team/:id' do
-        let(:valid_params) do
-          {
-            id: team.id
-          }
+        context 'valid params' do
+          let(:delete_request) do
+            delete "/admin/teams/#{team.id}",
+                  headers: @auth_headers
+          end
+
+          it 'does not remove team' do
+            expect { delete_request }.to change { Team.count }.by(0)
+            expect(response).to have_http_status(403)
+            expect(json).to eq "message" => "You are not authorized to access this page."
+          end
         end
 
-        let(:delete_request) do
-          delete "/admin/teams/#{team.id}",
-                 params: valid_params,
-                 headers: @auth_headers
-        end
+        context 'invalid params' do
+          let(:delete_request) do
+            delete "/admin/teams/0",
+                  headers: @auth_headers
+          end
 
-        it 'removes team' do
-          expect { delete_request }.to change { Team.count }.by(0)
-          expect(response).to have_http_status(403)
-          expect(json).to eq "message" => "You are not authorized to access this page."
+          it 'does not remove team' do
+            expect { delete_request }.to change { Team.count }.by(0)
+            expect(response).to have_http_status(404)
+            expect(json).to eq "message" => "Couldn't find #{model_string} with 'id'=0"
+          end
         end
       end
     end
@@ -229,6 +224,12 @@ RSpec.describe 'Teams', type: :request do
       end
 
       describe 'POST /teams' do
+        let(:post_request) do
+          post '/admin/teams',
+               params: params,
+               headers: @auth_headers
+        end
+
         context 'valid data' do
           let(:attributes) do
             {
@@ -236,12 +237,6 @@ RSpec.describe 'Teams', type: :request do
               'name_en': 'New team',
               'photo': photo
             }
-          end
-
-          let(:post_request) do
-            post '/admin/teams',
-                 params: params,
-                 headers: @auth_headers
           end
 
           it 'creates new team' do
@@ -260,12 +255,6 @@ RSpec.describe 'Teams', type: :request do
             }
           end
 
-          let(:post_request) do
-            post '/admin/teams',
-                 params: params,
-                 headers: @auth_headers
-          end
-
           it 'does not create new team' do
             expect { post_request }.to change { Team.count }.by(0)
             expect(response).to have_http_status(422)
@@ -278,15 +267,15 @@ RSpec.describe 'Teams', type: :request do
       end
 
       describe 'PATCH /team/:id' do
+        let(:patch_request) do
+          patch "/admin/teams/#{team.id}",
+                params: params,
+                headers: @auth_headers
+        end
+
         context 'with valid data' do
           let(:attributes)  do
             { "name": "New name" }
-          end
-
-          let(:patch_request) do
-            patch "/admin/teams/#{team.id}",
-                  params: params,
-                  headers: @auth_headers
           end
 
           it 'updates team' do
@@ -304,13 +293,7 @@ RSpec.describe 'Teams', type: :request do
             }
           end
 
-          let(:patch_request) do
-            patch "/admin/teams/#{team.id}",
-                  params: params,
-                  headers: @auth_headers
-          end
-
-          it 'updates team' do
+          it 'does not update team' do
             patch_request
             expect(response).to have_http_status(422)
             expect(json).to eq(
@@ -321,21 +304,29 @@ RSpec.describe 'Teams', type: :request do
       end
 
       describe 'DELETE /team/:id' do
-        let(:valid_params) do
-          {
-            id: team.id
-          }
+        context 'valid params' do
+          let(:delete_request) do
+            delete "/admin/teams/#{team.id}",
+                  headers: @auth_headers
+          end
+
+          it 'removes team' do
+            expect { delete_request }.to change { Team.count }.by(-1)
+            expect(response).to have_http_status(204)
+          end
         end
 
-        let(:delete_request) do
-          delete "/admin/teams/#{team.id}",
-                 params: valid_params,
-                 headers: @auth_headers
-        end
+        context 'invalid params' do
+          let(:delete_request) do
+            delete "/admin/teams/0",
+                  headers: @auth_headers
+          end
 
-        it 'removes team' do
-          expect { delete_request }.to change { Team.count }.by(-1)
-          expect(response).to have_http_status(204)
+          it 'does not remove team' do
+            expect { delete_request }.to change { Team.count }.by(0)
+            expect(response).to have_http_status(404)
+            expect(json).to eq({"message"=>"Couldn't find #{model_string} with 'id'=0"})
+          end
         end
       end
     end
