@@ -245,11 +245,10 @@ RSpec.describe 'Teams', type: :request do
           end
 
           it 'creates new team' do
-            photo_sizes = ["url", "mini", "thumb", "medium"]
             expect { post_request }.to change { Team.count }.by(1)
             expect(response).to have_http_status(200)
             expect(json_attributes['name']).to eq('Nowy zespol')
-            expect(json_attributes['photo']['url']).to eq(photo_sizes)
+            expect(json_attributes['photo']['url']).to be
           end
         end
 

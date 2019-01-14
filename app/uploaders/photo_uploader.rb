@@ -7,13 +7,8 @@ class PhotoUploader < CarrierWave::Uploader::Base
   storage :file
   # storage :fog
 
-  def filename
-    binding.pry
-  end
-
   def store_dir
-    binding.pry
-    "/#{model.class.to_s.underscore}/#{mounted_as}/#{model.id}"
+    "uploads/#{model.class.to_s.underscore}/#{mounted_as}/#{model.id}"
   end
 
   version :mini do
