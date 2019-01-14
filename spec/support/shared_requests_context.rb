@@ -1,7 +1,8 @@
 RSpec.shared_examples 'unauthorised_requests' do |options|
   before do
-    @type = type
+    @instance = instance
     @model = model.to_s
+    @type = type
   end
 
   describe 'not logged in' do
@@ -18,7 +19,7 @@ def unauthorised_show_action
   describe "GET /#{@type}/:id" do
     context 'with valid id' do
       let(:show_request) do
-        get "/admin/#{@type}/#{team.id}"
+        get "/admin/#{@type}/#{@instance.id}"
       end
 
       it 'does not give access to page' do
@@ -59,8 +60,7 @@ def unauthorised_create_action
     context 'valid data' do
       let(:attributes) do
         {
-          name: "Nowy zespol",
-          name_en: "New team"
+          name: "New name",
         }
       end
 
@@ -70,7 +70,7 @@ def unauthorised_create_action
       end
 
       it 'does not give access to page' do
-        expect { post_request }.to change { Team.count }.by(0)
+        expect { post_request }.to change { model.count }.by(0)
         expect(response).to have_http_status(403)
         expect(json).to eq "message" => "You are not authorized to access this page."
       end
@@ -91,7 +91,7 @@ def unauthorised_create_action
       end
 
       it 'does not give access to page' do
-        expect { post_request }.to change { Team.count }.by(0)
+        expect { post_request }.to change { model.count }.by(0)
         expect(response).to have_http_status(403)
         expect(json).to eq({ "message" => "You are not authorized to access this page." })
       end
@@ -100,7 +100,7 @@ def unauthorised_create_action
 end
 
 def unauthorised_update_action
-  describe 'PATCH /team/:id' do
+  describe "PATCH /#{@type}/:id" do
     context 'with valid data' do
       let(:attributes) do
         {
@@ -109,7 +109,7 @@ def unauthorised_update_action
       end
 
       let(:patch_request) do
-        patch "/admin/#{@type}/#{team.id}",
+        patch "/admin/#{@type}/#{@instance.id}",
               params: params
       end
 
@@ -129,7 +129,7 @@ def unauthorised_update_action
       end
 
       let(:patch_request) do
-        patch "/admin/#{@type}/#{team.id}",
+        patch "/admin/#{@type}/#{@instance.id}",
             params: params,
             headers: @auth_headers
       end
@@ -144,21 +144,14 @@ def unauthorised_update_action
 end
 
 def unauthorised_delete_action
-  describe 'DELETE /team/:id' do
-    let(:valid_params) do
-      {
-        id: team.id
-      }
-    end
-
+  describe "DELETE /#{@type}/:id" do
     let(:delete_request) do
-      delete "/admin/#{@type}/#{team.id}",
-            params: valid_params,
+      delete "/admin/#{@type}/#{@instance.id}",
             headers: @auth_headers
     end
 
-    it 'removes team' do
-      expect { delete_request }.to change { Team.count }.by(0)
+    it "removes #{@type.to_s}" do
+      expect { delete_request }.to change { model.count }.by(0)
       expect(response).to have_http_status(403)
       expect(json).to eq "message" => "You are not authorized to access this page."
     end
