@@ -4,6 +4,7 @@ RSpec.describe 'Teams', type: :request do
   let!(:user_admin) { create(:user, :admin) }
   let!(:user_registered) { create(:user, :registered) }
   let(:model) { Team }
+  let(:model_string) { model.to_s }
   let!(:teams) { create_list(:team, 2) }
   let(:team) { teams.first }
   let(:type) { model.to_s.pluralize.underscore.dasherize }
@@ -67,7 +68,7 @@ RSpec.describe 'Teams', type: :request do
           it 'returns team with id provided' do
             show_request
             expect(response).to have_http_status(404)
-            expect(json).to eq({ "message"=>"not_found" })
+            expect(json).to eq "message" => "Couldn't find #{model_string} with 'id'=0"
           end
         end
       end
@@ -222,7 +223,7 @@ RSpec.describe 'Teams', type: :request do
           it 'returns team with id provided' do
             show_request
             expect(response).to have_http_status(404)
-            expect(json).to eq({ "message"=>"not_found" })
+            expect(json).to eq "message" => "Couldn't find #{@model} with 'id'=0"
           end
         end
       end
@@ -269,7 +270,9 @@ RSpec.describe 'Teams', type: :request do
           it 'does not create new team' do
             expect { post_request }.to change { Team.count }.by(0)
             expect(response).to have_http_status(422)
-            expect(json).to eq({ "message"=>"unprocessable_entity" })
+            expect(json).to eq(
+              { "message" => "Negatywne sprawdzenie poprawności: Nazwa nie może być puste" }
+            )
           end
         end
 
@@ -311,7 +314,9 @@ RSpec.describe 'Teams', type: :request do
           it 'updates team' do
             patch_request
             expect(response).to have_http_status(422)
-            expect(json).to eq({ "message"=>"unprocessable_entity" })
+            expect(json).to eq(
+              { "message" => "Negatywne sprawdzenie poprawności: Nazwa nie może być puste" }
+            )
           end
         end
       end
