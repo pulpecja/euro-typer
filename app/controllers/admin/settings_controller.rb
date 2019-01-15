@@ -1,47 +1,29 @@
 class Admin::SettingsController < AdminController
-  before_action :set_setting, only: [:show, :edit, :update, :destroy]
+  before_action :set_setting, only: [:show, :update, :destroy]
   load_and_authorize_resource
 
   def index
     @settings = Setting.all
+    json_response(SettingSerializer, @settings)
   end
 
   def show
-  end
-
-  def new
-    @setting = Setting.new
-  end
-
-  def edit
+    json_response(SettingSerializer, @setting)
   end
 
   def create
-    @setting = Setting.new(setting_params)
-
-    if @setting.save
-      flash[:notice] = "Ustawienia stworzone"
-      redirect_to(admin_settings_path)
-    else
-      flash[:error]  = "Nie udało się utworzyć ustawień"
-      render action: 'new'
-    end
+    @setting = Setting.create!(setting_params)
+    json_response(SettingSerializer, @setting)
   end
 
   def update
-    if @setting.update(setting_params)
-      flash[:notice] = "Ustawienia zapisane"
-      redirect_to(admin_settings_path)
-    else
-      flash[:error]  = "Nie udało się wyedytować ustawień."
-      render action: 'edit'
-    end
+    @setting.update!(setting_params)
+    json_response(SettingSerializer, @setting)
   end
 
   def destroy
     @setting.destroy
-    flash[:notice] = 'Ustawienia usunięte!'
-    redirect_to admin_settings_path
+    head :no_content
   end
 
   private
@@ -49,7 +31,12 @@ class Admin::SettingsController < AdminController
       @setting = Setting.find(params[:id])
     end
 
-    def setting_params
-      params.require(:setting).permit(:name, :value)
-    end
+  def setting_params
+    params.require(:data).permit(
+      attributes: [
+        :name,
+        :value
+      ]
+    )
+  end
 end
