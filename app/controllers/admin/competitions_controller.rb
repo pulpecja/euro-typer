@@ -4,44 +4,26 @@ class Admin::CompetitionsController < AdminController
 
   def index
     @competitions = Competition.all
+    json_response(CompetitionSerializer, @competitions)
   end
 
   def show
-  end
-
-  def new
-    @competition = Competition.new
-  end
-
-  def edit
+    json_response(CompetitionSerializer, @competition)
   end
 
   def create
-    @competition = Competition.new(competition_params)
-
-    if @competition.save
-      flash[:notice] = "Turniej stworzony"
-      redirect_to(admin_competitions_path)
-    else
-      flash[:error]  = "Nie udało się utworzyć turnieju"
-      render action: 'new'
-    end
+    @competition = Competition.create!(competition_params)
+    json_response(CompetitionSerializer, @competition)
   end
 
   def update
-    if @competition.update(competition_params)
-      flash[:notice] = "Turniej zapisany"
-      redirect_to(admin_competitions_path)
-    else
-      flash[:error]  = "Nie udało się wyedytować turnieju."
-      render action: 'edit'
-    end
+    @competition.update!(competition_params)
+    json_response(CompetitionSerializer, @competition)
   end
 
   def destroy
     @competition.destroy
-    flash[:notice] = 'Turniej usunięty!'
-    redirect_to admin_competitions_path
+    head :no_content
   end
 
   private
@@ -50,6 +32,15 @@ class Admin::CompetitionsController < AdminController
     end
 
     def competition_params
-      params.require(:competition).permit(:name, :year, :place, :start_date, :end_date, :winner_id)
+      params.require(:data).permit(
+        attributes: [
+          :name,
+          :year,
+          :place,
+          :start_date,
+          :end_date,
+          :winner_id
+        ]
+      )
     end
 end
