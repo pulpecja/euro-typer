@@ -2,13 +2,13 @@
 
 FactoryBot.define do
   factory :competition do
-    name "Mistrzostwa Świata"
-    year 2018
-    place "Rosja"
+    name { Faker::FunnyName }
+    year { 2019 }
+    place { Faker::Address.country }
 
-    after(:build) do |competition|
-      competition.rounds << create(:round)
-    end
+    # after(:build) do |competition|
+    #   competition.rounds << create(:round)
+    # end
   end
 
   trait :no_rounds do |competition|
