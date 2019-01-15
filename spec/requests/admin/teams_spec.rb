@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe 'Teams', type: :request do
+RSpec.describe 'Admin::Teams', type: :request do
   let(:instance) { teams.first }
   let(:model) { Team }
   let(:model_string) { model.to_s }
@@ -46,7 +46,7 @@ RSpec.describe 'Teams', type: :request do
         @auth_headers = get_auth_headers(logged_in_response)
       end
 
-      describe 'GET /teams' do
+      describe 'GET /admin/teams' do
         let(:index_request) do
           get '/admin/teams',
               headers: @auth_headers
@@ -59,7 +59,7 @@ RSpec.describe 'Teams', type: :request do
         end
       end
 
-      describe 'GET /team/:id' do
+      describe 'GET /admin/team/:id' do
         context 'with valid id' do
           let(:show_request) do
             get "/admin/teams/#{team.id}",
@@ -87,7 +87,7 @@ RSpec.describe 'Teams', type: :request do
         end
       end
 
-      describe 'POST /teams' do
+      describe 'POST /admin/teams' do
         let(:post_request) do
           post '/admin/teams',
                params: params,
@@ -130,7 +130,7 @@ RSpec.describe 'Teams', type: :request do
 
       end
 
-      describe 'PATCH /team/:id' do
+      describe 'PATCH /admin/team/:id' do
         let(:patch_request) do
           patch "/admin/teams/#{team.id}",
                 params: params,
@@ -167,7 +167,7 @@ RSpec.describe 'Teams', type: :request do
         end
       end
 
-      describe 'DELETE /team/:id' do
+      describe 'DELETE /admin/team/:id' do
         context 'valid params' do
           let(:delete_request) do
             delete "/admin/teams/#{team.id}",
