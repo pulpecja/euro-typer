@@ -14,7 +14,7 @@ end
 
 private
 def unauthorised_show_action
-  describe "GET /#{@type}/:id" do
+  describe "GET #show" do
     context 'with valid id' do
       let(:show_request) do
         get "/admin/#{@type}/#{@instance.id}",
@@ -44,7 +44,7 @@ def unauthorised_show_action
 end
 
 def unauthorised_index_action
-  describe "GET /#{@type}" do
+  describe "GET #index" do
     let(:index_request) do
       get "/admin/#{@type}",
           headers: auth_headers
@@ -59,7 +59,7 @@ def unauthorised_index_action
 end
 
 def unauthorised_create_action
-  describe "POST /#{@type}" do
+  describe "POST #create" do
     context 'valid data' do
       let(:attributes) do
         {
@@ -104,7 +104,7 @@ def unauthorised_create_action
 end
 
 def unauthorised_update_action
-  describe "PATCH /#{@type}/:id" do
+  describe "PATCH #update" do
     context 'with valid data' do
       let(:attributes) do
         {
@@ -149,7 +149,7 @@ def unauthorised_update_action
 end
 
 def unauthorised_delete_action
-  describe "DELETE /#{@type}/:id" do
+  describe "DELETE #destroy" do
     let(:delete_request) do
       delete "/admin/#{@type}/#{@instance.id}",
              headers: auth_headers
