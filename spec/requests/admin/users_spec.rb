@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe "Users", type: :request do
+RSpec.describe "Admin::Users", type: :request do
   let!(:users) { create_list(:user, 2, :registered) }
   let!(:user_admin) { create(:user, :admin) }
   let(:user_registered) { users.first }
@@ -46,7 +46,7 @@ RSpec.describe "Users", type: :request do
         @auth_headers = get_auth_headers(logged_in_response)
       end
 
-      describe "GET /users" do
+      describe "GET /admin/users" do
         let(:index_request) do
           get '/admin/users',
               headers: @auth_headers
@@ -79,7 +79,7 @@ RSpec.describe "Users", type: :request do
         end
       end
 
-      describe "GET /user/:id" do
+      describe "GET /admin/user/:id" do
         context 'with valid id' do
           let(:show_request) do
             get "/admin/users/#{user_registered.id}",
@@ -108,7 +108,7 @@ RSpec.describe "Users", type: :request do
         end
       end
 
-      describe "POST /users" do
+      describe "POST /admin/users" do
         let(:post_request) do
           post '/admin/users',
                params: params,
@@ -152,7 +152,7 @@ RSpec.describe "Users", type: :request do
         end
       end
 
-      describe "PATCH /user/:id" do
+      describe "PATCH /admin/user/:id" do
         let(:patch_request) do
           patch "/admin/users/#{user_registered.id}",
                 params: params,
@@ -190,7 +190,7 @@ RSpec.describe "Users", type: :request do
         end
       end
 
-      describe "DELETE /user/:id" do
+      describe "DELETE /admin/user/:id" do
         context 'with valid params' do
           let(:delete_request) do
             delete "/admin/users/#{user_registered.id}",
