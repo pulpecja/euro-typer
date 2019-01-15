@@ -1,5 +1,5 @@
 class Admin::CompetitionsController < AdminController
-  before_action :set_competition, only: [:show, :edit, :update, :destroy]
+  before_action :set_competition, only: [:show, :update, :destroy]
   load_and_authorize_resource
 
   def index
@@ -27,20 +27,20 @@ class Admin::CompetitionsController < AdminController
   end
 
   private
-    def set_competition
-      @competition = Competition.find(params[:id])
-    end
+  def set_competition
+    @competition = Competition.find(params[:id])
+  end
 
-    def competition_params
-      params.require(:data).permit(
-        attributes: [
-          :name,
-          :year,
-          :place,
-          :start_date,
-          :end_date,
-          :winner_id
-        ]
-      )
-    end
+  def competition_params
+    params.require(:data).permit(
+      attributes: [
+        :name,
+        :year,
+        :place,
+        :start_date,
+        :end_date,
+        :winner_id
+      ]
+    )
+  end
 end

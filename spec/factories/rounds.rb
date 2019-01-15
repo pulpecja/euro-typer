@@ -2,6 +2,7 @@
 
 FactoryBot.define do
   factory :round do
-    name "MyString"
+    name { Faker::DragonBall.character }
+    competition
   end
 end

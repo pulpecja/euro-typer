@@ -1,57 +1,46 @@
 class Admin::RoundsController < AdminController
-  before_action :set_round, only: [:show, :edit, :update, :destroy]
+  before_action :set_round, only: [:show, :update, :destroy]
   load_and_authorize_resource
 
   def index
-    @competitions = Competition.all
+    @rounds = Round.all
+    json_response(RoundSerializer, @rounds)
   end
 
   def show
-  end
-
-  def new
-    @round = Round.new
-  end
-
-  def edit
+    json_response(RoundSerializer, @round)
   end
 
   def create
-    @round = Round.new(round_params)
-
-    if @round.save
-      flash[:notice] = "Kolejka utworzona"
-      redirect_to(admin_rounds_path)
-    else
-      flash[:error]  = "Nie udało się utworzyć kolejki"
-      render action: 'new'
-    end
-
+    binding.pry
+    @round = Round.create!(round_params)
+    json_response(RoundSerializer, @round)
   end
 
   def update
-    if @round.update(round_params)
-      flash[:notice] = "Kolejka zapisana"
-      redirect_to(admin_rounds_path)
-    else
-      flash[:error]  = "Nie udało się wyedytować kolejki."
-      render action: 'edit'
-    end
+    @round.update!(round_params)
+    json_response(RoundSerializer, @round)
   end
 
   def destroy
     @round.destroy
-    flash[:notice] = 'Kolejka usunięta!'
-    redirect_to admin_rounds_path
+    head :no_content
   end
 
   private
-    def set_round
-      @round = Round.find(params[:id])
-    end
+  def set_round
+    @round = Round.find(params[:id])
+  end
 
-    def round_params
-      params.require(:round).permit(:name, :started_at, :competition_id, :stage)
-    end
-
+  def round_params
+    binding.pry
+    params.require(:data).permit(
+      attributes: [
+        :name,
+        :stage,
+        :started_at
+      ],
+      relationships: {}
+    )
+  end
 end
