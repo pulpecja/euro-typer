@@ -24,157 +24,20 @@ RSpec.describe 'Teams', type: :request do
     }
   end
 
-  include_context 'unauthorised_requests'
-
   context 'admin namespace' do
+    context 'not logged in' do
+      let(:auth_headers) { {} }
+      include_examples 'unauthorized_requests'
+    end
+
     context 'registered user logged in' do
       before do
-        logged_in_response = login(user_registered)
-        @auth_headers = get_auth_headers(logged_in_response)
+        @logged_in_response = login(user_registered)
       end
 
-      describe 'GET /teams' do
-        let(:index_request) do
-          get '/admin/teams',
-              headers: @auth_headers
-        end
+      let(:auth_headers) { get_auth_headers(@logged_in_response) }
 
-        it 'returns all instances' do
-          index_request
-          expect(response).to have_http_status(200)
-          expect(json_data.size).to eq model.all.count
-        end
-      end
-
-      describe 'GET /team/:id' do
-        context 'with valid id' do
-          let(:show_request) do
-            get "/admin/teams/#{team.id}",
-                headers: @auth_headers
-          end
-
-          it 'returns team with id provided' do
-            show_request
-            expect(response).to have_http_status(200)
-            expect(json_data['id']).to eq(team.id.to_s)
-          end
-        end
-
-        context 'with invalid id' do
-          let(:show_request) do
-            get "/admin/teams/0",
-                headers: @auth_headers
-          end
-
-          it 'does not return team with wrong id provided' do
-            show_request
-            expect(response).to have_http_status(404)
-            expect(json).to eq "message" => "Couldn't find #{model_string} with 'id'=0"
-          end
-        end
-      end
-
-      describe 'POST /teams' do
-        let(:post_request) do
-          post '/admin/teams',
-               params: params,
-               headers: @auth_headers
-        end
-
-        context 'valid data' do
-          let(:attributes) do
-            {
-              'name': 'Nowy zespol',
-              'name_en': 'New team'
-            }
-          end
-
-          it 'doew not create new team' do
-            expect { post_request }.to change { Team.count }.by(0)
-            expect(response).to have_http_status(403)
-            expect(json).to eq "message" => "You are not authorized to access this page."
-          end
-        end
-
-        context 'invalid data' do
-          let(:attributes) do
-            {
-              'name': '',
-              'name_en': ''
-            }
-          end
-
-          it 'does not create new team' do
-            expect { post_request }.to change { Team.count }.by(0)
-            expect(response).to have_http_status(403)
-            expect(json).to eq "message" => "You are not authorized to access this page."
-          end
-        end
-
-      end
-
-      describe 'PATCH /team/:id' do
-        let(:patch_request) do
-          patch "/admin/teams/#{team.id}",
-                params: params,
-                headers: @auth_headers
-        end
-
-        context 'with valid data' do
-          let(:attributes)  do
-            { "name": "New name" }
-          end
-
-          it 'does not update team' do
-            patch_request
-            expect(response).to have_http_status(403)
-            expect(json).to eq "message" => "You are not authorized to access this page."
-          end
-        end
-
-        context 'with invalid data' do
-          let(:attributes) do
-            {
-              "name": '',
-              "name_en": ''
-            }
-          end
-
-          it 'does not update team' do
-            patch_request
-            expect(response).to have_http_status(403)
-            expect(json).to eq "message" => "You are not authorized to access this page."
-          end
-        end
-      end
-
-      describe 'DELETE /team/:id' do
-        context 'valid params' do
-          let(:delete_request) do
-            delete "/admin/teams/#{team.id}",
-                  headers: @auth_headers
-          end
-
-          it 'does not remove team' do
-            expect { delete_request }.to change { Team.count }.by(0)
-            expect(response).to have_http_status(403)
-            expect(json).to eq "message" => "You are not authorized to access this page."
-          end
-        end
-
-        context 'invalid params' do
-          let(:delete_request) do
-            delete "/admin/teams/0",
-                  headers: @auth_headers
-          end
-
-          it 'does not remove team' do
-            expect { delete_request }.to change { Team.count }.by(0)
-            expect(response).to have_http_status(404)
-            expect(json).to eq "message" => "Couldn't find #{model_string} with 'id'=0"
-          end
-        end
-      end
+      include_examples 'unauthorized_requests'
     end
 
     context 'admin logged in' do
@@ -219,7 +82,7 @@ RSpec.describe 'Teams', type: :request do
           it 'returns team with id provided' do
             show_request
             expect(response).to have_http_status(404)
-            expect(json).to eq "message" => "Couldn't find #{@model} with 'id'=0"
+            expect(json).to eq "message" => "Couldn't find #{model} with 'id'=0"
           end
         end
       end

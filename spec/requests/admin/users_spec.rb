@@ -4,6 +4,7 @@ RSpec.describe "Users", type: :request do
   let!(:users) { create_list(:user, 2, :registered) }
   let!(:user_admin) { create(:user, :admin) }
   let(:user_registered) { users.first }
+
   let(:instance) { users.first }
   let(:model) { User }
   let(:model_string) { model.to_s }
@@ -23,161 +24,20 @@ RSpec.describe "Users", type: :request do
     }
   end
 
-  include_context 'unauthorised_requests'
-
   context 'admin namespace' do
+    context 'not logged in' do
+      let(:auth_headers) { {} }
+      include_examples 'unauthorized_requests'
+    end
+
     context 'registered user logged in' do
       before do
-        logged_in_response = login(user_registered)
-        @auth_headers = get_auth_headers(logged_in_response)
+        @logged_in_response = login(user_registered)
       end
 
-      describe "GET /users" do
-        let(:index_request) do
-          get '/admin/users',
-              headers: @auth_headers
-        end
+      let(:auth_headers) { get_auth_headers(@logged_in_response) }
 
-        it "returns list of the users" do
-          index_request
-          expect(response).to have_http_status(200)
-          expect(response.content_type).to eq("application/json")
-          expect(json_data.size).to eq model.all.count
-        end
-      end
-
-      describe "GET /user/:id" do
-        context 'with valid id' do
-          let(:show_request) do
-            get "/admin/users/#{user_registered.id}",
-                headers: @auth_headers
-          end
-
-          it 'returns user with id provided' do
-            show_request
-            expect(response).to have_http_status(200)
-            expect(response.content_type).to eq("application/json")
-            expect(json_data['id']).to eq(user_registered.id.to_s)
-          end
-        end
-
-        context 'with invalid id' do
-          let(:show_request) do
-            get "/admin/users/0",
-                headers: @auth_headers
-          end
-
-          it 'does not return user with wrong id provided' do
-            show_request
-            expect(response).to have_http_status(404)
-            expect(json).to eq "message" => "Couldn't find #{model_string} with 'id'=0"
-          end
-        end
-      end
-
-      describe "POST /users" do
-        let(:post_request) do
-          post '/admin/users',
-               params: params,
-               headers: @auth_headers
-        end
-
-        context 'valid data' do
-          let(:attributes) do
-            {
-              'email': 'newuser@email.com',
-              'password': 'password',
-              'username': 'Username',
-              'photo': photo
-            }
-          end
-
-          it 'does not create new user' do
-            expect { post_request }.to change { User.count }.by(0)
-            expect(response).to have_http_status(403)
-            expect(json).to eq "message" => "You are not authorized to access this page."
-          end
-        end
-
-        context 'invalid data' do
-          let(:attributes) do
-            {
-              'email': '',
-              'password': '',
-              'username': ''
-            }
-          end
-
-          it 'does not create new user' do
-            expect { post_request }.to change { User.count }.by(0)
-            expect(response).to have_http_status(403)
-            expect(json).to eq "message" => "You are not authorized to access this page."
-          end
-        end
-      end
-
-      describe "PATCH /user/:id" do
-        let(:patch_request) do
-          patch "/admin/users/#{user_registered.id}",
-                params: params,
-                headers: @auth_headers
-        end
-
-        context 'with valid data' do
-          let(:attributes)  do
-            { "name": "New name" }
-          end
-
-          it "updates user" do
-            patch_request
-            expect(response).to have_http_status(403)
-            expect(json).to eq "message" => "You are not authorized to access this page."
-          end
-        end
-
-        context 'with invalid data' do
-          let(:attributes) do
-            {
-              "name": '',
-              "name_en": ''
-            }
-          end
-
-          it 'does not update user' do
-            patch_request
-            expect(response).to have_http_status(403)
-            expect(json).to eq "message" => "You are not authorized to access this page."
-          end
-        end
-      end
-
-      describe "DELETE /user/:id" do
-        context 'with valid params' do
-          let(:delete_request) do
-            delete "/admin/users/#{user_registered.id}",
-                   headers: @auth_headers
-          end
-
-          it "does not remove user" do
-            expect { delete_request }.to change { User.count }.by(0)
-            expect(response).to have_http_status(403)
-            expect(json).to eq "message" => "You are not authorized to access this page."
-          end
-        end
-
-        context 'with invalid params' do
-          let(:delete_request) do
-            delete "/admin/users/0",
-                   headers: @auth_headers
-          end
-
-          it "does not remove user" do
-            expect { delete_request }.to change { User.count }.by(0)
-            expect(response).to have_http_status(404)
-            expect(json).to eq "message" => "Couldn't find #{model_string} with 'id'=0"
-          end
-        end
-      end
+      include_examples 'unauthorized_requests'
     end
 
     context 'user admin logged in' do
