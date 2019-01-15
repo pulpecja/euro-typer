@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe "Competitions", type: :request do
+RSpec.describe "Admin::Competitions", type: :request do
   let(:instance) { competitions.first }
   let(:model) { Competition }
   let(:model_string) { model.to_s }
