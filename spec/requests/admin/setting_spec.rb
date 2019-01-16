@@ -14,8 +14,7 @@ RSpec.describe "Admin::Settings", type: :request do
     {
       data: {
         type: type,
-        attributes: attributes,
-        relationships: {}
+        attributes: attributes
       }
     }
   end

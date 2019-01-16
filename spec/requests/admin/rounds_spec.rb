@@ -6,7 +6,6 @@ RSpec.describe "Admin::Rounds", type: :request do
   let(:matches) { create_list(:match, 3)}
   let(:model) { Round }
   let(:model_string) { model.to_s }
-  let(:relationships) { {} }
   let!(:rounds) { create_list(:round, 2) }
   let(:round) { rounds.first }
   let(:type) { model.to_s.pluralize.underscore.dasherize }
@@ -18,7 +17,6 @@ RSpec.describe "Admin::Rounds", type: :request do
       data: {
         type: type,
         attributes: attributes,
-        relationships: relationships
       }
     }
   end

@@ -18,8 +18,7 @@ RSpec.describe "Admin::Users", type: :request do
     {
       data: {
         type: type,
-        attributes: attributes,
-        relationships: {}
+        attributes: attributes
       }
     }
   end
