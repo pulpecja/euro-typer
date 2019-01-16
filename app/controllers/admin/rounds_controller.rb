@@ -37,7 +37,7 @@ class Admin::RoundsController < AdminController
         :name,
         :stage,
         :started_at,
-        :competition_id,
+        :competition_id
       ]
     )
   end
