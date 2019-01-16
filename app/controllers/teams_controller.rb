@@ -16,10 +16,6 @@ class TeamsController < ApplicationController
     @team = Team.find(params[:id])
   end
 
-  def team_params
-    params.require(:team).permit(:name)
-  end
-
   # Temp fix, need to be removed bc there is rescue in ApplicationController,
   # but seems not to be working
   rescue_from CanCan::AccessDenied do |exception|
