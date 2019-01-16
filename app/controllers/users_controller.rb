@@ -1,27 +1,24 @@
 class UsersController < ApplicationController
+  before_action :set_user, only: [:show]
   load_and_authorize_resource
 
-  def show
-    @user = User.find(params[:id])
+  def index
+    @users = User.all.order(:username)
+    json_response(UserSerializer, @users)
   end
 
-  def join_competition
-    @user = User.find(params[:user_id])
-    @competition = Competition.find(params[:competition_id])
-
-    @user.competitions << @competition
-
-    if @user.save
-      flash[:notice] = "Pomyślnie dodano do turnieju #{@competition.name}!"
-      redirect_to :back
-    else
-      flash[:notice] = "Nie udało się dodać do turnieju."
-    end
+  def show
+    json_response(UserSerializer, @user)
   end
 
   private
-  # Never trust parameters from the scary internet, only allow the white list through.
-  def user_params
-    params.require(:user).permit(:username, :email)
+  def set_user
+    @user = User.find(params[:id])
+  end
+
+  # Temp fix, need to be removed bc there is rescue in ApplicationController,
+  # but seems not to be working
+  rescue_from CanCan::AccessDenied do |exception|
+    render json: { message: exception.message }, status: 403
   end
 end
