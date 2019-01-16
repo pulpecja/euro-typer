@@ -18,9 +18,7 @@ Rails.application.routes.draw do
   resources :types
   resources :winner_types
 
-  resources :users, only: [:show] do
-    get '/join_competition/:competition_id' => 'users#join_competition', as: :join_competition
-  end
+  resources :users, only: [:show, :index]
 
   # get 'users/:id/types' => 'types#index'
   # get 'users/:id/types/prepare' => 'types#prepare', as: :prepare_types
