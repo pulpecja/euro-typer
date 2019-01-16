@@ -3,6 +3,7 @@ require 'rails_helper'
 RSpec.describe "Admin::Rounds", type: :request do
   let(:competition) { create(:competition) }
   let(:instance) { rounds.first }
+  let(:matches) { create_list(:match, 3)}
   let(:model) { Round }
   let(:model_string) { model.to_s }
   let(:relationships) { {} }
@@ -95,25 +96,16 @@ RSpec.describe "Admin::Rounds", type: :request do
         context 'valid data' do
           let(:attributes) do
             {
-              'name': 'New Round'
-            }
-          end
-          let(:relationships) do
-            {
-              competitions: {
-                data: [
-                  type: 'competitions',
-                  id: competition.id.to_s
-                ]
-              }
+              'name': 'New Round',
+              'competition_id': competition.id.to_s,
             }
           end
 
           it 'creates new round' do
-            binding.pry
             expect { post_request }.to change { Round.count }.by(1)
             expect(response).to have_http_status(200)
             expect(json_attributes['name']).to eq('New Round')
+            expect(json_relationships['competition']['data']['id']).to eq(competition.id.to_s)
           end
         end
 
@@ -145,10 +137,12 @@ RSpec.describe "Admin::Rounds", type: :request do
 
         context 'with valid data' do
           let(:started_at) { Time.now.strftime("%FT%T") }
+          let(:new_competition) { create(:competition) }
           let(:attributes) do
             {
               "name": "New name",
-              "started_at": started_at
+              "started_at": started_at,
+              "competition_id": new_competition.id.to_s
             }
           end
 
@@ -156,6 +150,7 @@ RSpec.describe "Admin::Rounds", type: :request do
             patch_request
             expect(response).to have_http_status(200)
             expect(json_attributes['name']).to eq('New name')
+            expect(json_relationships['competition']['data']['id']).to eq(new_competition.id.to_s)
           end
         end
 
