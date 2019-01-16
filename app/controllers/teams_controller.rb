@@ -2,21 +2,27 @@ class TeamsController < ApplicationController
   before_action :set_team, only: [:show]
   load_and_authorize_resource
 
+  def index
+    @teams = Team.all.order(:name)
+    json_response(TeamSerializer, @teams)
+  end
+
   def show
-    @matches = Match.by_team(@team)
-                    .includes(:first_team, :second_team, :round)
-                    .group_by(&:competition)
-                    .sort_by{|k, v| k}.reverse
+    json_response(TeamSerializer, @team)
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_team
-      @team = Team.find(params[:id])
-    end
+  def set_team
+    @team = Team.find(params[:id])
+  end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def team_params
-      params.require(:team).permit(:name)
-    end
+  def team_params
+    params.require(:team).permit(:name)
+  end
+
+  # Temp fix, need to be removed bc there is rescue in ApplicationController,
+  # but seems not to be working
+  rescue_from CanCan::AccessDenied do |exception|
+    render json: { message: exception.message }, status: 403
+  end
 end
