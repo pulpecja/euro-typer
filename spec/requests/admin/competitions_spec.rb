@@ -104,12 +104,13 @@ RSpec.describe "Admin::Competitions", type: :request do
             }
           end
 
-          it 'creates new competition' do\
+          it 'creates new competition' do
             expect { post_request }.to change { Competition.count }.by(1)
             expect(response).to have_http_status(200)
             expect(json_attributes['name']).to eq('New Competition')
             expect(json_attributes['place']).to eq('Kraków')
             expect(json_attributes['year']).to eq(2019)
+            binding.pry
             expect(json_attributes['start_date']).to eq(start_date)
             expect(json_attributes['end_date']).to eq(end_date)
           end
