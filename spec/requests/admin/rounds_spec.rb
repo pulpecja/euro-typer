@@ -24,7 +24,7 @@ RSpec.describe "Admin::Rounds", type: :request do
   context 'admin namespace' do
     context 'not logged in' do
       let(:auth_headers) { {} }
-      include_examples 'unauthorized_requests'
+      include_examples 'admin_namespace_unauthorized_requests'
     end
 
     context 'registered user logged in' do
@@ -34,7 +34,7 @@ RSpec.describe "Admin::Rounds", type: :request do
 
       let(:auth_headers) { get_auth_headers(@logged_in_response) }
 
-      include_examples 'unauthorized_requests'
+      include_examples 'admin_namespace_unauthorized_requests'
     end
 
     context 'admin logged in' do

@@ -22,7 +22,7 @@ RSpec.describe "Admin::Competitions", type: :request do
   context 'admin namespace' do
     context 'not logged in' do
       let(:auth_headers) { {} }
-      include_examples 'unauthorized_requests'
+      include_examples 'admin_namespace_unauthorized_requests'
     end
 
     context 'registered user logged in' do
@@ -32,7 +32,7 @@ RSpec.describe "Admin::Competitions", type: :request do
 
       let(:auth_headers) { get_auth_headers(@logged_in_response) }
 
-      include_examples 'unauthorized_requests'
+      include_examples 'admin_namespace_unauthorized_requests'
     end
 
     context 'admin logged in' do
@@ -110,7 +110,6 @@ RSpec.describe "Admin::Competitions", type: :request do
             expect(json_attributes['name']).to eq('New Competition')
             expect(json_attributes['place']).to eq('Kraków')
             expect(json_attributes['year']).to eq(2019)
-            binding.pry
             expect(json_attributes['start_date']).to eq(start_date)
             expect(json_attributes['end_date']).to eq(end_date)
           end
