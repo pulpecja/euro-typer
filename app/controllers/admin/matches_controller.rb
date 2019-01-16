@@ -1,50 +1,29 @@
 class Admin::MatchesController < AdminController
-  before_action :set_match, only: [:show, :edit, :update, :destroy]
+  before_action :set_match, only: [:show, :update, :destroy]
   load_and_authorize_resource
 
-  # skip_before_filter :require_admin!, only: [:index]
-
   def index
-    @competitions = Competition.all.order('id desc')
+    @matchs = Match.all
+    json_response(MatchSerializer, @matchs)
   end
 
   def show
-  end
-
-  def new
-    @match = Match.new
-  end
-
-  def edit
+    json_response(MatchSerializer, @match)
   end
 
   def create
-    @match = Match.new(match_params)
-
-    if @match.save
-      flash[:notice] = "Mecz stworzony"
-      redirect_to(admin_matches_path)
-    else
-      flash[:error]  = "Nie udało się utworzyć meczu"
-      render action: 'new'
-    end
-
+    @match = Match.create!(match_params)
+    json_response(MatchSerializer, @match)
   end
 
   def update
-    if @match.update(match_params)
-      flash[:notice] = "Mecz zapisany"
-      redirect_to(admin_matches_path)
-    else
-      flash[:error]  = "Nie udało się wyedytować meczu."
-      render action: 'edit'
-    end
+    @match.update!(match_params)
+    json_response(MatchSerializer, @match)
   end
 
   def destroy
     @match.destroy
-    flash[:notice] = 'Mecz usunięty!'
-    redirect_to admin_matches_path
+    head :no_content
   end
 
   private
@@ -53,7 +32,15 @@ class Admin::MatchesController < AdminController
     end
 
     def match_params
-      params.require(:match).permit(:first_team_id, :second_team_id, :played, :first_score, :second_score, :round_id)
+      params.require(:data).permit(
+        attributes: [
+          :first_score,
+          :first_team_id,
+          :round_id,
+          :second_score,
+          :second_team_id,
+          :played
+        ]
+      )
     end
-
 end
