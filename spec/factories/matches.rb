@@ -2,8 +2,9 @@
 
 FactoryBot.define do
   factory :match do
-    first_team_id 1
-    second_team_id 1
-    date "2016-05-29 13:25:03"
+    association :first_team, factory: :team
+    association :second_team, factory: :team
+    played { Faker::Time.forward(1, :evening) }
+    round
   end
 end
