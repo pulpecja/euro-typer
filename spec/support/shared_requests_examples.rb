@@ -1,3 +1,19 @@
+RSpec.shared_examples 'admin_namespace_unauthorized_requests' do |options|
+  before do
+    @instance = instance
+    @model = model.to_s
+    @type = type
+  end
+
+  namespace = '/admin'
+
+  unauthorised_show_action(namespace)
+  unauthorised_index_action(namespace)
+  unauthorised_create_action(namespace)
+  unauthorised_update_action(namespace)
+  unauthorised_delete_action(namespace)
+end
+
 RSpec.shared_examples 'unauthorized_requests' do |options|
   before do
     @instance = instance
@@ -7,17 +23,14 @@ RSpec.shared_examples 'unauthorized_requests' do |options|
 
   unauthorised_show_action
   unauthorised_index_action
-  unauthorised_create_action
-  unauthorised_update_action
-  unauthorised_delete_action
 end
 
 private
-def unauthorised_show_action
+def unauthorised_show_action(namespace = '')
   describe "GET #show" do
     context 'with valid id' do
       let(:show_request) do
-        get "/admin/#{@type}/#{@instance.id}",
+        get "#{namespace}/#{@type}/#{@instance.id}",
             headers: auth_headers
       end
 
@@ -30,7 +43,7 @@ def unauthorised_show_action
 
     context 'with invalid id' do
       let(:show_request) do
-        get "/admin/#{@type}/0",
+        get "#{namespace}/#{@type}/0",
             headers: auth_headers
       end
 
@@ -43,7 +56,7 @@ def unauthorised_show_action
   end
 end
 
-def unauthorised_index_action
+def unauthorised_index_action(namespace = '')
   describe "GET #index" do
     let(:index_request) do
       get "/admin/#{@type}",
@@ -58,7 +71,7 @@ def unauthorised_index_action
   end
 end
 
-def unauthorised_create_action
+def unauthorised_create_action(namespace = '')
   describe "POST #create" do
     context 'valid data' do
       let(:attributes) do
@@ -68,7 +81,7 @@ def unauthorised_create_action
       end
 
       let(:post_request) do
-        post  "/admin/#{@type}",
+        post  "#{namespace}/#{@type}",
               params: params,
               headers: auth_headers
       end
@@ -89,7 +102,7 @@ def unauthorised_create_action
       end
 
       let(:post_request) do
-        post "/admin/#{@type}",
+        post "#{namespace}/#{@type}",
              params: params,
              headers: auth_headers
       end
@@ -103,7 +116,7 @@ def unauthorised_create_action
   end
 end
 
-def unauthorised_update_action
+def unauthorised_update_action(namespace = '')
   describe "PATCH #update" do
     context 'with valid data' do
       let(:attributes) do
@@ -113,7 +126,7 @@ def unauthorised_update_action
       end
 
       let(:patch_request) do
-        patch "/admin/#{@type}/#{@instance.id}",
+        patch "#{namespace}/#{@type}/#{@instance.id}",
               params: params,
               headers: auth_headers
       end
@@ -134,7 +147,7 @@ def unauthorised_update_action
       end
 
       let(:patch_request) do
-        patch "/admin/#{@type}/#{@instance.id}",
+        patch "#{namespace}/#{@type}/#{@instance.id}",
               params: params,
               headers: auth_headers
       end
@@ -148,10 +161,10 @@ def unauthorised_update_action
   end
 end
 
-def unauthorised_delete_action
+def unauthorised_delete_action(namespace = '')
   describe "DELETE #destroy" do
     let(:delete_request) do
-      delete "/admin/#{@type}/#{@instance.id}",
+      delete "#{namespace}/#{@type}/#{@instance.id}",
              headers: auth_headers
     end
 
