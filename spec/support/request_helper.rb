@@ -7,6 +7,10 @@ module RequestHelper
     json['included']
   end
 
+  def json_relationships
+    json['data']['relationships']
+  end
+
   def json_id
     json_data['id']
   end
