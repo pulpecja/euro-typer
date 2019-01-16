@@ -12,7 +12,6 @@ class Admin::RoundsController < AdminController
   end
 
   def create
-    binding.pry
     @round = Round.create!(round_params)
     json_response(RoundSerializer, @round)
   end
@@ -33,14 +32,13 @@ class Admin::RoundsController < AdminController
   end
 
   def round_params
-    binding.pry
     params.require(:data).permit(
       attributes: [
         :name,
         :stage,
-        :started_at
-      ],
-      relationships: {}
+        :started_at,
+        :competition_id,
+      ]
     )
   end
 end
