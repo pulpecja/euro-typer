@@ -3,43 +3,22 @@ class CompetitionsController < ApplicationController
   load_and_authorize_resource
 
   def index
-    @group = Group.find(params['group_id'])
-    @competitions = @group.competitions
+    @competitions = Competition.all.order(:name)
+    json_response(CompetitionSerializer, @competitions)
   end
 
   def show
-    @groups = current_user.groups
-                          .includes(:competitions)
-                          .select{ |g| g.competitions.include? @competition }
-
-    if @groups.empty?
-      redirect_to groups_path
-    else
-      set_current_round
-      @matches = @round.matches
-    end
+    json_response(CompetitionSerializer, @competition)
   end
 
   private
-  def default_competition
-    Setting.find_by(name: 'default_competition').value
-  end
-
   def set_competition
-    @competition = Competition.find(params[:id] || default_competition)
+    @competition = Competition.find(params[:id])
   end
 
-  def competition_params
-    params.require(:competition).permit(:name, :year, :place)
-  end
-
-  def set_current_round
-    @round = if params[:round]
-               @competition.rounds.find(params[:round])
-             else
-               @competition.rounds.started.last ||
-               @competition.rounds.scheduled.first ||
-               @competition.rounds.first
-             end
+  # Temp fix, need to be removed bc there is rescue in ApplicationController,
+  # but seems not to be working
+  rescue_from CanCan::AccessDenied do |exception|
+    render json: { message: exception.message }, status: 403
   end
 end
