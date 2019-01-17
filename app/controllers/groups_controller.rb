@@ -1,60 +1,30 @@
 class GroupsController < ApplicationController
-  before_action :set_group, only: [:show, :edit, :update, :destroy]
+  before_action :set_group, only: [:show, :update, :destroy]
   load_and_authorize_resource except: [:join]
   skip_authorization_check only: [:join]
 
   def index
-    @groups = current_user.groups.includes(:owner)
+    @groups = Group.all
+    json_response(GroupSerializer, @groups)
   end
 
   def show
-    @users = @group.users.existing
-  end
-
-  def new
-    @group = Group.new
-  end
-
-  def edit
+    json_response(GroupSerializer, @group)
   end
 
   def create
-    @group = Group.new(group_params)
-
-    add_competitions
-    @group.owner_id = current_user.id
-    @group.users << current_user
-
-    if @group.save
-      flash[:notice] = "Grupa stworzona"
-      redirect_to @group
-    else
-      flash[:error]  = "Nie udało się utworzyć grupy"
-      render action: 'new'
-    end
-
-
+    @group = Group.create!(group_params)
+    json_response(GroupSerializer, @group)
   end
 
   def update
-    add_competitions
-    respond_to do |format|
-      if @group.update(group_params)
-        format.html { redirect_to @group, notice: 'Grupa zaktualizwana.' }
-        format.json { render :show, status: :ok, location: @group }
-      else
-        format.html { render :edit }
-        format.json { render json: @group.errors, status: :unprocessable_entity }
-      end
-    end
+    @group.update!(group_params)
+    json_response(GroupSerializer, @group)
   end
 
   def destroy
     @group.destroy
-    respond_to do |format|
-      format.html { redirect_to groups_url, notice: 'Grupa pomyślnie usunięta.' }
-      format.json { head :no_content }
-    end
+    head :no_content
   end
 
   def join
@@ -62,10 +32,9 @@ class GroupsController < ApplicationController
 
     if @group
       @group.users << current_user
-      flash[:notice] = "Pomyślnie dodano do grupy #{@group.name}!"
-      redirect_to @group
+      json_response(GroupSerializer, @group)
     else
-      flash[:notice] = "Link jest błędny, nie udało się dodać"
+      render json: { message: 'Group not found' }, status: :not_found
     end
   end
 
@@ -75,11 +44,26 @@ class GroupsController < ApplicationController
   end
 
   def group_params
-    params.require(:group).permit(:name, :token, competition_ids: [])
+    params.require(:data).permit(
+      attributes: [
+        :name,
+        :token,
+        :owner_id,
+        user_ids: [],
+        competition_ids: []
+      ]
+    )
   end
 
-  def add_competitions
-    group = GroupService.new(params[:group], @group)
-    group.add_competitions
+  # Temp fix, need to be removed bc there is rescue in ApplicationController,
+  # but seems not to be working
+  rescue_from CanCan::AccessDenied do |exception|
+    render json: { message: exception.message }, status: 403
   end
+
+  # Not sure if needed 
+  # def add_competitions
+  #   group = GroupService.new(params[:group], @group)
+  #   group.add_competitions
+  # end
 end
