@@ -12,7 +12,7 @@ class Ability
         elsif user.is_registered?
           can :manage, Type
           can :read, [Competition, Match, Page, Team, User]
-          can [:read, :create], Group
+          can [:read, :create, :join], Group
           can [:update, :destroy], Group, owner_id: user.id
           can :create, WinnerType
           can :update, WinnerType, user_id: user.id

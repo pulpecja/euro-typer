@@ -22,7 +22,7 @@ RSpec.describe Ability do
     let(:user) { create(:user, :registered) }
     it 'allows to' do
       expect(ability).to be_able_to(:read, Competition.new)
-      expect(ability).to be_able_to([:read, :create], Group.new)
+      expect(ability).to be_able_to([:read, :create, :join], Group.new)
       expect(ability).to be_able_to(
                           [:update, :destroy],
                           Group.new(owner_id: user.id)
