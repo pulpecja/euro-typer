@@ -1,12 +1,12 @@
 class Type < ApplicationRecord
   include Bettable
-
   belongs_to :match
   belongs_to :user
 
+  validates :user_id, :match_id, presence: true
+
   validate :check_scores
   validate :check_date, on: :update
-
 
   scope :by_user, -> (current_user) { where(user_id: current_user.id) }
 
@@ -15,7 +15,6 @@ class Type < ApplicationRecord
   end
 
   private
-
   def check_scores
     [first_score, second_score].each do |score|
       if score.present? && !score.is_a?(Integer)
