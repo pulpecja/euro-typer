@@ -59,7 +59,7 @@ end
 def unauthorised_index_action(namespace = '')
   describe "GET #index" do
     let(:index_request) do
-      get "/admin/#{@type}",
+      get "#{namespace}/#{@type}",
           headers: auth_headers
     end
 
