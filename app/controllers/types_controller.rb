@@ -1,81 +1,77 @@
 class TypesController < ApplicationController
-  before_action :set_type, only: [:show, :edit, :update, :destroy]
-  before_action :set_round, only: [:index, :prepare]
-  before_action :set_matches, only: [:index]
-  before_action :prepare, only: [:index]
-
-  load_and_authorize_resource except: [:prepare]
-  skip_authorization_check only: [:prepare]
-  respond_to :json
+  before_action :set_type, only: [:show, :update, :destroy]
+  load_and_authorize_resource
 
   def index
-    @types = Type.by_user(current_user)
+    @types = Type.all.by_user(@current_user)
+    json_response(TypeSerializer, @types)
   end
 
   def show
-  end
-
-  def new
-    @type = Type.new
-  end
-
-  def edit
+    json_response(TypeSerializer, @type)
   end
 
   def create
-    @type = Type.new(type_params)
-
-    respond_to do |format|
-      if @type.save
-        format.html { redirect_to @type, notice: 'Type was successfully created.' }
-        format.json { render :show, status: :created, location: @type }
-      else
-        format.html { render :new }
-        format.json { render json: @type.errors, status: :unprocessable_entity }
-      end
-    end
+    @type = Type.create!(type_params)
+    json_response(TypeSerializer, @type)
   end
 
   def update
-    respond_to do |format|
-      if @type.update(type_params)
-        format.json { head :no_content }
-        format.html { redirect_to @type, notice: 'Type was successfully updated.' }
-      else
-        format.json { render json: @type.errors, status: :unprocessable_entity }
-        format.html { render :edit }
-      end
-    end
+    @type.update!(type_params)
+    json_response(TypeSerializer, @type)
   end
 
   def destroy
     @type.destroy
-    respond_to do |format|
-      format.html { redirect_to types_url, notice: 'Type was successfully destroyed.' }
-      format.json { head :no_content }
-    end
-  end
-
-  def prepare
-    @matches.each do |match|
-      Type.find_or_create_by(user: current_user, match: match)
-    end
+    head :no_content
   end
 
   private
-    def set_type
-      @type = Type.find(params[:id])
-    end
+  # Method to deal with score as a string, may be useful someday,
+  # if we change approach to scoring
+  # def check_scores_type
+  #   attr_names = ['first_score', 'second_score']
+  #
+  #   params[:data][:attributes].each do |attr|
+  #     if attr_names.include?(attr[0])
+  #       begin
+  #         Integer(attr[1])
+  #       rescue ArgumentError
+  #         params[:data][:attributes][attr[0].to_s] = nil
+  #       end
+  #     else
+  #       next
+  #     end
+  #   end
+  # end
 
-    def set_round
-      @round = Round.find(params[:round_id])
-    end
+  def set_type
+    @type = Type.find(params[:id])
+  end
 
-    def set_matches
-      @matches = Match.includes(:first_team, :second_team).by_round(@round)
-    end
+  def set_round
+    @round = Round.find(params[:round_id])
+  end
 
-    def type_params
-      params.require(:type).permit(:user_id, :match_id, :first_score, :second_score, :bet)
-    end
+  def set_matches
+    @matches = Match.includes(:first_team, :second_team).by_round(@round)
+  end
+
+  def type_params
+    params.require(:data).permit(
+      attributes: [
+        :user_id,
+        :match_id,
+        :first_score,
+        :second_score,
+        :bet
+      ]
+    )
+  end
+
+  # Temp fix, need to be removed bc there is rescue in ApplicationController,
+  # but seems not to be working
+  rescue_from CanCan::AccessDenied do |exception|
+    render json: { message: exception.message }, status: 403
+  end
 end
