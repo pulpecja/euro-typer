@@ -1,0 +1,4 @@
+; ansible_tutorial/ansible/production
+
+[backend_servers]
+rails_backend_server ansible_host=ec2-18-197-115-59.eu-central-1.compute.amazonaws.com ansible_user=ubuntu

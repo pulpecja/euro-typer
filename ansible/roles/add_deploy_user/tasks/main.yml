@@ -1,0 +1,8 @@
+- name: Add deploy user
+  user:
+    name: deploy
+    shell: /bin/bash
+- name: Add SSH key to server for deploy user
+  authorized_key:
+    user: deploy
+    key: "{{ vault_ssh_public_key }}"

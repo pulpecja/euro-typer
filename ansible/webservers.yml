@@ -1,0 +1,8 @@
+- hosts: backend_servers
+  remote_user: root
+  become: yes
+  roles:
+    - update_packages
+    - add_deploy_user
+    - ruby_installation
+  handlers:

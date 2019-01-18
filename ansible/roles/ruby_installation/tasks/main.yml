@@ -1,0 +1,74 @@
+---
+# tasks file for ansible/roles/ruby_installation
+- name: Install Ruby dependencies
+  apt:
+    pkg:
+      - gcc
+      - autoconf
+      - bison
+      - build-essential
+      - libssl-dev
+      - libyaml-dev
+      - libreadline6-dev
+      - zlib1g-dev
+      - libncurses5-dev
+      - libffi-dev
+      - libgdbm-dev
+      - sqlite3
+      - libsqlite3-dev
+      - nodejs
+      - libgdbm5
+    state: present
+- name: Download ruby-install
+  become: no
+  get_url:
+    url: https://github.com/postmodern/ruby-install/archive/v0.7.0.tar.gz
+    dest: /home/ubuntu/ruby-install-0.7.0.tar.gz
+- name: Extract ruby-install tarball 
+  become: no
+  unarchive:
+    src: /home/ubuntu/ruby-install-0.7.0.tar.gz
+    dest: /home/ubuntu
+    creates: /home/ubuntu/ruby-install-0.7.0
+    remote_src: yes
+- name: Install ruby-install
+  make:
+    chdir: /home/ubuntu/ruby-install-0.7.0
+    target: install
+- name: Install ruby
+  become_user: deploy
+  command: /usr/local/bin/ruby-install --no-install-deps ruby 2.5.0
+  args:
+    creates: /home/deploy/.rubies/ruby-2.5.0
+- name: Download chruby
+  become: no
+  get_url:
+    url: https://github.com/postmodern/chruby/archive/v0.3.9.tar.gz
+    dest: /home/ubuntu/chruby-0.3.9.tar.gz
+- name: Extract chruby tarball
+  become: no
+  unarchive:
+    src: /home/ubuntu/chruby-0.3.9.tar.gz
+    dest: /home/ubuntu
+    creates: /home/ubuntu/chruby-0.3.9
+    remote_src: yes
+- name: Install chruby
+  make:
+    chdir: /home/ubuntu/chruby-0.3.9
+    target: install
+- name: Load chruby for deploy user
+  lineinfile:
+    path: /home/deploy/.bashrc
+    regexp: 'chruby.sh$'
+    line: 'source /usr/local/share/chruby/chruby.sh'
+    insertbefore: BOF
+- name: Set ruby version for deploy user
+  lineinfile:
+    path: /home/deploy/.profile
+    regexp: '^chruby'
+    line: 'chruby ruby-2.5.0'
+- name: Install bundler
+  become_user: deploy
+  command: 'chruby-exec ruby-2.5.0 -- gem install bundler'
+  args:
+    creates: /home/deploy/.gem/ruby/2.5.0/bin/bundle

@@ -1,0 +1,25 @@
+---
+# tasks file for ansible/roles/nginx_installation
+- name: Install nginx
+  apt:
+    name: nginx
+    state: latest
+# - name: Upload nginx config
+#   copy:
+#     src: nginx_config
+#     dest: /etc/nginx/sites-available/rails
+#   notify:
+#     - Restart nginx
+# - name: Disable default nginx config
+#   file:
+#     path: /etc/nginx/sites-enabled/default
+#     state: absent
+#   notify:
+#     - Restart nginx
+# - name: Enable nginx config
+#   file:
+#     src: /etc/nginx/sites-available/rails
+#     dest: /etc/nginx/sites-enabled/rails
+#     state: link
+#   notify:
+#     - Restart nginx
