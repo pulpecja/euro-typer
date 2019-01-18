@@ -2,9 +2,9 @@
 
 FactoryBot.define do
   factory :type do
-    user_id 1
-    match_id 1
-    first_score ""
-    second_score ""
+    association :user
+    association :match
+    first_score Faker::Number.digit
+    second_score Faker::Number.digit
   end
 end
