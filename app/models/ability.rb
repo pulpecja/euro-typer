@@ -11,11 +11,11 @@ class Ability
           can :manage, :all
         elsif user.is_registered?
           can :read, [Competition, Match, Page, Team, User, Type]
-          can [:read, :create, :join], Group
-          can [:update, :destroy], Group, owner_id: user.id
-          can [:create, :update, :destroy], Type, user_id: user.id
+          can %i[read create join], Group
+          can %i[update destroy], Group, owner_id: user.id
+          can %i[create update destroy], Type, user_id: user.id
           can :create, WinnerType
-          can :update, WinnerType, user_id: user.id
+          can %i[read update destroy], WinnerType, user_id: user.id
         end
       end
   end
