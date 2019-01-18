@@ -10,10 +10,10 @@ class Ability
         if user.is_admin?
           can :manage, :all
         elsif user.is_registered?
-          can :manage, Type
-          can :read, [Competition, Match, Page, Team, User]
+          can :read, [Competition, Match, Page, Team, User, Type]
           can [:read, :create, :join], Group
           can [:update, :destroy], Group, owner_id: user.id
+          can [:create, :update, :destroy], Type, user_id: user.id
           can :create, WinnerType
           can :update, WinnerType, user_id: user.id
         end
