@@ -6,6 +6,7 @@ set :repo_url, "git@github.com:radek-polcode/euro-typer.git"
 set :deploy_to, "/home/deploy/apps"
 append :linked_dirs, "log", "tmp/pids", "tmp/cache", "tmp/sockets"
 set :chruby_ruby, 'ruby-2.5.0'
+set :linked_files, %w{config/database.yml}
 
 # Default branch is :master
 # ask :branch, `git rev-parse --abbrev-ref HEAD`.chomp
