@@ -6,8 +6,11 @@
     - add_deploy_user
     - ruby_installation
     - nginx_installation
+    - role: weareinteractive.environment
+      tags: 'envs'
     - role: geerlingguy.postgresql
       become: yes
+      tags: 'postgresql'
   handlers:
     - name: Restart nginx
       service: name=nginx state=restarted

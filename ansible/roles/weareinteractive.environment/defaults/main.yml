@@ -1,0 +1,17 @@
+---
+
+# Path to the environment file
+environment_file: /etc/environment
+# The environment file owner
+environment_file_owner: root
+# The environment file group
+environment_file_group: root
+# A dictionary of config parameters i.e
+#
+# environment_config:
+#   LC_ALL: en_US.UTF-8
+environment_config: {
+  DB_NAME: "{{ db_name }}",
+  DB_USER: "{{ db_user }}",
+  DB_PASSWORD: "{{ db_password }}"
+}
