@@ -24,14 +24,18 @@ gem 'fast_jsonapi'
 gem 'rack-cors', :require => 'rack/cors'
 
 group :development do
-  gem 'letter_opener', github: 'ryanb/letter_opener'
-  gem 'spring'
   gem 'better_errors'
   gem 'binding_of_caller'
-  gem 'byebug'
-  gem 'pry-byebug'
   gem 'bullet'
+  gem 'byebug'
+  gem 'capistrano', '~> 3.10'
+  gem 'capistrano-chruby'
+  gem 'capistrano-rails'
+  gem 'capistrano3-puma'
+  gem 'letter_opener', github: 'ryanb/letter_opener'
   gem 'listen', '~> 3.0'
+  gem 'pry-byebug'
+  gem 'spring'
 end
 
 group :development, :test do
