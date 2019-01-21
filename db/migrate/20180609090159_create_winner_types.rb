@@ -1,4 +1,4 @@
-class CreateWinnerTypes < ActiveRecord::Migration
+class CreateWinnerTypes < ActiveRecord::Migration[5.2]
   def change
     create_table :winner_types do |t|
       t.references :team, index: true, foreign_key: true

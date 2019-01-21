@@ -1,4 +1,4 @@
-class CreateMatches < ActiveRecord::Migration
+class CreateMatches < ActiveRecord::Migration[5.2]
   def change
     create_table :matches do |t|
       t.integer :first_team_id, null: false

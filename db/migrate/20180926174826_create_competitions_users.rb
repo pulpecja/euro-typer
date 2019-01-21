@@ -1,4 +1,4 @@
-class CreateCompetitionsUsers < ActiveRecord::Migration
+class CreateCompetitionsUsers < ActiveRecord::Migration[5.2]
   def change
     create_table :competitions_users do |t|
       t.references :user, index: true, foreign_key: true

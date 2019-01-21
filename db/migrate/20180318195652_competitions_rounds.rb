@@ -1,4 +1,4 @@
-class CompetitionsRounds < ActiveRecord::Migration
+class CompetitionsRounds < ActiveRecord::Migration[5.2]
   def change
     create_table :competitions_groups do |t|
       t.references :competition, index: true, foreign_key: true
