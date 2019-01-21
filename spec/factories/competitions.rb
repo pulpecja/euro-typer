@@ -2,7 +2,7 @@
 
 FactoryBot.define do
   factory :competition do
-    name { Faker::FunnyName }
+    name { Faker::Fallout.character }
     year { 2019 }
     place { Faker::Address.country }
 

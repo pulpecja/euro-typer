@@ -60,4 +60,8 @@ RSpec.configure do |config|
 
   config.include AuthenticationHelper
   config.include RequestHelper
+
+  config.before(type: :controller) do
+    @request.headers['Content-Type'] = 'application/json'
+  end
 end
