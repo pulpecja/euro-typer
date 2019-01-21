@@ -1,11 +1,10 @@
 require 'spec_helper'
 
 RSpec.describe GroupService do
-
-    before(:each) do
-    @user  = create :user
+  before(:each) do
+    @user = create :user
     # @group = create :group
-    sign_in(@user, scope: :user)
+    # sign_in(@user, scope: :user)
   end
 
   subject { GroupService.new(params, group) }
@@ -15,8 +14,7 @@ RSpec.describe GroupService do
       let(:params) { { group: {
                          competition_ids: [competition.id] } } }
 
-  describe "passing valid parameters" do
-
+  xdescribe "passing valid parameters" do
     it "is successful" do
       expect(subject.call).to be_success
     end

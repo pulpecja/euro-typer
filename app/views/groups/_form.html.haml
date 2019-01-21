@@ -1,9 +1,0 @@
-= simple_form_for(@group) do |f|
-  = f.error_notification
-
-  .form-inputs
-    = f.input :name
-    = f.association :competitions, as: :check_boxes
-
-  .form-actions
-    = f.button :submit, 'Utwórz grupę'

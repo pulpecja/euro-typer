@@ -8,7 +8,7 @@ describe "Whether access is ocurring properly", type: :request do
   context "general authentication via API, " do
     it "doesn't give you anything if you don't log in" do
       get '/groups'
-      expect(response.status).to eq(401)
+      expect(response.status).to eq(403)
     end
 
     it "gives you an authentication code if you are an existing user and you satisfy the password" do
@@ -47,7 +47,7 @@ describe "Whether access is ocurring properly", type: :request do
     end
   end
 
-  RSpec.shared_examples "use authentication tokens of different ages" do |token_age, http_status|      
+  RSpec.shared_examples "use authentication tokens of different ages" do |token_age, http_status|
     let(:vary_authentication_age) { token_age }
 
     it "uses the given parameter" do
@@ -69,7 +69,7 @@ describe "Whether access is ocurring properly", type: :request do
 
   context "test access tokens of varying ages" do
     include_examples "use authentication tokens of different ages", 2.days, :success
-    include_examples "use authentication tokens of different ages", 5.years, :unauthorized
+    include_examples "use authentication tokens of different ages", 5.years, :forbidden
   end
 
   def get_auth_params_from_login_response_headers(response)

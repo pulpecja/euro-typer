@@ -1,9 +1,0 @@
-= simple_form_for(@winner_type, html: { class: 'form-horizontal' }, wrapper: :horizontal_form ) do |f|
-  = f.error_notification
-
-  .form-inputs
-    = f.association :team, label_method: :name, label: false, collection: @competition.competition_teams.sort_by(&:name), input_html: { class: 'select2-dropdown' }
-    = f.hidden_field :competition_id, value: @competition.id
-
-  .form-actions
-    = f.button :submit, 'Zapisz typ'

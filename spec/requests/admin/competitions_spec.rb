@@ -49,7 +49,6 @@ RSpec.describe "Admin::Competitions", type: :request do
 
         it 'returns all instances' do
           index_request
-          binding.pry
           expect(response).to have_http_status(200)
           expect(json_data.size).to eq model.all.count
         end
