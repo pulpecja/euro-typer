@@ -11,11 +11,8 @@
  * file per style scope.
  *
  *= require_tree .
- *= require select2
- *= require select2-bootstrap
  *= require_self
  */
- @import "bootstrap-editable";
 
 .centered-nav .btn {
   border: 1px solid;
