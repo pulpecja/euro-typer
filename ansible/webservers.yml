@@ -5,6 +5,7 @@
     - update_packages
     - add_deploy_user
     - ruby_installation
+    - nginx_installation
   handlers:
     - name: Restart nginx
       service: name=nginx state=restarted
