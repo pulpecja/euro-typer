@@ -23,7 +23,7 @@ RSpec.describe "Types", type: :request do
 
   context 'not logged in' do
     let(:auth_headers) { {} }
-    include_examples 'unauthorized_requests'
+    include_examples 'not_logged_in_requests'
   end
 
   context 'registered type logged in' do

@@ -27,7 +27,7 @@ RSpec.describe "Admin::Groups", type: :request do
   context 'admin namespace' do
     context 'not logged in' do
       let(:auth_headers) { {} }
-      include_examples 'admin_namespace_unauthorized_requests'
+      include_examples 'admin_namespace_not_logged_in_requests'
     end
 
     context 'registered user logged in' do
