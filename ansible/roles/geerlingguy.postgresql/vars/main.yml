@@ -1,6 +1,9 @@
 postgresql_databases:
   - name: "{{ db_name }}"
-
+    lc_collate: 'pl_PL.UTF-8' # defaults to 'en_US.UTF-8'
+    lc_ctype: 'pl_PL.UTF-8' # defaults to 'en_US.UTF-8'
 postgresql_users:
   - name: "{{ db_user }}"
     password: "{{ db_password }}"
+postgresql_locales:
+  - 'pl_PL.UTF-8'
