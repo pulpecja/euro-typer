@@ -13,5 +13,6 @@ environment_file_group: root
 environment_config: {
   DB_NAME: "{{ db_name }}",
   DB_USER: "{{ db_user }}",
-  DB_PASSWORD: "{{ db_password }}"
+  DB_PASSWORD: "{{ db_password }}",
+  SECRET_KEY_BASE: "{{ secret_key_base }}"
 }
