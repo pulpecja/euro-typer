@@ -82,7 +82,7 @@ def unauthorized_show_action(namespace = '')
     end
 
     context 'with invalid id' do
-      let(:message) { { "message" => "Couldn't find Competition with 'id'=0" } }
+      let(:message) { { "message" => "Couldn't find #{@model} with 'id'=0" } }
       let(:status_code) { 404 }
 
       let(:show_request) do
