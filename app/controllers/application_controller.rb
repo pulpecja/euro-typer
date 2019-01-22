@@ -3,9 +3,8 @@ class ApplicationController < ActionController::API
   include DeviseTokenAuth::Concerns::SetUserByToken
   include Response
   include ExceptionHandler
-  protect_from_forgery with: :null_session, only: Proc.new { |c| c.request.format.json? }
 
-  before_action :authenticate_user!
+  before_action :authenticate_user!, unless: :auth_action
 
   rescue_from CanCan::AccessDenied do |exception|
     render json: { message: exception.message }, status: 403
@@ -14,7 +13,9 @@ class ApplicationController < ActionController::API
   # before_action :configure_permitted_parameters, if: :devise_controller?
 
   protected
-
+  def auth_action
+    params[:controller] == 'devise_token_auth/sessions'
+  end
   # def configure_permitted_parameters
   #   devise_parameter_sanitizer.permit(:sign_up, keys: [:username, :role])
   #   devise_parameter_sanitizer.permit(:sign_in, keys: [:username])
