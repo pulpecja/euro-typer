@@ -82,7 +82,7 @@ ActiveRecord::Schema.define(version: 2019_01_14_145152) do
     t.string "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.datetime "started_at", default: "2019-01-21 00:00:00", null: false
+    t.datetime "started_at", default: -> { "now()" }, null: false
     t.integer "competition_id"
     t.integer "stage"
     t.index ["competition_id"], name: "index_rounds_on_competition_id"
