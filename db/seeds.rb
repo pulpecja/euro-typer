@@ -27,10 +27,53 @@ walia             = create_country("Walia", "WAL").id
 wegry             = create_country("Węgry", "HUN").id
 wlochy            = create_country("Włochy", "ITA").id
 
+admin = User.where(username: 'admin', email: 'admin@typerek.com').first_or_create do |user|
+  user.password = 'typerek1'
+  user.role = 'admin'
+end
 
-first_round  = Round.find_or_create_by(name: "Kolejka 1")
-second_round = Round.find_or_create_by(name: "Kolejka 2")
-third_round  = Round.find_or_create_by(name: "Kolejka 3")
+user = User.where(username: 'registered_user', email: 'registered_user@typerek.com').first_or_create do |user|
+  user.password = 'typerek1'
+  user.role = 'registered'
+end
+
+competition = Competition.where(name: 'default_competition').first_or_create do |competition|
+  competition.end_date = Date.today - 20.days
+  competition.place = 'Pilczyca'
+  competition.start_date = DateTime.now - 200.days
+  competition.winner_id = Team.first.id
+  competition.year = 2019
+end
+
+competition_2 = Competition.where(name: 'default_competition').first_or_create do |competition|
+  competition.end_date = DateTime.now - 20.days
+  competition.place = 'Pilczyca'
+  competition.start_date = DateTime.now - 200.days
+  competition.winner_id = Team.first.id
+  competition.year = 2019
+end
+
+setting = Setting.where(name: 'default_competition').first_or_create do |setting|
+  setting.value = competition.id
+end
+
+first_round = Round.where(name: "Kolejka 1").first_or_create do |round|
+  round.competition_id = competition.id
+  round.stage = 1
+  round.started_at = DateTime.now - 30.days
+end
+
+second_round = Round.where(name: "Kolejka 2").first_or_create do |round|
+  round.competition_id = competition.id
+  round.stage = 2
+  round.started_at = DateTime.now - 20.days
+end
+
+third_round = Round.where(name: "Kolejka 3").first_or_create do |round|
+  round.competition_id = competition.id
+  round.stage = 3
+  round.started_at = DateTime.now - 10.days
+end
 
 [
   [francja,           rumunia,           "2016-06-10 21:00:00", first_round],
@@ -72,19 +115,3 @@ third_round  = Round.find_or_create_by(name: "Kolejka 3")
 ].each do |record|
   Match.find_or_create_by(first_team_id: record[0], second_team_id: record[1], played: record[2], round: record[3])
 end
-
-User.create(
-  username: 'admin',
-  email: 'admin@typerek.com',
-  password: 'typerek1',
-  role: 'admin'
-)
-
-Competition.create(
-  name: 'default_competition'
-)
-
-Setting.create(
-  name: 'default_competition',
-  value: Competition.first.id
-)
