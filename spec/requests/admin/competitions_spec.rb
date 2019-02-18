@@ -142,13 +142,19 @@ RSpec.describe "Admin::Competitions", type: :request do
 
         context 'with valid data' do
           let(:attributes)  do
-            { "name": "New name" }
+            { 
+              "name": "New name",
+              "start_date": "2019-02-01T00:00:00.000",
+              "end_date": "2019-02-07T00:00:00.000"
+            }
           end
 
           it 'updates competition' do
             patch_request
             expect(response).to have_http_status(200)
             expect(json_attributes['name']).to eq('New name')
+            expect(json_attributes['start_date']).to eq('2019-02-01T00:00:00')
+            expect(json_attributes['end_date']).to eq('2019-02-07T00:00:00')
           end
         end
 
