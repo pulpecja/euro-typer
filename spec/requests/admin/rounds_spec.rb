@@ -8,6 +8,7 @@ RSpec.describe "Admin::Rounds", type: :request do
   let(:model_string) { model.to_s }
   let!(:rounds) { create_list(:round, 2) }
   let(:round) { rounds.first }
+  let(:started_at) { Time.now.strftime("%FT%T") }
   let(:type) { model.to_s.pluralize.underscore.dasherize }
   let!(:user_admin) { create(:user, :admin) }
   let!(:user_registered) { create(:user, :registered) }
@@ -96,6 +97,7 @@ RSpec.describe "Admin::Rounds", type: :request do
             {
               'name': 'New Round',
               'competition_id': competition.id.to_s,
+              'started_at': started_at
             }
           end
 
@@ -119,7 +121,7 @@ RSpec.describe "Admin::Rounds", type: :request do
             expect(response).to have_http_status(422)
             expect(json).to eq(
               { 
-                "message" => "Negatywne sprawdzenie poprawności: Competition nie może być puste"
+                "message" => "Negatywne sprawdzenie poprawności: Competition nie może być puste, Rozpoczyna się nie może być puste"
                 }
             )
           end
@@ -134,7 +136,6 @@ RSpec.describe "Admin::Rounds", type: :request do
         end
 
         context 'with valid data' do
-          let(:started_at) { Time.now.strftime("%FT%T") }
           let(:new_competition) { create(:competition) }
           let(:attributes) do
             {
