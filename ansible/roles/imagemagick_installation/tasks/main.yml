@@ -14,15 +14,15 @@
   unarchive:
     src: /home/ubuntu/ImageMagick.tar.gz
     dest: /home/ubuntu
-    creates: /home/ubuntu/ImageMagick
+    creates: /home/ubuntu/ImageMagick-7.0.8-28
     remote_src: yes
 - name: Configure ImageMagick before installation
-  shell: ./configure
+  command: ./configure
   args:
-    chdir: /home/ubuntu/ImageMagick
+    chdir: /home/ubuntu/ImageMagick-7.0.8-28
 - name: Install ImageMagick
   make:
-    chdir: /home/ubuntu/ImageMagick
+    chdir: /home/ubuntu/ImageMagick-7.0.8-28
     target: install
 - name: Link static libraries with ImageMagick
   shell: ldconfig /usr/local/lib
