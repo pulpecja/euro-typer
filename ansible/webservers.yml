@@ -6,6 +6,7 @@
     - add_deploy_user
     - ruby_installation
     - nginx_installation
+    - imagemagick_installation
     - role: weareinteractive.environment
       tags: 'envs'
     - role: geerlingguy.postgresql

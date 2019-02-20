@@ -1,0 +1,29 @@
+---
+# tasks file for ansible/roles/imagemagick_installation---
+- name: Update ImageMagick
+  apt: 
+    state: build-dep
+    pkg: imagemagick
+- name: Download ImageMagick
+  become: no
+  get_url:
+    url: http://www.imagemagick.org/download/ImageMagick.tar.gz
+    dest: /home/ubuntu/ImageMagick.tar.gz
+- name: Extract ImageMagick
+  become: no
+  unarchive:
+    src: /home/ubuntu/ImageMagick.tar.gz
+    dest: /home/ubuntu
+    creates: /home/ubuntu/ImageMagick
+    remote_src: yes
+- name: Configure ImageMagick before installation
+  shell: ./configure
+  args:
+    chdir: /home/ubuntu/ImageMagick
+- name: Install ImageMagick
+  make:
+    chdir: /home/ubuntu/ImageMagick
+    target: install
+- name: Link static libraries with ImageMagick
+  shell: ldconfig /usr/local/lib
+  become: yes
