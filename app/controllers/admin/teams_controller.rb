@@ -1,4 +1,5 @@
 class Admin::TeamsController < AdminController
+  include Pagination
   before_action :set_team, only: [:show, :update, :destroy]
   load_and_authorize_resource
 
@@ -6,7 +7,12 @@ class Admin::TeamsController < AdminController
 
   def index
     @teams = Team.all.order(:name)
-    json_response(TeamSerializer, @teams)
+    if params[:all]
+      json_response(TeamSerializer, @teams)
+    else
+      @teams_paginated = @teams.page(current_page, per_page).per(per_page)
+      json_response(TeamSerializer, @teams_paginated, options)
+    end
   end
 
   def show

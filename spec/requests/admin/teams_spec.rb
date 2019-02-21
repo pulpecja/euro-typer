@@ -46,15 +46,74 @@ RSpec.describe 'Admin::Teams', type: :request do
       end
 
       describe 'GET /admin/teams' do
-        let(:index_request) do
-          get '/admin/teams',
-              headers: @auth_headers
+        before do
+          create_list(:team, 40)
         end
 
-        it 'returns all instances' do
-          index_request
-          expect(response).to have_http_status(200)
-          expect(json_data.size).to eq model.all.count
+        context 'without pagination params' do
+          let(:index_request) do
+            get '/admin/teams',
+                headers: @auth_headers
+          end
+
+          let(:index_request_all) do
+            get '/admin/teams',
+                headers: @auth_headers,
+                params: {
+                  all: true
+                }
+          end
+
+          it 'returns first 20 instances if no pagination params sent' do
+            index_request
+            expect(response).to have_http_status(200)
+            expect(json_data.size).to eq 20
+          end
+
+          it 'returns all instances if parameter all is has sent' do
+            index_request_all
+            expect(response).to have_http_status(200)
+            expect(json_data.size).to eq model.all.count
+          end
+        end
+
+        context 'with pagination' do
+          let(:index_request) do
+            get '/admin/teams',
+                headers: @auth_headers
+          end
+
+          let(:index_request_last_page) do
+            get '/admin/teams?page=3&per_page=20',
+              headers: @auth_headers
+          end
+
+          let(:index_request_one_per_page) do
+            get '/admin/teams?page=1&per_page=1',
+              headers: @auth_headers
+          end
+
+          it 'returns pagination links and limited records' do
+            index_request
+            expected_links = {
+              "first"=>"/admin/teams?per_page=20",
+              "self"=>"/admin/teams?page=1&per_page=20",
+              "last"=>"/admin/teams?page=3&per_page=20"
+            }
+            expect(response).to have_http_status(200)
+            expect(json['links']).to eq(expected_links)
+            expect(json_data.size).to eq 20
+          end
+
+          it 'returns last 2 records' do
+            index_request_last_page
+            expect(json_data.size).to eq 2
+          end
+
+          it 'returns 1 record if per_page params sent' do
+            index_request_one_per_page
+            expect(json_data.size).to eq 1
+          end
         end
       end
 
