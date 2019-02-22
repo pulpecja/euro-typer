@@ -46,6 +46,7 @@ RSpec.describe 'Admin::Teams', type: :request do
       end
 
       describe 'GET /admin/teams' do
+        let(:default_per_page) { 20 }
         before do
           create_list(:team, 40)
         end
@@ -67,19 +68,24 @@ RSpec.describe 'Admin::Teams', type: :request do
           it 'returns first 20 instances if no pagination params sent' do
             index_request
             expect(response).to have_http_status(200)
-            expect(json_data.size).to eq 20
+            expect(json_data.size).to eq default_per_page
           end
 
-          it 'returns all instances if parameter all is has sent' do
+          it 'returns all instances if parameter all has sent' do
             index_request_all
             expect(response).to have_http_status(200)
             expect(json_data.size).to eq model.all.count
           end
         end
 
-        context 'with pagination' do
+        context 'with pagination params' do
           let(:index_request) do
             get '/admin/teams',
+                headers: @auth_headers
+          end
+
+          let(:index_request_page_in_the_middle) do
+            get '/admin/teams?page=2',
                 headers: @auth_headers
           end
 
@@ -89,29 +95,80 @@ RSpec.describe 'Admin::Teams', type: :request do
           end
 
           let(:index_request_one_per_page) do
-            get '/admin/teams?page=1&per_page=1',
+            get '/admin/teams?per_page=1',
               headers: @auth_headers
           end
 
-          it 'returns pagination links and limited records' do
+          it 'returns pagination links and 20 records per page' do
             index_request
             expected_links = {
-              "first"=>"/admin/teams?per_page=20",
-              "self"=>"/admin/teams?page=1&per_page=20",
-              "last"=>"/admin/teams?page=3&per_page=20"
+              "last" => "http://www.example.com/admin/teams?page=3",
+              "next" => "http://www.example.com/admin/teams?page=2",
+              "self" => "http://www.example.com/admin/teams?"
             }
+
+            expected_meta = {
+              "current_page" => 1,
+              "total_pages" => 3
+            }
+
             expect(response).to have_http_status(200)
             expect(json['links']).to eq(expected_links)
-            expect(json_data.size).to eq 20
+            expect(json['meta']).to eq(expected_meta)
+            expect(json_data.size).to eq default_per_page
+          end
+
+          it 'returns first, prev, next, self and last links' do
+            expected_links = {
+              "first" => "http://www.example.com/admin/teams?",
+              "last" => "http://www.example.com/admin/teams?page=3",
+              "next" => "http://www.example.com/admin/teams?page=3",
+              "prev" => "http://www.example.com/admin/teams?",
+              "self" => "http://www.example.com/admin/teams?page=2",
+            }
+
+            expected_meta = {
+              "current_page" => 2,
+              "total_pages" => 3
+            }
+
+            index_request_page_in_the_middle
+            expect(json['links']).to eq(expected_links)
+            expect(json['meta']).to eq(expected_meta)
+            expect(json_data.size).to eq default_per_page
           end
 
           it 'returns last 2 records' do
+            expected_links = {
+              "first" => "http://www.example.com/admin/teams?",
+              "prev" => "http://www.example.com/admin/teams?page=2",
+              "self" => "http://www.example.com/admin/teams?page=3"
+            }
+            expected_meta = {
+              "current_page" => 3,
+              "total_pages" => 3
+            }
+
             index_request_last_page
+            expect(json['links']).to eq(expected_links)
+            expect(json['meta']).to eq(expected_meta)
             expect(json_data.size).to eq 2
           end
 
           it 'returns 1 record if per_page params sent' do
+            expected_links = {
+              "last" => "http://www.example.com/admin/teams?page=42&per_page=1",
+              "next" => "http://www.example.com/admin/teams?page=2&per_page=1",
+              "self" => "http://www.example.com/admin/teams?per_page=1"
+            }
+            expected_meta = {
+              "current_page" => 1,
+              "total_pages" => 42
+            }
+
             index_request_one_per_page
+            expect(json['links']).to eq(expected_links)
+            expect(json['meta']).to eq(expected_meta)
             expect(json_data.size).to eq 1
           end
         end

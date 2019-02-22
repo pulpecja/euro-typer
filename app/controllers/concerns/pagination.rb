@@ -1,14 +1,41 @@
 module Pagination
+  DEFAULT_PAGE = 1
+  DEFAULT_PER_PAGE = 20
+
   def options
-    { links: {
-        first: admin_teams_path(per_page: per_page),
-        self: admin_teams_path(page: current_page, per_page: per_page),
-        last: admin_teams_path(page: total_pages, per_page: per_page)
-      }
+    hash = {
+      links: {},
+      meta: { current_page: current_page, total_pages: total_pages }
     }
+
+    if current_page > 1
+      hash[:links][:first] = generate_url(1)
+      hash[:links][:prev] = generate_url(current_page - 1)
+    end
+
+    hash[:links][:self] = generate_url(current_page)
+
+    if current_page < total_pages
+      hash[:links][:next] = generate_url(current_page + 1)
+      hash[:links][:last] = generate_url(total_pages)
+    end
+    hash
   end
 
   private
+
+  def generate_url(page)
+    url = request.base_url + request.path
+    [url, url_params(page)].join('?')
+  end
+
+  def url_params(page)
+    url_params = {}
+    url_params[:per_page] = per_page if include_per_page?
+    url_params[:page] = page if include_page?(page)
+    url_params.to_query
+  end
+
   def current_page
     (params[:page] || 1).to_i
   end
@@ -19,5 +46,13 @@ module Pagination
 
   def total_pages
     ((@teams.size.to_f / per_page.to_f).ceil || 1).ceil.to_i
+  end
+
+  def include_per_page?
+    (per_page != 0) && (per_page != DEFAULT_PER_PAGE)
+  end
+
+  def include_page?(page)
+    (page != 0) && (page != DEFAULT_PAGE)
   end
 end
