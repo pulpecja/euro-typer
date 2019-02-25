@@ -109,7 +109,8 @@ RSpec.describe 'Admin::Teams', type: :request do
 
             expected_meta = {
               "current_page" => 1,
-              "total_pages" => 3
+              "records_number" => Team.all.size,
+              "total_pages" => 3,
             }
 
             expect(response).to have_http_status(200)
@@ -129,6 +130,7 @@ RSpec.describe 'Admin::Teams', type: :request do
 
             expected_meta = {
               "current_page" => 2,
+              "records_number" => Team.all.size,
               "total_pages" => 3
             }
 
@@ -146,6 +148,7 @@ RSpec.describe 'Admin::Teams', type: :request do
             }
             expected_meta = {
               "current_page" => 3,
+              "records_number" => Team.all.size,
               "total_pages" => 3
             }
 
@@ -163,6 +166,7 @@ RSpec.describe 'Admin::Teams', type: :request do
             }
             expected_meta = {
               "current_page" => 1,
+              "records_number" => Team.all.size,
               "total_pages" => 42
             }
 

@@ -11,7 +11,7 @@ class Admin::TeamsController < AdminController
       json_response(TeamSerializer, @teams)
     else
       @teams_paginated = @teams.page(current_page, per_page).per(per_page)
-      json_response(TeamSerializer, @teams_paginated, options)
+      json_response(TeamSerializer, @teams_paginated, options(@teams))
     end
   end
 
