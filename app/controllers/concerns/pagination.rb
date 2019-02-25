@@ -2,10 +2,15 @@ module Pagination
   DEFAULT_PAGE = 1
   DEFAULT_PER_PAGE = 20
 
-  def options
+  def options(collection)
+    total_pages_size = total_pages(collection)
     hash = {
       links: {},
-      meta: { current_page: current_page, total_pages: total_pages }
+      meta: {
+        current_page: current_page,
+        records_number: collection.size,
+        total_pages: total_pages_size
+      }
     }
 
     if current_page > 1
@@ -15,9 +20,9 @@ module Pagination
 
     hash[:links][:self] = generate_url(current_page)
 
-    if current_page < total_pages
+    if current_page < total_pages_size
       hash[:links][:next] = generate_url(current_page + 1)
-      hash[:links][:last] = generate_url(total_pages)
+      hash[:links][:last] = generate_url(total_pages_size)
     end
     hash
   end
@@ -44,8 +49,8 @@ module Pagination
     (params[:per_page] || 20).to_i
   end
 
-  def total_pages
-    ((@teams.size.to_f / per_page.to_f).ceil || 1).ceil.to_i
+  def total_pages(collection)
+    ((collection.size.to_f / per_page.to_f).ceil || 1).ceil.to_i
   end
 
   def include_per_page?
