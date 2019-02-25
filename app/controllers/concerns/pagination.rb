@@ -8,8 +8,8 @@ module Pagination
       links: {},
       meta: {
         current_page: current_page,
-        records_number: collection.size,
-        total_pages: total_pages_size
+        total_pages: total_pages_size,
+        total_records: collection.size
       }
     }
 
