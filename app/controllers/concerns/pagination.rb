@@ -8,6 +8,7 @@ module Pagination
       links: {},
       meta: {
         current_page: current_page,
+        per_page: per_page,
         total_pages: total_pages_size,
         total_records: collection.size
       }
@@ -42,11 +43,11 @@ module Pagination
   end
 
   def current_page
-    (params[:page] || 1).to_i
+    (params[:page] || DEFAULT_PAGE).to_i
   end
   
   def per_page
-    (params[:per_page] || 20).to_i
+    (params[:per_page] || DEFAULT_PER_PAGE).to_i
   end
 
   def total_pages(collection)
