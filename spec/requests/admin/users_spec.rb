@@ -125,10 +125,12 @@ RSpec.describe "Admin::Users", type: :request do
           end
 
           it 'creates new user' do
-            expect { post_request }.to change { User.count }.by(1)
-            expect(response).to have_http_status(200)
-            expect(json_attributes['username']).to eq('Username')
-            expect(json_attributes['photo']['url']).to be
+            VCR.use_cassette('create user with photo') do
+              expect { post_request }.to change { User.count }.by(1)
+              expect(response).to have_http_status(200)
+              expect(json_attributes['username']).to eq('Username')
+              expect(json_attributes['photo']['url']).to be
+            end
           end
         end
 
