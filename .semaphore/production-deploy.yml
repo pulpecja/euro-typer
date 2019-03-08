@@ -12,4 +12,5 @@ blocks:
       - name: Deploy
         commands:
           - echo 'Deploying to production!'
-          - cap production deploy
+          - bundle install --path vendor/bundle
+          - bundle exec cap production deploy
