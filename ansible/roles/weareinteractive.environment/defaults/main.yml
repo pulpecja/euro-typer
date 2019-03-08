@@ -11,6 +11,9 @@ environment_file_group: root
 # environment_config:
 #   LC_ALL: en_US.UTF-8
 environment_config: {
+  CLOUDINARY_CLOUD_NAME: "{{ cloudinary_cloud_name }}",
+  CLOUDINARY_API_KEY: "{{ cloudinary_api_key }}",
+  CLOUDINARY_API_SECRET: "{{ cloudinary_api_secret }}",
   DB_NAME: "{{ db_name }}",
   DB_USER: "{{ db_user }}",
   DB_PASSWORD: "{{ db_password }}",
