@@ -8,7 +8,7 @@ agent:
 blocks:
   - name: Deploy
     task:
-    jobs:
-    - name: Deploy
-      commands:
-        - echo 'Deploying to production!'
+      jobs:
+      - name: Deploy
+        commands:
+          - echo 'Deploying to production!'
