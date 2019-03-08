@@ -14,6 +14,7 @@ gem 'cancancan'
 gem 'mini_magick', '~> 4.5', '>= 4.5.1'
 gem 'carrierwave', '~> 1.0'
 gem 'carrierwave-base64'
+gem 'cloudinary'
 gem 'faraday'
 gem 'countries'
 gem 'select2-rails'
@@ -50,4 +51,6 @@ end
 group :test do
   gem 'faker'
   gem 'simplecov', require: false
+  gem 'vcr'
+  gem 'webmock'
 end

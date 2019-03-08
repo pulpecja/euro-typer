@@ -1,14 +1,19 @@
 class PhotoUploader < CarrierWave::Uploader::Base
-  # Include RMagick or MiniMagick support:
-  # include CarrierWave::RMagick
+  include Cloudinary::CarrierWave
   include CarrierWave::MiniMagick
 
-  # Choose what kind of storage to use for this uploader:
-  storage :file
-  # storage :fog
-
-  def store_dir
-    "uploads/#{model.class.to_s.underscore}/#{mounted_as}/#{model.id}"
+  def public_id
+    random_id = Cloudinary::Utils.random_public_id
+    case Rails.env
+    when 'test'
+      "typerek/test/#{@model.class.name.downcase}/photo/" + random_id
+    when 'development'
+      "typerek/development/#{@model.class.name.downcase}/photo/" + random_id
+    when 'production'
+      "typerek/production/#{@model.class.name.downcase}/photo/" + random_id
+    else
+      "typerek/all/#{@model.class.name.downcase}/" + random_id
+    end
   end
 
   version :mini do

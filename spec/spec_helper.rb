@@ -4,6 +4,7 @@ SimpleCov.start 'rails'
 require File.expand_path("../../config/environment", __FILE__)
 require 'rspec/rails'
 require 'faker'
+require 'support/vcr_setup'
 
 RSpec.configure do |config|
   # Include Factory Girl syntax to simplify calls to factories
