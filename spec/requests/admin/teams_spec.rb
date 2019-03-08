@@ -227,7 +227,7 @@ RSpec.describe 'Admin::Teams', type: :request do
           end
 
           it 'creates new team' do
-            VCR.use_cassette('team create with photo') do
+            VCR.use_cassette('create team with photo') do
               expect { post_request }.to change { Team.count }.by(1)
               expect(response).to have_http_status(200)
               expect(json_attributes['name']).to eq('Nowy zespol')
