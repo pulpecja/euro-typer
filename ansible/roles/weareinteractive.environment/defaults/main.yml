@@ -14,6 +14,7 @@ environment_config: {
   CLOUDINARY_CLOUD_NAME: "{{ cloudinary_cloud_name }}",
   CLOUDINARY_API_KEY: "{{ cloudinary_api_key }}",
   CLOUDINARY_API_SECRET: "{{ cloudinary_api_secret }}",
+  CLOUDINARY_URL: "{{ cloudinary_url }}",
   DB_NAME: "{{ db_name }}",
   DB_USER: "{{ db_user }}",
   DB_PASSWORD: "{{ db_password }}",
