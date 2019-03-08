@@ -61,3 +61,18 @@ blocks:
         commands:
           - checkout
           - echo "make docker.push"
+
+  - name: Promotions
+    task:
+      jobs:
+      - name: Everything
+        commands:
+        - echo 'Running tests'
+
+promotions:
+  - name: Production deploy
+    pipeline_file: production-deploy.yml
+    auto_promote_on:
+      - result: passed
+        branch: 
+          - master
