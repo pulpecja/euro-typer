@@ -12,3 +12,4 @@ blocks:
       - name: Deploy
         commands:
           - echo 'Deploying to production!'
+          - cap production deploy
