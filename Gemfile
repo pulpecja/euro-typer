@@ -14,6 +14,7 @@ gem 'cancancan'
 gem 'mini_magick', '~> 4.5', '>= 4.5.1'
 gem 'carrierwave', '~> 1.0'
 gem 'carrierwave-base64'
+gem 'carrierwave-aws'
 # gem 'cloudinary' <- bug on production, might be useful when fixed https://github.com/cloudinary/cloudinary_gem/issues/334
 gem 'faraday'
 gem 'countries'

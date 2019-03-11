@@ -129,7 +129,10 @@ RSpec.describe "Admin::Users", type: :request do
               expect { post_request }.to change { User.count }.by(1)
               expect(response).to have_http_status(200)
               expect(json_attributes['username']).to eq('Username')
-              expect(json_attributes['photo']['url']).to be
+              expect(json_attributes['photo']['url']).to eq('https://typerek-uploads.s3.eu-central-1.amazonaws.com/uploads/test/user/photo/test_photo/photo.png')
+              expect(json_attributes['photo']['mini']['url']).to eq('https://typerek-uploads.s3.eu-central-1.amazonaws.com/uploads/test/user/photo/test_photo/mini_photo.png')
+              expect(json_attributes['photo']['medium']['url']).to eq('https://typerek-uploads.s3.eu-central-1.amazonaws.com/uploads/test/user/photo/test_photo/medium_photo.png')
+              expect(json_attributes['photo']['thumb']['url']).to eq('https://typerek-uploads.s3.eu-central-1.amazonaws.com/uploads/test/user/photo/test_photo/thumb_photo.png')
             end
           end
         end

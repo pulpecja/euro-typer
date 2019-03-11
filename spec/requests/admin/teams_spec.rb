@@ -231,10 +231,10 @@ RSpec.describe 'Admin::Teams', type: :request do
               expect { post_request }.to change { Team.count }.by(1)
               expect(response).to have_http_status(200)
               expect(json_attributes['name']).to eq('Nowy zespol')
-              expect(json_attributes['photo']['url']).to be
-              expect(json_attributes['photo']['medium']).to be
-              expect(json_attributes['photo']['mini']).to be
-              expect(json_attributes['photo']['thumb']).to be
+              expect(json_attributes['photo']['url']).to eq('https://typerek-uploads.s3.eu-central-1.amazonaws.com/uploads/test/team/photo/test_photo/photo.png')
+              expect(json_attributes['photo']['mini']['url']).to eq('https://typerek-uploads.s3.eu-central-1.amazonaws.com/uploads/test/team/photo/test_photo/mini_photo.png')
+              expect(json_attributes['photo']['medium']['url']).to eq('https://typerek-uploads.s3.eu-central-1.amazonaws.com/uploads/test/team/photo/test_photo/medium_photo.png')
+              expect(json_attributes['photo']['thumb']['url']).to eq('https://typerek-uploads.s3.eu-central-1.amazonaws.com/uploads/test/team/photo/test_photo/thumb_photo.png')
             end
           end
         end

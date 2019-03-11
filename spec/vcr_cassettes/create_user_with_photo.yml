@@ -1,0 +1,243 @@
+---
+http_interactions:
+- request:
+    method: put
+    uri: https://typerek-uploads.s3.eu-central-1.amazonaws.com/uploads/test/user/photo/test_photo/photo.png
+    body:
+      encoding: ASCII-8BIT
+      string: !binary |-
+        iVBORw0KGgoAAAANSUhEUgAAAyAAAAH0CAIAAABKIt4vAAAABGdBTUEAAK/INwWK6QAAAAlwSFlzAAAuIwAALiMBeKU/dgAAAAl2cEFnAAADIAAAAfQAUoTsLAAAB39JREFUeNrt3DERgFAMREHCfJRgBv8CcEDxZ2ghmDi6XQlXvSap7l4AAMhZTQAAILAAAAQWAIDAAgBAYAEACCwAAIEFAIDAAgAQWAAAAgsAAIEFACCwAAAEFgCAwAIAQGABAAgsAACBBQCAwAIAEFgAAAILAACBBQAgsAAABBYAAAILAEBgAQAILAAAgQUAgMACABBYAAACCwAAgQUAILAAAAQWAAACCwBAYAEACCwAAAQWAIDAAgAQWAAAAgsAAIEFACCwAAAEFgAAAgsAQGABAAgsAAAEFgCAwAIAEFgAAAgsAACBBQAgsAAABBYAAAILAEBgAQAILAAABBYAgMACABBYAAAILAAAgQUAILAAAAQWAAACCwBAYAEACCwAAAQWAIDAAgAQWAAACCwAAIEFACCwAAAQWAAAAgsAQGABAAgsAAAEFgCAwAIAEFgAAAgsAACBBQAgsAAAEFgAAAILAEBgAQAgsAAABBYAgMACABBYAAAILAAAgQUAILAAABBYAAACCwBAYAEAILAAAAQWAIDAAgBAYAEACCwAAIEFACCwAAAQWAAAAgsAQGABACCwAAAEFgCAwAIAQGABAAgsAACBBQAgsAAAEFgAAAILAEBgAQAgsAAABBYAgMACAEBgAQAILAAAgQUAgMACABBYAAACCwBAYAEAILAAAAQWAIDAAgBAYAEACCwAAIEFAIDAAgAQWAAAAgsAAIEFACCwAAAEFgCAwAIAQGABAAgsAACBBQCAwAIAEFgAAAILAACBBQAgsAAABBYAAAILAEBgAQAILAAAgQUAgMACABBYAAACCwAAgQUAILAAAAQWAAACCwBAYAEACCwAAIEFAIDAAgAQWAAAAgsAAIEFACCwAAAEFgAAAgsAQGABAAgsAAAEFgCAwAIAEFgAAAILAACBBQAgsAAABBYAAAILAEBgAQAILAAABBYAgMACABBYAAAILAAAgQUAILAAAAQWAAACCwBAYAEACCwAAAQWAIDAAgAQWAAACCwAAIEFACCwAAAQWAAAAgsAQGABAAgsAAAEFgCAwAIAEFgAAAgsAACBBQAgsAAAEFgAAAILAEBgAQAILAAABBYAgMACABBYAAAILAAAgQUAILAAABBYAAACCwBAYAEAILAAAAQWAIDAAgAQWAAACCwAAIEFACCwAAAQWAAAAgsAQGABACCwAAAEFgCAwAIAQGABAAgsAACBBQAgsAAAEFgAAAILAEBgAQAgsAAABBYAgMACAEBgAQAILAAAgQUAgMACAPjBWLqtAAAQDawqKwAAJAPrnbcVAACC6twPKwAABI3nmlYAAEgGVm3DCgAAycByRQgAkOUPFgCAwAIAEFgAAAILAACBBQAgsAAABBYAAAILAEBgAQAILAAABBYAgMACABBYAAACCwAAgQUAILAAAAQWAAACCwBAYAEACCwAAAQWAIDAAgAQWAAACCwAAIEFACCwAAAEFgAAAgsAQGABAAgsAAAEFgCAwAIAEFgAAAgsAACBBQAgsAAAEFgAAAILAEBgAQAILAAABBYAgMACABBYAAAILAAAgQUAILAAABBYAAACCwBAYAEAILAAAAQWAIDAAgAQWAAACCwAAIEFACCwAAAQWAAAAgsAQGABACCwAAAEFgCAwAIAEFgAAAgsAACBBQAgsAAAEFgAAAILAEBgAQAgsAAABBYAgMACAEBgAQAILAAAgQUAILAAABBYAAACCwBAYAEAILAAAAQWAIDAAgBAYAEACCwAAIEFAIDAAgAQWAAAAgsAQGABACCwAAAEFgCAwAIAQGABAAgsAACBBQCAwAIAEFgAAAILAACBBQAgsAAABBYAgMACAEBgAQAILAAAgQUAgMACABBYAAACCwAAgQUAILAAAAQWAIDAAgBAYAEACCwAAIEFAIDAAgAQWAAAAgsAAIEFACCwAAAEFgAAAgsAQGABAAgsAACBBQCAwAIAEFgAAAILAACBBQAgsAAABBYAAAILAEBgAQAILAAABBYAgMACABBYAAACCwAAgQUAILAAAAQWAAACCwBAYAEACCwAAAQWAIDAAgAQWAAACCwAAIEFACCwAAAEFgAAAgsAQGABAAgsAAAEFgCAwAIAEFgAAAgsAACBBQAgsAAABBYAAAILAEBgAQAILAAABBYAgMACABBYAAAILAAAgQUAILAAABBYAAACCwBAYAEACCwAAAQWAIDAAgAQWAAACCwAAIEFACCwAAAQWAAAAgsAQGABACCwAAAEFgCAwAIAEFgAAAgsAACBBQAgsAAAEFgAAAILAEBgAQAgsAAABBYAgMACAEBgAQAILAAAgQUAILAAABBYAAACCwBAYAEAILAAAAQWAIDAAgBAYAEACCwAAIEFACCwTAAAILAAAAQWAIDAAgBAYAEACCwAAIEFAIDAAgAQWAAAAgsAAIEFACCwAAAEFgCAwAIAQGABAAgsAACBBQCAwAIAEFgAAAILAACBBQAgsAAABBYAAAILAEBgAQAILAAAgQUAgMACABBYAAACCwAAgQUAILAAAAQWAAACCwBAYAEACCwAAAQWAMAfPsy3Ef8743pwAAAAInpUWHRTb2Z0d2FyZQAAeNpzTMlPSlXwzE1MTw1KTUypBAAvnAXUrgypTQAAAABJRU5ErkJggg==
+    headers:
+      Content-Type:
+      - image/png
+      Accept-Encoding:
+      - ''
+      User-Agent:
+      - aws-sdk-ruby3/3.46.2 ruby/2.5.0 x86_64-linux aws-sdk-s3/1.31.0
+      X-Amz-Acl:
+      - public-read
+      Cache-Control:
+      - max-age=604800
+      Expires:
+      - Mon, 18 Mar 2019 11:05:15 GMT
+      Expect:
+      - 100-continue
+      Content-Md5:
+      - dg4dGGUmj3y/obki9+OhBQ==
+      Host:
+      - typerek-uploads.s3.eu-central-1.amazonaws.com
+      X-Amz-Date:
+      - 20190311T110518Z
+      X-Amz-Content-Sha256:
+      - 550caf68b5881dc25ac78a4d6146c1396dc7096e8a599c17a0b738e12e82f909
+      Authorization:
+      - AWS4-HMAC-SHA256 Credential=AKIAIZ543HOOIFHXQ3SA/20190311/eu-central-1/s3/aws4_request,
+        SignedHeaders=cache-control;content-md5;content-type;expect;expires;host;user-agent;x-amz-acl;x-amz-content-sha256;x-amz-date,
+        Signature=593e4e2d2445d65e487783a5f709e42e28ff4e2397af8d94d3a5920617c933fa
+      Content-Length:
+      - '2080'
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      X-Amz-Id-2:
+      - 14eujYnzhy0LRWEdgTCiuoHLY5pk0hhMQJ0USOCIeJS+aSTpxUTMOYpn6f2X5KFdQJHaEEkV44M=
+      X-Amz-Request-Id:
+      - 3F9B219D8287C9D2
+      Date:
+      - Mon, 11 Mar 2019 11:05:19 GMT
+      Etag:
+      - '"760e1d1865268f7cbfa1b922f7e3a105"'
+      Content-Length:
+      - '0'
+      Server:
+      - AmazonS3
+    body:
+      encoding: UTF-8
+      string: ''
+    http_version: 
+  recorded_at: Mon, 11 Mar 2019 11:05:18 GMT
+- request:
+    method: put
+    uri: https://typerek-uploads.s3.eu-central-1.amazonaws.com/uploads/test/user/photo/test_photo/mini_photo.png
+    body:
+      encoding: ASCII-8BIT
+      string: !binary |-
+        iVBORw0KGgoAAAANSUhEUgAAADIAAAAfBAMAAABXI4NqAAAABGdBTUEAAK/INwWK6QAAACBjSFJNAAB6JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAAAElBMVEX////++/ztiZ3ZAy7dGD/cFDzzdJEcAAAAAWJLR0QAiAUdSAAAAAlwSFlzAAAuIwAALiMBeKU/dgAAAAd0SU1FB+MDCwsFEk4+VLEAAAAlSURBVCjPY2AYBVQGgrgAHj1KuACDMS7A4IILMITiAqMy5MkAAON8fISZhZrdAAAAJXRFWHRkYXRlOmNyZWF0ZQAyMDE5LTAzLTExVDEyOjA1OjE4KzAxOjAwAgl3kQAAACV0RVh0ZGF0ZTptb2RpZnkAMjAxOS0wMy0xMVQxMjowNToxOCswMTowMHNUzy0AAAAZdEVYdFNvZnR3YXJlAEFkb2JlIEltYWdlUmVhZHlxyWU8AAAAAElFTkSuQmCC
+    headers:
+      Content-Type:
+      - image/png
+      Accept-Encoding:
+      - ''
+      User-Agent:
+      - aws-sdk-ruby3/3.46.2 ruby/2.5.0 x86_64-linux aws-sdk-s3/1.31.0
+      X-Amz-Acl:
+      - public-read
+      Cache-Control:
+      - max-age=604800
+      Expires:
+      - Mon, 18 Mar 2019 11:05:15 GMT
+      Expect:
+      - 100-continue
+      Content-Md5:
+      - diD9ua3omxGUdXtApvxg1A==
+      Host:
+      - typerek-uploads.s3.eu-central-1.amazonaws.com
+      X-Amz-Date:
+      - 20190311T110518Z
+      X-Amz-Content-Sha256:
+      - eb69b70b9f8c7107f8e40a572936dd8f80c98108776dd3234882a2d9f1b796a9
+      Authorization:
+      - AWS4-HMAC-SHA256 Credential=AKIAIZ543HOOIFHXQ3SA/20190311/eu-central-1/s3/aws4_request,
+        SignedHeaders=cache-control;content-md5;content-type;expect;expires;host;user-agent;x-amz-acl;x-amz-content-sha256;x-amz-date,
+        Signature=bb901ec15a95eb4b211f986ab877aac753c09cad7d1831ad82e1049eab37e13e
+      Content-Length:
+      - '372'
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      X-Amz-Id-2:
+      - 1RbKzy1GFBHM7Pjs18G6HZS2N9VeILUQGu0fbpfwTckUvIDXxbMZH6/dqXjjEE2XsrYDNmXfc8I=
+      X-Amz-Request-Id:
+      - F2E7FCF06BEB6A28
+      Date:
+      - Mon, 11 Mar 2019 11:05:19 GMT
+      Etag:
+      - '"7620fdb9ade89b1194757b40a6fc60d4"'
+      Content-Length:
+      - '0'
+      Server:
+      - AmazonS3
+    body:
+      encoding: UTF-8
+      string: ''
+    http_version: 
+  recorded_at: Mon, 11 Mar 2019 11:05:18 GMT
+- request:
+    method: put
+    uri: https://typerek-uploads.s3.eu-central-1.amazonaws.com/uploads/test/user/photo/test_photo/thumb_photo.png
+    body:
+      encoding: ASCII-8BIT
+      string: !binary |-
+        iVBORw0KGgoAAAANSUhEUgAAAGQAAAA/BAMAAADkhXBTAAAABGdBTUEAAK/INwWK6QAAACBjSFJNAAB6JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAAAFVBMVEX////////++/ztiZ3ZAy7dGD/cFDwu2WTPAAAAAWJLR0QAiAUdSAAAAAlwSFlzAAAuIwAALiMBeKU/dgAAAAd0SU1FB+MDCwsFEk4+VLEAAAA5SURBVEjHY2AYBaNgFIyCUTBogCDJgEGJZECOw4xJBgwuJAOGUJIBQxrJYFTLqJZRLaNaRrUMHi0ATNdzqdtlyRsAAAAldEVYdGRhdGU6Y3JlYXRlADIwMTktMDMtMTFUMTI6MDU6MTgrMDE6MDACCXeRAAAAJXRFWHRkYXRlOm1vZGlmeQAyMDE5LTAzLTExVDEyOjA1OjE4KzAxOjAwc1TPLQAAABl0RVh0U29mdHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAAAASUVORK5CYII=
+    headers:
+      Content-Type:
+      - image/png
+      Accept-Encoding:
+      - ''
+      User-Agent:
+      - aws-sdk-ruby3/3.46.2 ruby/2.5.0 x86_64-linux aws-sdk-s3/1.31.0
+      X-Amz-Acl:
+      - public-read
+      Cache-Control:
+      - max-age=604800
+      Expires:
+      - Mon, 18 Mar 2019 11:05:15 GMT
+      Expect:
+      - 100-continue
+      Content-Md5:
+      - L3EJFXx/Xn2NTEwk2c02jw==
+      Host:
+      - typerek-uploads.s3.eu-central-1.amazonaws.com
+      X-Amz-Date:
+      - 20190311T110518Z
+      X-Amz-Content-Sha256:
+      - '03901c2c812afd0977e6eb7470973af6ce2bee89c01b0ddc896b6f234044296c'
+      Authorization:
+      - AWS4-HMAC-SHA256 Credential=AKIAIZ543HOOIFHXQ3SA/20190311/eu-central-1/s3/aws4_request,
+        SignedHeaders=cache-control;content-md5;content-type;expect;expires;host;user-agent;x-amz-acl;x-amz-content-sha256;x-amz-date,
+        Signature=73c3ef36c60cc44583e9c7b10487a7b8b2720bcb109578508c2edc22296a7c74
+      Content-Length:
+      - '395'
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      X-Amz-Id-2:
+      - Puswt8PdYwG9mkH3016T16JBEO3U6JO5PxyaReTO4VySJPN47HvSLxuPG6qyWFn/+q+PFJsPeeQ=
+      X-Amz-Request-Id:
+      - A3469F4F1D07C2F8
+      Date:
+      - Mon, 11 Mar 2019 11:05:19 GMT
+      Etag:
+      - '"2f7109157c7f5e7d8d4c4c24d9cd368f"'
+      Content-Length:
+      - '0'
+      Server:
+      - AmazonS3
+    body:
+      encoding: UTF-8
+      string: ''
+    http_version: 
+  recorded_at: Mon, 11 Mar 2019 11:05:18 GMT
+- request:
+    method: put
+    uri: https://typerek-uploads.s3.eu-central-1.amazonaws.com/uploads/test/user/photo/test_photo/medium_photo.png
+    body:
+      encoding: ASCII-8BIT
+      string: !binary |-
+        iVBORw0KGgoAAAANSUhEUgAAAMgAAAB9BAMAAAAVcTFrAAAABGdBTUEAAK/INwWK6QAAACBjSFJNAAB6JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAAAGFBMVEX////////++/ztiZ3ZAy7dGD/cFDzcFDwefqsUAAAAAWJLR0QAiAUdSAAAAAlwSFlzAAAuIwAALiMBeKU/dgAAAAd0SU1FB+MDCwsFEk4+VLEAAABUSURBVGje7dBBCcAwAATBs1ALsRALtVALsRD7UZDvQWHGwMImAAAAAADAzVOQUdDZNQvyFuQryCrILhARERERERERERERERERERERERERERH5Z+QAZ4hCrj2En7kAAAAldEVYdGRhdGU6Y3JlYXRlADIwMTktMDMtMTFUMTI6MDU6MTgrMDE6MDACCXeRAAAAJXRFWHRkYXRlOm1vZGlmeQAyMDE5LTAzLTExVDEyOjA1OjE4KzAxOjAwc1TPLQAAABl0RVh0U29mdHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAAAASUVORK5CYII=
+    headers:
+      Content-Type:
+      - image/png
+      Accept-Encoding:
+      - ''
+      User-Agent:
+      - aws-sdk-ruby3/3.46.2 ruby/2.5.0 x86_64-linux aws-sdk-s3/1.31.0
+      X-Amz-Acl:
+      - public-read
+      Cache-Control:
+      - max-age=604800
+      Expires:
+      - Mon, 18 Mar 2019 11:05:15 GMT
+      Expect:
+      - 100-continue
+      Content-Md5:
+      - A43AzftWX/g1AMb1BId6sg==
+      Host:
+      - typerek-uploads.s3.eu-central-1.amazonaws.com
+      X-Amz-Date:
+      - 20190311T110518Z
+      X-Amz-Content-Sha256:
+      - 8e02d8ba800735bc6291a6f67bc21f318bb5a7051392024c8d2c1d04d87d8f4f
+      Authorization:
+      - AWS4-HMAC-SHA256 Credential=AKIAIZ543HOOIFHXQ3SA/20190311/eu-central-1/s3/aws4_request,
+        SignedHeaders=cache-control;content-md5;content-type;expect;expires;host;user-agent;x-amz-acl;x-amz-content-sha256;x-amz-date,
+        Signature=386928acf5079495d01dd9231b1779b600d2dffe360c34b62ca3c9e790a1805e
+      Content-Length:
+      - '425'
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      X-Amz-Id-2:
+      - bf8agwr+Tn8zBRbcL60fNbJlkcCNWOYIoCEwuFNpEgtCagxJwlBeLJMXiM77JZ3AN7cXXUI5hgQ=
+      X-Amz-Request-Id:
+      - BB0D9FE7B2E23536
+      Date:
+      - Mon, 11 Mar 2019 11:05:19 GMT
+      Etag:
+      - '"038dc0cdfb565ff83500c6f504877ab2"'
+      Content-Length:
+      - '0'
+      Server:
+      - AmazonS3
+    body:
+      encoding: UTF-8
+      string: ''
+    http_version: 
+  recorded_at: Mon, 11 Mar 2019 11:05:18 GMT
+recorded_with: VCR 4.0.0
