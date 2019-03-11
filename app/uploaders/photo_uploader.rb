@@ -1,20 +1,5 @@
 class PhotoUploader < CarrierWave::Uploader::Base
-  include Cloudinary::CarrierWave
   include CarrierWave::MiniMagick
-
-  def public_id
-    random_id = Cloudinary::Utils.random_public_id
-    case Rails.env
-    when 'test'
-      "typerek/test/#{@model.class.name.downcase}/photo/" + random_id
-    when 'development'
-      "typerek/development/#{@model.class.name.downcase}/photo/" + random_id
-    when 'production'
-      "typerek/production/#{@model.class.name.downcase}/photo/" + random_id
-    else
-      "typerek/all/#{@model.class.name.downcase}/" + random_id
-    end
-  end
 
   version :mini do
     resize_to_fit(50, 50)
