@@ -2,7 +2,10 @@ def create_countries
   file = File.read("#{Rails.root}/spec/fixtures/files/photo.jpg")
   base64_encoded_file = "data:image/png;base64," + Base64.encode64(file)
   
-  ISO3166::Country.all.each do |country|
+  ISO3166::Country.all.each_with_index do |country, index|
+    if index == 10 && Rails.env == 'development'
+      break
+    end
     country_name = country.name
     country_code = country.alpha2
     country_name_pl = country.translation('pl')
