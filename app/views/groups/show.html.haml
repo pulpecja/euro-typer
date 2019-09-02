@@ -19,7 +19,7 @@
 
 .text-center
   - @group.competitions.order('start_date desc').each do |competition|
-    %h3= link_to competition.full_name, group_competition_matches_path(@group.id, competition.id)
+    %h3= link_to competition.name, group_competition_matches_path(@group.id, competition.id)
     - unless current_user.competitions.include?(competition)
       = link_to 'Dołącz do turnieju!', user_join_competition_path(current_user, competition), class: 'btn btn-info'
     - else

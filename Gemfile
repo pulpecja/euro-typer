@@ -38,6 +38,7 @@ group :development do
   gem 'pry-byebug'
   gem 'quiet_assets'
   gem 'bullet'
+  gem 'rb-readline'
 end
 
 group :development, :test do

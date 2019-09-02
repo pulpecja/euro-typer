@@ -8,7 +8,8 @@ class GroupsController < ApplicationController
   end
 
   def show
-    @users = @group.users.existing
+    @users = @group.users.existing.includes(:competitions, { competitions: :rounds },
+                                                           { competitions: :winner })
   end
 
   def new

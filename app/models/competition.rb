@@ -7,7 +7,7 @@ class Competition < ActiveRecord::Base
 
   belongs_to :winner, class_name: 'Team'
 
-  validates_presence_of :name
+  validates_presence_of :name, :year, :place
 
   scope :finished, -> { where('end_date < ?', Time.now) }
   scope :lasting,  -> { where('end_date > ?', Time.now).where('start_date < ?', Time.now) }

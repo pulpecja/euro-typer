@@ -1,5 +1,6 @@
 class UsersController < ApplicationController
-  load_and_authorize_resource
+  load_and_authorize_resource except: [:join_competition]
+  skip_authorization_check only: [:join_competition]
 
   def show
     @user = User.find(params[:id])
