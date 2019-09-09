@@ -1,5 +1,5 @@
 module CompetitionsHelper
   def competition_name
-     "#{@competition.name} #{@competition.year.to_s}"
+     @competition.name
   end
 end

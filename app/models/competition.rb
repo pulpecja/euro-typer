@@ -22,7 +22,7 @@ class Competition < ActiveRecord::Base
   end
 
   def full_name
-    name + ' ' + year.to_s
+    name
   end
 
   def competition_teams
