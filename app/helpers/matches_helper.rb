@@ -21,6 +21,7 @@ module MatchesHelper
   def competition_users(group)
     users = group.users
                  .existing
+                 .includes(:competitions)
                  .by_competition(@competition)
                  .sort_by{ |u| [u.points(@round), u.score_points(@round)] }
                  .reverse
